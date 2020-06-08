@@ -13,7 +13,7 @@
     </resultMap>
     
     <sql id="base_column_list">
-        id, product, grade, desc, operator, assess_time, is_delete    </sql>
+        id, product, grade, `desc`, operator, assess_time, is_delete    </sql>
 
     <!--查询单个-->
     <select id="queryById" resultMap="ProductAccessmentMap">
@@ -59,7 +59,7 @@
                 grade = #{grade},
             </if>
             <if test="desc != null and desc != ''">
-                desc = #{desc},
+                `desc` = #{desc},
             </if>
             <if test="operator != null">
                 operator = #{operator},
@@ -90,7 +90,7 @@
                 grade,
             </if>
             <if test="desc != null and desc != ''">
-                desc,
+                `desc`,
             </if>
             <if test="operator != null">
                 operator,
