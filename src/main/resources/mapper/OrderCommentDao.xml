@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.financial_system.dao.OrderCommentDao">
+
+    <resultMap type="com.example.financial_system.entity.OrderComment" id="OrderCommentMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="order" column="order" jdbcType="INTEGER"/>
+        <result property="grade" column="grade" jdbcType="INTEGER"/>
+        <result property="desc" column="desc" jdbcType="VARCHAR"/>
+        <result property="operator" column="operator" jdbcType="INTEGER"/>
+        <result property="commentTime" column="comment_time" jdbcType="TIMESTAMP"/>
+        <result property="isDelete" column="is_delete" jdbcType="BOOLEAN"/>
+    </resultMap>
+    
+    <sql id="base_column_list">
+        id, `order`, grade, `desc`, operator, comment_time, is_delete    </sql>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OrderCommentMap">
+        select
+        <include refid="base_column_list" />
+        
+        from financial_system.order_comment
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="OrderCommentMap">
+        select
+        <include refid="base_column_list" />
+
+        from financial_system.order_comment
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--查询所有-->
+    <select id="queryAll" resultMap="OrderCommentMap">
+        select
+        <include refid="base_column_list" />
+
+        from financial_system.order_comment
+
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into financial_system.order_comment(order, grade, desc, operator, comment_time, is_delete)
+        values (#{order}, #{grade}, #{desc}, #{operator}, #{commentTime}, #{isDelete})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update financial_system.order_comment
+        <set>
+            <if test="order != null">
+                `order` = #{order},
+            </if>
+            <if test="grade != null">
+                grade = #{grade},
+            </if>
+            <if test="desc != null and desc != ''">
+                `desc` = #{desc},
+            </if>
+            <if test="operator != null">
+                operator = #{operator},
+            </if>
+            <if test="commentTime != null">
+                comment_time = #{commentTime},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from financial_system.order_comment where id = #{id}
+    </delete>
+    
+    <!--选择性的新增列-->
+    <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
+        insert into financial_system.order_comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="order != null">
+                `order`,
+            </if>
+            <if test="grade != null">
+                grade,
+            </if>
+            <if test="desc != null and desc != ''">
+                `desc`,
+            </if>
+            <if test="operator != null">
+                operator,
+            </if>
+            <if test="commentTime != null">
+                comment_time,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="order != null">
+                #{order},
+            </if>
+            <if test="grade != null">
+                #{grade},
+            </if>
+            <if test="desc != null and desc != ''">
+                #{desc},
+            </if>
+            <if test="operator != null">
+                #{operator},
+            </if>
+            <if test="commentTime != null">
+                #{commentTime},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete},
+            </if>
+        </trim>        
+    </insert>
+
+</mapper>
