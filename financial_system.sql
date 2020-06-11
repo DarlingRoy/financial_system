@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80015
 File Encoding         : 65001
 
-Date: 2020-06-11 18:44:00
+Date: 2020-06-11 23:40:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,13 +23,16 @@ CREATE TABLE `config` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `provider` int(16) DEFAULT NULL,
   `name` varchar(128) DEFAULT NULL,
-  `type` varchar(256) DEFAULT NULL,
-  `status` varchar(256) DEFAULT NULL,
+  `product1_id` int(16) DEFAULT NULL,
+  `product2_id` int(16) DEFAULT NULL,
+  `product3_id` int(16) DEFAULT NULL,
   `price` decimal(11,2) DEFAULT NULL,
+  `discount` varchar(255) DEFAULT NULL,
+  `quota` int(16) DEFAULT NULL,
+  `publish_time` datetime DEFAULT NULL,
+  `stop_issuing_time` datetime DEFAULT NULL,
   `rate_of_return` decimal(11,2) DEFAULT NULL,
   `start_up_point` decimal(11,2) DEFAULT NULL,
-  `duration` date DEFAULT NULL,
-  `due` date DEFAULT NULL,
   `risk_level` tinyint(4) DEFAULT NULL,
   `is_delete` tinyint(1) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
@@ -38,13 +41,14 @@ CREATE TABLE `config` (
   `review_operator` int(16) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_Reference_20` (`provider`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of config
 -- ----------------------------
-INSERT INTO `config` VALUES ('1', '1', '光明基金', null, null, '10.00', '0.01', '0.10', '2020-06-11', '2020-06-11', '1', '0', '2020-06-11 09:56:47', '2020-06-11 09:56:51', '1', '1');
-INSERT INTO `config` VALUES ('2', '2', '华润债券', null, null, '11.00', '0.02', '0.30', '2020-06-11', '2020-06-11', '2', null, null, null, null, null);
+INSERT INTO `config` VALUES ('1', '1', '套餐A', '1', '2', null, '14.70', '七折', '30', '2020-06-02 22:28:53', '2020-06-17 22:28:58', '0.03', '0.10', '1', '0', '2020-06-11 09:56:47', '2020-06-11 09:56:51', '1', '1');
+INSERT INTO `config` VALUES ('2', '2', '套餐B', '2', '3', null, '18.40', '八折', '40', '2020-06-03 22:30:55', '2020-06-16 22:30:59', '0.02', '0.30', '2', '0', '2020-06-11 22:31:06', '2020-06-18 22:31:24', '2', '2');
+INSERT INTO `config` VALUES ('3', '3', '光明基金+今明股票', '1', '3', null, '19.80', '九折', '20', '2020-06-02 22:34:00', '2020-06-23 22:34:04', '0.04', '0.40', '1', '0', '2020-06-02 22:34:14', '2020-06-23 22:34:19', '3', '3');
 
 -- ----------------------------
 -- Table structure for config_assessment
@@ -60,12 +64,13 @@ CREATE TABLE `config_assessment` (
   `is_delete` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_Reference_21` (`config`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of config_assessment
 -- ----------------------------
 INSERT INTO `config_assessment` VALUES ('1', '1', '5', '很好', '1', '2020-06-11 09:58:44', '0');
+INSERT INTO `config_assessment` VALUES ('2', '2', '6', '不错', '2', '2020-06-11 22:06:11', '0');
 
 -- ----------------------------
 -- Table structure for department
@@ -181,14 +186,15 @@ DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `provider_id` int(16) DEFAULT NULL,
+  `product_type_id` int(16) DEFAULT NULL,
   `name` varchar(128) DEFAULT NULL,
-  `type` varchar(256) DEFAULT NULL,
-  `status` varchar(256) DEFAULT NULL,
-  `pricr` decimal(11,2) DEFAULT NULL,
+  `price` decimal(11,2) DEFAULT NULL,
+  `quota` int(16) DEFAULT NULL COMMENT '产品额度',
   `rate_of_return` decimal(11,2) DEFAULT NULL,
   `start_up_point` decimal(11,2) DEFAULT NULL,
-  `duration` date DEFAULT NULL,
-  `due` date DEFAULT NULL,
+  `publish_time` datetime DEFAULT NULL,
+  `stop_issuing_time` datetime DEFAULT NULL COMMENT '停止发行时间',
+  `duration` int(11) DEFAULT NULL COMMENT '定期理财产品的天数',
   `risk_level` tinyint(4) DEFAULT NULL,
   `is_delete` tinyint(1) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
@@ -202,9 +208,9 @@ CREATE TABLE `product` (
 -- ----------------------------
 -- Records of product
 -- ----------------------------
-INSERT INTO `product` VALUES ('1', '1', '光明基金', null, null, '10.00', '0.01', '0.10', '2020-06-07', '2020-06-07', '1', '0', '2020-06-07 00:00:00', '2020-06-07 00:00:00', '1', '1');
-INSERT INTO `product` VALUES ('2', '2', '华润债券', null, null, '11.00', '0.02', '0.30', '2020-06-07', '2020-06-07', '2', '0', '2020-06-07 00:00:00', '2020-06-07 00:00:00', '2', '2');
-INSERT INTO `product` VALUES ('3', '1', '今明股票', null, null, '12.00', '0.03', '0.20', '2020-06-07', '2020-06-07', '3', '0', '2020-06-07 00:00:00', '2020-06-07 00:00:00', '1', '1');
+INSERT INTO `product` VALUES ('1', '1', '2', '光明基金', '10.00', '100', '0.01', '0.10', '2020-06-01 21:09:03', '2020-06-30 21:09:32', null, '1', '0', '2020-06-07 00:00:00', '2020-06-07 00:00:00', '1', '1');
+INSERT INTO `product` VALUES ('2', '2', '3', '华润债券', '11.00', '90', '0.02', '0.30', '2020-06-01 21:09:12', '2020-06-27 21:09:38', '6', '2', '0', '2020-06-07 00:00:00', '2020-06-07 00:00:00', '2', '2');
+INSERT INTO `product` VALUES ('3', '1', '1', '今明股票', '12.00', '70', '0.03', '0.20', '2020-06-01 21:09:16', '2020-06-25 21:09:41', null, '3', '0', '2020-06-07 00:00:00', '2020-06-07 00:00:00', '1', '1');
 
 -- ----------------------------
 -- Table structure for product_accessment
@@ -249,6 +255,23 @@ CREATE TABLE `product_role` (
 -- ----------------------------
 INSERT INTO `product_role` VALUES ('1', '1', '1', '2020-06-10 16:35:53', '0');
 INSERT INTO `product_role` VALUES ('2', '2', '2', null, null);
+
+-- ----------------------------
+-- Table structure for product_type
+-- ----------------------------
+DROP TABLE IF EXISTS `product_type`;
+CREATE TABLE `product_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of product_type
+-- ----------------------------
+INSERT INTO `product_type` VALUES ('1', '股票');
+INSERT INTO `product_type` VALUES ('2', ' 基金');
+INSERT INTO `product_type` VALUES ('3', ' 债券');
 
 -- ----------------------------
 -- Table structure for provider
