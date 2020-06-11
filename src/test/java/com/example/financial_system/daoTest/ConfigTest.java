@@ -1,8 +1,8 @@
 package com.example.financial_system.daoTest;
 
-import com.example.financial_system.entity.Config;
 import java.util.List;
 import com.example.financial_system.dao.ConfigDao;
+import com.example.financial_system.entity.Config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.junit.Test;
 import org.junit.runner.RunWith;
