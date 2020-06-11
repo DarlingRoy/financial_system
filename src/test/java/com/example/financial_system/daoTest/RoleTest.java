@@ -44,5 +44,9 @@ public class RoleTest {
         Role role = roleDao.queryById(1);
         System.out.println(role);
     }
-    
+
+    @Test
+    public void testCountName(){
+        System.out.println(roleDao.countRoleName());
+    }
 }

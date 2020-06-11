@@ -95,10 +95,21 @@ public class UserController {
      *
      * @return 对象列表
      */
-    @ApiOperation(value = "根据表中所有数据")
+    @ApiOperation(value = "查询表中所有数据")
     @GetMapping("selectAll")   
     public List<User> selectAll() {
         return this.userService.queryAll();
+    }
+
+    /**
+     *  查询用户总数
+     *
+     *  @return 用户总数
+     */
+    @ApiOperation(value = "查询用户总数")
+    @GetMapping("count")
+    public Integer count(){
+        return this.userService.countUser();
     }
 
 }

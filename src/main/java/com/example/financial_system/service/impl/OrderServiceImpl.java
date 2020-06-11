@@ -98,4 +98,15 @@ public class OrderServiceImpl implements OrderService {
         this.orderDao.insert(order);
         return order;
     }
+
+    /**
+     * 查询订单总数
+     * @return 订单总数
+     */
+    @Override
+    public Integer countOrder() {
+        return this.orderDao.countOrder();
+    }
+
+
 }

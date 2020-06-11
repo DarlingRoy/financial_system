@@ -44,5 +44,10 @@ public class OrderTest {
         Order order = orderDao.queryById(1);
         System.out.println(order);
     }
+
+    @Test
+    public void testCount(){
+        System.out.println(orderDao.countOrder());
+    }
     
 }

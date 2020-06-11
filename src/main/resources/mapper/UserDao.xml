@@ -129,4 +129,9 @@
         select <include refid="base_column_list"/> from user where username=#{username}
     </select>
 
+    <!--查询用户数目-->
+    <select id="countUser" resultType="Integer">
+        select count(*) from user
+    </select>
+
 </mapper>

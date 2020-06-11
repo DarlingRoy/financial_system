@@ -95,10 +95,16 @@ public class RoleController {
      *
      * @return 对象列表
      */
-    @ApiOperation(value = "根据表中所有数据")
+    @ApiOperation(value = "查询表中所有数据")
     @GetMapping("selectAll")   
     public List<Role> selectAll() {
         return this.roleService.queryAll();
+    }
+
+    @ApiOperation(value = "查询不同的角色名数目")
+    @GetMapping("countName")
+    public Integer countName(){
+        return this.roleService.countRoleName();
     }
 
 }

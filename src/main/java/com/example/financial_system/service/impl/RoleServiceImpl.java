@@ -98,4 +98,13 @@ public class RoleServiceImpl implements RoleService {
         this.roleDao.insert(role);
         return role;
     }
+
+    /**
+     * 查询不同的角色名数目
+     * @return 不同的角色名数目
+     */
+    @Override
+    public Integer countRoleName() {
+        return this.roleDao.countRoleName();
+    }
 }

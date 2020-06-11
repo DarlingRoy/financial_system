@@ -75,4 +75,11 @@ public interface UserService {
      */
     User queryByUsername(String username);
 
+    /**
+     * 返回用户总数
+     *
+     * @return 用户总数
+     */
+    Integer countUser();
+
 }

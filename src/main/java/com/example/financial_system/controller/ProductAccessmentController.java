@@ -95,7 +95,7 @@ public class ProductAccessmentController {
      *
      * @return 对象列表
      */
-    @ApiOperation(value = "根据表中所有数据")
+    @ApiOperation(value = "查询表中所有数据")
     @GetMapping("selectAll")   
     public List<ProductAccessment> selectAll() {
         return this.productAccessmentService.queryAll();

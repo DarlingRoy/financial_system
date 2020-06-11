@@ -75,4 +75,9 @@ public class UserTest {
         userDao.deleteById(7);
         System.out.println(userDao.queryById(8));
     }
+
+    @Test
+    public void testCount(){
+        System.out.println(userDao.countUser());
+    }
 }

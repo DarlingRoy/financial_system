@@ -144,4 +144,9 @@
         </trim>        
     </insert>
 
+    <!--查询订单总数-->
+    <select id="countOrder" resultType="Integer">
+        select count(*) from financial_system.order
+    </select>
+
 </mapper>

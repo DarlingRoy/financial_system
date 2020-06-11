@@ -73,4 +73,11 @@ public interface OrderDao {
      */
     int insertSelective(Order order);
 
+    /**
+     * 查询订单总数
+     *
+     * @return 订单总数
+     */
+    Integer countOrder();
+
 }

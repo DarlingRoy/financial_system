@@ -73,4 +73,10 @@ public interface RoleDao {
      */
     int insertSelective(Role role);
 
+    /**
+     * 查询不同的角色名数目
+     * @return 不同的角色名数目
+     */
+    Integer countRoleName();
+
 }

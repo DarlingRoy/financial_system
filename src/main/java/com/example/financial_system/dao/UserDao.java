@@ -73,12 +73,19 @@ public interface UserDao {
      */
     int insertSelective(User user);
 
-    /**User
+    /**
      *  通过用户名查询用户
      *
      *  @oaran username 用户名
      *  @return 用户
      */
     User queryByUsername(String username);
+
+    /**
+     * 查询用户数目
+     *
+     * @return
+     */
+    Integer countUser();
 
 }

@@ -109,4 +109,13 @@ public class UserServiceImpl implements UserService {
     public User queryByUsername(String username) {
         return this.userDao.queryByUsername(username);
     }
+
+    /**
+     * 返回用户总数
+     * @return
+     */
+    @Override
+    public Integer countUser() {
+        return userDao.countUser();
+    }
 }

@@ -95,10 +95,16 @@ public class OrderController {
      *
      * @return 对象列表
      */
-    @ApiOperation(value = "根据表中所有数据")
+    @ApiOperation(value = "查询表中所有数据")
     @GetMapping("selectAll")   
     public List<Order> selectAll() {
         return this.orderService.queryAll();
+    }
+
+    @ApiOperation(value = "查询订单总数")
+    @GetMapping("count")
+    public Integer count(){
+        return this.orderService.countOrder();
     }
 
 }

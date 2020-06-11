@@ -114,4 +114,9 @@
         </trim>        
     </insert>
 
+    <!--查询不同的角色名数目-->
+    <select id="countRoleName" resultType="Integer">
+        select count(distinct name) from financial_system.role
+    </select>
+
 </mapper>
