@@ -20,9 +20,6 @@ public class Product implements Serializable {
     private Integer id;
         
     @ApiModelProperty("$column.comment")
-    private Integer productTypeId;
-        
-    @ApiModelProperty("$column.comment")
     private String name;
         
     @ApiModelProperty("$column.comment")
@@ -75,6 +72,9 @@ public class Product implements Serializable {
 
     @ApiModelProperty("产品对应的供应商名称")
     private String providerName;
+
+    @ApiModelProperty("$column.comment")
+    private Integer productTypeId;
 
     @ApiModelProperty("产品对应类型名称")
     private String type;
