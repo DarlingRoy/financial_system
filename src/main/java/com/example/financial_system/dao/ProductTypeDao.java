@@ -1,29 +1,28 @@
 package com.example.financial_system.dao;
 
-import com.example.financial_system.entity.Product;
+import com.example.financial_system.entity.ProductType;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 /**
- * (Product)表数据库访问层
+ * (ProductType)表数据库访问层
  *
  * @author laidilin
- * @since 2020-06-11 21:29:53
+ * @since 2020-06-11 21:30:26
  */
 @Mapper
 @Repository 
-public interface ProductDao {
+public interface ProductTypeDao {
 
     /**
-     * 根据产品id，查询产品所有信息、产品对应供应商的id和名称、以及产品对应的类型
+     * 通过ID查询单条数据
      *
      * @param id 主键
      * @return 实例对象
      */
-    Product queryById(Integer id);
+    ProductType queryById(Integer id);
 
     /**
      * 查询指定行数据
@@ -32,7 +31,7 @@ public interface ProductDao {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<Product> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<ProductType> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
@@ -40,23 +39,23 @@ public interface ProductDao {
      *
      * @return 对象列表
      */
-    List<Product> queryAll();
+    List<ProductType> queryAll();
 
     /**
      * 新增数据
      *
-     * @param product 实例对象
+     * @param productType 实例对象
      * @return 影响行数
      */
-    int insert(Product product);
+    int insert(ProductType productType);
 
     /**
      * 修改数据
      *
-     * @param product 实例对象
+     * @param productType 实例对象
      * @return 影响行数
      */
-    int update(Product product);
+    int update(ProductType productType);
 
     /**
      * 通过主键删除数据
@@ -69,11 +68,9 @@ public interface ProductDao {
     /**
      * 选择性插入数据
      *
-     * @param product 实例对象
+     * @param productType 实例对象
      * @return 影响行数
      */
-    int insertSelective(Product product);
-
-
+    int insertSelective(ProductType productType);
 
 }

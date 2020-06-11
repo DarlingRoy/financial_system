@@ -5,32 +5,40 @@
     <resultMap type="com.example.financial_system.entity.Product" id="ProductMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="providerId" column="provider_id" jdbcType="INTEGER"/>
+        <result property="productTypeId" column="product_type_id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
-        <result property="type" column="type" jdbcType="VARCHAR"/>
-        <result property="status" column="status" jdbcType="VARCHAR"/>
-        <result property="pricr" column="pricr" jdbcType="NUMERIC"/>
+        <result property="price" column="price" jdbcType="NUMERIC"/>
+        <result property="quota" column="quota" jdbcType="INTEGER"/>
         <result property="rateOfReturn" column="rate_of_return" jdbcType="NUMERIC"/>
         <result property="startUpPoint" column="start_up_point" jdbcType="NUMERIC"/>
-        <result property="duration" column="duration" jdbcType="TIMESTAMP"/>
-        <result property="due" column="due" jdbcType="TIMESTAMP"/>
+        <result property="publishTime" column="publish_time" jdbcType="TIMESTAMP"/>
+        <result property="stopIssuingTime" column="stop_issuing_time" jdbcType="TIMESTAMP"/>
+        <result property="duration" column="duration" jdbcType="INTEGER"/>
         <result property="riskLevel" column="risk_level" jdbcType="INTEGER"/>
         <result property="isDelete" column="is_delete" jdbcType="BOOLEAN"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="reviewTime" column="review_time" jdbcType="TIMESTAMP"/>
         <result property="createOperator" column="create_operator" jdbcType="INTEGER"/>
         <result property="reviewOperator" column="review_operator" jdbcType="INTEGER"/>
+        <result property="reviewOperator" column="review_operator" jdbcType="INTEGER"/>
+        <result property="providerName" column="provider_name" />
     </resultMap>
     
     <sql id="base_column_list">
-        id, provider_id, name, type, status, pricr, rate_of_return, start_up_point, duration, due, risk_level, is_delete, create_time, review_time, create_operator, review_operator    </sql>
+        id, provider_id, product_type_id, name, price, quota, rate_of_return, start_up_point, publish_time, stop_issuing_time, duration, risk_level, is_delete, create_time, review_time, create_operator, review_operator    </sql>
 
-    <!--查询单个-->
+    <!--根据产品id，查询产品所有信息、产品对应供应商的id和名称、以及产品对应的类型-->
     <select id="queryById" resultMap="ProductMap">
-        select
-        <include refid="base_column_list" />
-        
-        from financial_system.product
-        where id = #{id}
+        SELECT
+        product.*, provider.name as provider_name, product_type.type
+        FROM
+        product
+        JOIN
+        provider ON product.provider_id = provider.id
+        JOIN
+        product_type ON product.product_type_id = product_type.id
+        WHERE
+        product.id = 1
     </select>
 
     <!--查询指定行数据-->
@@ -48,30 +56,32 @@
         <include refid="base_column_list" />
 
         from financial_system.product
-
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into financial_system.product(name, type, status, pricr, rate_of_return, start_up_point, duration, due, risk_level, is_delete, create_time, review_time, create_operator, review_operator)
-        values (#{name}, #{type}, #{status}, #{pricr}, #{rateOfReturn}, #{startUpPoint}, #{duration}, #{due}, #{riskLevel}, #{isDelete}, #{createTime}, #{reviewTime}, #{createOperator}, #{reviewOperator})
+        insert into financial_system.product(provider_id, product_type_id, name, price, quota, rate_of_return, start_up_point, publish_time, stop_issuing_time, duration, risk_level, is_delete, create_time, review_time, create_operator, review_operator)
+        values (#{providerId}, #{productTypeId}, #{name}, #{price}, #{quota}, #{rateOfReturn}, #{startUpPoint}, #{publishTime}, #{stopIssuingTime}, #{duration}, #{riskLevel}, #{isDelete}, #{createTime}, #{reviewTime}, #{createOperator}, #{reviewOperator})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update financial_system.product
         <set>
+            <if test="providerId != null">
+                provider_id = #{providerId},
+            </if>
+            <if test="productTypeId != null">
+                product_type_id = #{productTypeId},
+            </if>
             <if test="name != null and name != ''">
                 name = #{name},
             </if>
-            <if test="type != null and type != ''">
-                type = #{type},
+            <if test="price != null">
+                price = #{price},
             </if>
-            <if test="status != null and status != ''">
-                status = #{status},
-            </if>
-            <if test="pricr != null">
-                pricr = #{pricr},
+            <if test="quota != null">
+                quota = #{quota},
             </if>
             <if test="rateOfReturn != null">
                 rate_of_return = #{rateOfReturn},
@@ -79,11 +89,14 @@
             <if test="startUpPoint != null">
                 start_up_point = #{startUpPoint},
             </if>
+            <if test="publishTime != null">
+                publish_time = #{publishTime},
+            </if>
+            <if test="stopIssuingTime != null">
+                stop_issuing_time = #{stopIssuingTime},
+            </if>
             <if test="duration != null">
                 duration = #{duration},
-            </if>
-            <if test="due != null">
-                due = #{due},
             </if>
             <if test="riskLevel != null">
                 risk_level = #{riskLevel},
@@ -116,17 +129,20 @@
     <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
         insert into financial_system.product
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="providerId != null">
+                provider_id,
+            </if>
+            <if test="productTypeId != null">
+                product_type_id,
+            </if>
             <if test="name != null and name != ''">
                 name,
             </if>
-            <if test="type != null and type != ''">
-                type,
+            <if test="price != null">
+                price,
             </if>
-            <if test="status != null and status != ''">
-                status,
-            </if>
-            <if test="pricr != null">
-                pricr,
+            <if test="quota != null">
+                quota,
             </if>
             <if test="rateOfReturn != null">
                 rate_of_return,
@@ -134,11 +150,14 @@
             <if test="startUpPoint != null">
                 start_up_point,
             </if>
+            <if test="publishTime != null">
+                publish_time,
+            </if>
+            <if test="stopIssuingTime != null">
+                stop_issuing_time,
+            </if>
             <if test="duration != null">
                 duration,
-            </if>
-            <if test="due != null">
-                due,
             </if>
             <if test="riskLevel != null">
                 risk_level,
@@ -160,17 +179,20 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="providerId != null">
+                #{providerId},
+            </if>
+            <if test="productTypeId != null">
+                #{productTypeId},
+            </if>
             <if test="name != null and name != ''">
                 #{name},
             </if>
-            <if test="type != null and type != ''">
-                #{type},
+            <if test="price != null">
+                #{price},
             </if>
-            <if test="status != null and status != ''">
-                #{status},
-            </if>
-            <if test="pricr != null">
-                #{pricr},
+            <if test="quota != null">
+                #{quota},
             </if>
             <if test="rateOfReturn != null">
                 #{rateOfReturn},
@@ -178,11 +200,14 @@
             <if test="startUpPoint != null">
                 #{startUpPoint},
             </if>
+            <if test="publishTime != null">
+                #{publishTime},
+            </if>
+            <if test="stopIssuingTime != null">
+                #{stopIssuingTime},
+            </if>
             <if test="duration != null">
                 #{duration},
-            </if>
-            <if test="due != null">
-                #{due},
             </if>
             <if test="riskLevel != null">
                 #{riskLevel},
@@ -204,5 +229,7 @@
             </if>
         </trim>        
     </insert>
+
+
 
 </mapper>

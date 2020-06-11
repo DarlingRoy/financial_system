@@ -1,7 +1,7 @@
 package com.example.financial_system.controller;
 
-import com.example.financial_system.entity.Product;
-import com.example.financial_system.service.ProductService;
+import com.example.financial_system.entity.ProductType;
+import com.example.financial_system.service.ProductTypeService;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,61 +10,61 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 /**
- * (Product)表控制层
+ * (ProductType)表控制层
  *
  * @author laidilin
- * @since 2020-06-11 21:29:53
+ * @since 2020-06-11 21:30:26
  */
-@Api(tags = "(Product)") 
+@Api(tags = "(ProductType)") 
 @RestController
-@RequestMapping("product")
-public class ProductController {
+@RequestMapping("productType")
+public class ProductTypeController {
     /**
      * 服务对象
      */
     @Autowired
-    private ProductService productService;
+    private ProductTypeService productTypeService;
 
     /**
-     * 根据产品id，查询产品所有信息、产品对应供应商的id和名称、以及产品对应的类型
+     * 通过主键查询单条数据
      *
      * @param id 主键
      * @return 单条数据
      */
-    @ApiOperation(value = "根据产品id，查询产品所有信息、产品对应供应商的id和名称、以及产品对应的类型 ")
+    @ApiOperation(value = "根据id查询 ")
     @GetMapping("selectOne")
-    public Product selectOne(@ApiParam(value = " ID") Integer id) {
-        return this.productService.queryById(id);
+    public ProductType selectOne(@ApiParam(value = " ID") Integer id) {
+        return this.productTypeService.queryById(id);
     }
     
     /**
      * 增加一条记录(只填入不为空的字段)
-     * @param product 实例对象
+     * @param productType 实例对象
      */
     @ApiOperation("增加一条记录(只填入不为空的字段)")
     @PostMapping("insertSelective")
-    public void insertSelective(Product product){
-        this.productService.insertSelective(product);
+    public void insertSelective(ProductType productType){
+        this.productTypeService.insertSelective(productType);
     }
     
     /**
      * 增加一条记录(填入所有字段)
-     * @param product 实例对象
+     * @param productType 实例对象
      */
     @ApiOperation("增加一条记录(填入所有字段)")
     @PostMapping("insert")
-    public void insert(Product product){
-        this.productService.insert(product);
+    public void insert(ProductType productType){
+        this.productTypeService.insert(productType);
     }
     
     /**
      * 更新一条记录(只对不为空的字段进行更新)
-     * @param product 实例对象
+     * @param productType 实例对象
      */
     @ApiOperation("更新一条记录(只对不为空的字段进行更新)")
     @PutMapping("update")
-    public void update(Product product){
-        this.productService.update(product);
+    public void update(ProductType productType){
+        this.productTypeService.update(productType);
     }
     
     /**
@@ -74,7 +74,7 @@ public class ProductController {
     @ApiOperation("根据id删除一条记录")
     @DeleteMapping("delete")
     public void delete(@ApiParam(value = " ID") Integer id){
-        this.productService.deleteById(id);
+        this.productTypeService.deleteById(id);
     }
     
     /**
@@ -86,8 +86,8 @@ public class ProductController {
      */
     @ApiOperation(value = "根据起始位置和查询条数查询多条数据")
     @GetMapping("selectAllByLimit")   
-    public List<Product> selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,@ApiParam(value = "查询记录条数") int limit) {
-        return this.productService.queryAllByLimit(offset, limit);
+    public List<ProductType> selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,@ApiParam(value = "查询记录条数") int limit) {
+        return this.productTypeService.queryAllByLimit(offset, limit);
     }
     
     /**
@@ -97,9 +97,8 @@ public class ProductController {
      */
     @ApiOperation(value = "查询表中所有数据")
     @GetMapping("selectAll")   
-    public List<Product> selectAll() {
-        return this.productService.queryAll();
+    public List<ProductType> selectAll() {
+        return this.productTypeService.queryAll();
     }
-
 
 }

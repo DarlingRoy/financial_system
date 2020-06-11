@@ -5,6 +5,10 @@ spring:
     username: root
     password: ldl683411
 
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.example.financial_system.entity

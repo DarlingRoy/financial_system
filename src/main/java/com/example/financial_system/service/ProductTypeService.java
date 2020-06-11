@@ -1,23 +1,23 @@
 package com.example.financial_system.service;
 
-import com.example.financial_system.entity.Product;
+import com.example.financial_system.entity.ProductType;
 import java.util.List;
 
 /**
- * (Product)表服务接口
+ * (ProductType)表服务接口
  *
  * @author laidilin
- * @since 2020-06-11 21:29:53
+ * @since 2020-06-11 21:30:26
  */
-public interface ProductService {
+public interface ProductTypeService {
 
     /**
-     * 根据产品id，查询产品所有信息、产品对应供应商的id和名称、以及产品对应的类型
+     * 通过ID查询单条数据
      *
      * @param id 主键
      * @return 实例对象
      */
-    Product queryById(Integer id);
+    ProductType queryById(Integer id);
 
     /**
      * 查询多条数据
@@ -26,30 +26,30 @@ public interface ProductService {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<Product> queryAllByLimit(int offset, int limit);
+    List<ProductType> queryAllByLimit(int offset, int limit);
     
     /**
      * 查询所有数据
      *
      * @return 对象列表
      */
-    List<Product> queryAll();
+    List<ProductType> queryAll();
 
     /**
      * 新增数据
      *
-     * @param product 实例对象
+     * @param productType 实例对象
      * @return 实例对象
      */
-    Product insert(Product product);
+    ProductType insert(ProductType productType);
 
     /**
      * 修改数据
      *
-     * @param product 实例对象
+     * @param productType 实例对象
      * @return 实例对象
      */
-    Product update(Product product);
+    ProductType update(ProductType productType);
 
     /**
      * 通过主键删除数据
@@ -62,10 +62,9 @@ public interface ProductService {
     /**
      * 选择性插入数据
      *
-     * @param product 实例对象
+     * @param productType 实例对象
      * @return 实例对象
      */
-    Product insertSelective(Product product);
-
+    ProductType insertSelective(ProductType productType);
 
 }

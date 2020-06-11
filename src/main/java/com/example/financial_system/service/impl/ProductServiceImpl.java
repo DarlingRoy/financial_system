@@ -12,7 +12,7 @@ import java.util.List;
  * (Product)表服务实现类
  *
  * @author laidilin
- * @since 2020-06-07 20:55:38
+ * @since 2020-06-11 21:29:53
  */
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
@@ -20,7 +20,7 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao;
 
     /**
-     * 通过ID查询单条数据
+     * 根据产品id，查询产品所有信息、产品对应供应商的id和名称、以及产品对应的类型
      *
      * @param id 主键
      * @return 实例对象
@@ -98,4 +98,6 @@ public class ProductServiceImpl implements ProductService {
         this.productDao.insert(product);
         return product;
     }
+
+
 }
