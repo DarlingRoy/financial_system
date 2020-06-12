@@ -1,5 +1,7 @@
 package com.example.financial_system.controller;
 
+import com.example.financial_system.common.entity.JsonResult;
+import com.example.financial_system.common.utils.ResultTool;
 import com.example.financial_system.entity.Operation;
 import com.example.financial_system.service.OperationService;
 import org.springframework.web.bind.annotation.*;
@@ -43,8 +45,9 @@ public class OperationController {
      */
     @ApiOperation("增加一条记录(只填入不为空的字段)")
     @PostMapping("insertSelective")
-    public void insertSelective(Operation operation){
+    public JsonResult insertSelective(Operation operation){
         this.operationService.insertSelective(operation);
+        return ResultTool.success();
     }
     
     /**
@@ -53,8 +56,9 @@ public class OperationController {
      */
     @ApiOperation("增加一条记录(填入所有字段)")
     @PostMapping("insert")
-    public void insert(Operation operation){
+    public JsonResult insert(Operation operation){
         this.operationService.insert(operation);
+        return ResultTool.success();
     }
     
     /**
@@ -63,8 +67,9 @@ public class OperationController {
      */
     @ApiOperation("更新一条记录(只对不为空的字段进行更新)")
     @PutMapping("update")
-    public void update(Operation operation){
+    public JsonResult update(Operation operation){
         this.operationService.update(operation);
+        return ResultTool.success();
     }
     
     /**
@@ -73,8 +78,9 @@ public class OperationController {
      */
     @ApiOperation("根据id删除一条记录")
     @DeleteMapping("delete")
-    public void delete(@ApiParam(value = " ID") Integer id){
+    public JsonResult delete(@ApiParam(value = " ID") Integer id){
         this.operationService.deleteById(id);
+        return ResultTool.success();
     }
     
     /**

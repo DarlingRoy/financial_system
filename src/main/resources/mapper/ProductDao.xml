@@ -20,26 +20,23 @@
         <result property="reviewTime" column="review_time" jdbcType="TIMESTAMP"/>
         <result property="createOperator" column="create_operator" jdbcType="INTEGER"/>
         <result property="reviewOperator" column="review_operator" jdbcType="INTEGER"/>
-        <result property="reviewOperator" column="review_operator" jdbcType="INTEGER"/>
-        <result property="providerName" column="provider_name" />
-        <result property="type" column="type" />
+        <result property="providerName" column="provider_name" jdbcType="VARCHAR" />
+        <result property="type" column="type" jdbcType="VARCHAR" />
     </resultMap>
     
     <sql id="base_column_list">
         id, provider_id, product_type_id, name, price, quota, rate_of_return, start_up_point, publish_time, stop_issuing_time, duration, risk_level, is_delete, create_time, review_time, create_operator, review_operator    </sql>
 
-    <!--根据产品id，查询产品所有信息、产品对应供应商的id和名称、以及产品对应的类型-->
+    <!--查询单个-->
     <select id="queryById" resultMap="ProductMap">
-        SELECT
+        select
         product.*, provider.name as provider_name, product_type.type
-        FROM
-        product
-        JOIN
-        provider ON product.provider_id = provider.id
-        JOIN
-        product_type ON product.product_type_id = product_type.id
-        WHERE
-        product.id = #{id}
+        from financial_system.product
+        join financial_system.provider
+          on product.provider_id=provider.id
+        join financial_system.product_type
+          on product.product_type_id=product_type.id
+        where product.id = #{id}
     </select>
 
     <!--查询指定行数据-->
@@ -230,7 +227,5 @@
             </if>
         </trim>        
     </insert>
-
-
 
 </mapper>

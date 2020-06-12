@@ -1,5 +1,7 @@
 package com.example.financial_system.controller;
 
+import com.example.financial_system.common.entity.JsonResult;
+import com.example.financial_system.common.utils.ResultTool;
 import com.example.financial_system.entity.RoleDepartment;
 import com.example.financial_system.service.RoleDepartmentService;
 import org.springframework.web.bind.annotation.*;
@@ -43,8 +45,9 @@ public class RoleDepartmentController {
      */
     @ApiOperation("增加一条记录(只填入不为空的字段)")
     @PostMapping("insertSelective")
-    public void insertSelective(RoleDepartment roleDepartment){
+    public JsonResult insertSelective(RoleDepartment roleDepartment){
         this.roleDepartmentService.insertSelective(roleDepartment);
+        return ResultTool.success();
     }
     
     /**
@@ -53,8 +56,9 @@ public class RoleDepartmentController {
      */
     @ApiOperation("增加一条记录(填入所有字段)")
     @PostMapping("insert")
-    public void insert(RoleDepartment roleDepartment){
+    public JsonResult insert(RoleDepartment roleDepartment){
         this.roleDepartmentService.insert(roleDepartment);
+        return ResultTool.success();
     }
     
     /**
@@ -63,8 +67,9 @@ public class RoleDepartmentController {
      */
     @ApiOperation("更新一条记录(只对不为空的字段进行更新)")
     @PutMapping("update")
-    public void update(RoleDepartment roleDepartment){
+    public JsonResult update(RoleDepartment roleDepartment){
         this.roleDepartmentService.update(roleDepartment);
+        return ResultTool.success();
     }
     
     /**
@@ -73,8 +78,9 @@ public class RoleDepartmentController {
      */
     @ApiOperation("根据id删除一条记录")
     @DeleteMapping("delete")
-    public void delete(@ApiParam(value = " ID") Integer id){
+    public JsonResult delete(@ApiParam(value = " ID") Integer id){
         this.roleDepartmentService.deleteById(id);
+        return ResultTool.success();
     }
     
     /**

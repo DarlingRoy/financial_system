@@ -1,5 +1,7 @@
 package com.example.financial_system.controller;
 
+import com.example.financial_system.common.entity.JsonResult;
+import com.example.financial_system.common.utils.ResultTool;
 import com.example.financial_system.entity.ConfigAssessment;
 import com.example.financial_system.service.ConfigAssessmentService;
 import org.springframework.web.bind.annotation.*;
@@ -43,8 +45,9 @@ public class ConfigAssessmentController {
      */
     @ApiOperation("增加一条记录(只填入不为空的字段)")
     @PostMapping("insertSelective")
-    public void insertSelective(ConfigAssessment configAssessment){
+    public JsonResult insertSelective(ConfigAssessment configAssessment){
         this.configAssessmentService.insertSelective(configAssessment);
+        return ResultTool.success();
     }
     
     /**
@@ -53,8 +56,9 @@ public class ConfigAssessmentController {
      */
     @ApiOperation("增加一条记录(填入所有字段)")
     @PostMapping("insert")
-    public void insert(ConfigAssessment configAssessment){
+    public JsonResult insert(ConfigAssessment configAssessment){
         this.configAssessmentService.insert(configAssessment);
+        return ResultTool.success();
     }
     
     /**
@@ -63,8 +67,9 @@ public class ConfigAssessmentController {
      */
     @ApiOperation("更新一条记录(只对不为空的字段进行更新)")
     @PutMapping("update")
-    public void update(ConfigAssessment configAssessment){
+    public JsonResult update(ConfigAssessment configAssessment){
         this.configAssessmentService.update(configAssessment);
+        return ResultTool.success();
     }
     
     /**
@@ -73,8 +78,9 @@ public class ConfigAssessmentController {
      */
     @ApiOperation("根据id删除一条记录")
     @DeleteMapping("delete")
-    public void delete(@ApiParam(value = " ID") Integer id){
+    public JsonResult delete(@ApiParam(value = " ID") Integer id){
         this.configAssessmentService.deleteById(id);
+        return ResultTool.success();
     }
     
     /**

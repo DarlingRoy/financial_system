@@ -1,5 +1,7 @@
 package com.example.financial_system.controller;
 
+import com.example.financial_system.common.entity.JsonResult;
+import com.example.financial_system.common.utils.ResultTool;
 import com.example.financial_system.entity.ProductType;
 import com.example.financial_system.service.ProductTypeService;
 import org.springframework.web.bind.annotation.*;
@@ -43,8 +45,9 @@ public class ProductTypeController {
      */
     @ApiOperation("增加一条记录(只填入不为空的字段)")
     @PostMapping("insertSelective")
-    public void insertSelective(ProductType productType){
+    public JsonResult insertSelective(ProductType productType){
         this.productTypeService.insertSelective(productType);
+        return ResultTool.success();
     }
     
     /**
@@ -53,8 +56,9 @@ public class ProductTypeController {
      */
     @ApiOperation("增加一条记录(填入所有字段)")
     @PostMapping("insert")
-    public void insert(ProductType productType){
+    public JsonResult insert(ProductType productType){
         this.productTypeService.insert(productType);
+        return ResultTool.success();
     }
     
     /**
@@ -63,8 +67,9 @@ public class ProductTypeController {
      */
     @ApiOperation("更新一条记录(只对不为空的字段进行更新)")
     @PutMapping("update")
-    public void update(ProductType productType){
+    public JsonResult update(ProductType productType){
         this.productTypeService.update(productType);
+        return ResultTool.success();
     }
     
     /**
@@ -73,8 +78,9 @@ public class ProductTypeController {
      */
     @ApiOperation("根据id删除一条记录")
     @DeleteMapping("delete")
-    public void delete(@ApiParam(value = " ID") Integer id){
+    public JsonResult delete(@ApiParam(value = " ID") Integer id){
         this.productTypeService.deleteById(id);
+        return ResultTool.success();
     }
     
     /**

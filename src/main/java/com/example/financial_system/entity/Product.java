@@ -37,12 +37,12 @@ public class Product implements Serializable {
     private Double startUpPoint;
         
     @ApiModelProperty("$column.comment")
-    private Date publishTime;
+    private java.sql.Date publishTime;
     /**
     * 停止发行时间
     */    
     @ApiModelProperty("停止发行时间")
-    private Date stopIssuingTime;
+    private java.sql.Date stopIssuingTime;
     /**
     * 定期理财产品的天数
     */    
