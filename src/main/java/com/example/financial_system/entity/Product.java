@@ -2,6 +2,8 @@ package com.example.financial_system.entity;
 
 import java.util.Date;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.*;
 import lombok.Data;
 
@@ -37,12 +39,16 @@ public class Product implements Serializable {
     private Double startUpPoint;
         
     @ApiModelProperty("$column.comment")
-    private Date publishTime;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date publishDate;
+
     /**
     * 停止发行时间
     */    
     @ApiModelProperty("停止发行时间")
-    private Date stopIssuingTime;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date stopIssuingDate;
+
     /**
     * 定期理财产品的天数
     */    

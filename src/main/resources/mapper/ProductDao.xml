@@ -11,8 +11,8 @@
         <result property="quota" column="quota" jdbcType="INTEGER"/>
         <result property="rateOfReturn" column="rate_of_return" jdbcType="NUMERIC"/>
         <result property="startUpPoint" column="start_up_point" jdbcType="NUMERIC"/>
-        <result property="publishTime" column="publish_time" jdbcType="TIMESTAMP"/>
-        <result property="stopIssuingTime" column="stop_issuing_time" jdbcType="TIMESTAMP"/>
+        <result property="publishDate" column="publish_date" jdbcType="TIMESTAMP"/>
+        <result property="stopIssuingDate" column="stop_issuing_date" jdbcType="TIMESTAMP"/>
         <result property="duration" column="duration" jdbcType="INTEGER"/>
         <result property="riskLevel" column="risk_level" jdbcType="INTEGER"/>
         <result property="isDelete" column="is_delete" jdbcType="BOOLEAN"/>
@@ -25,7 +25,7 @@
     </resultMap>
     
     <sql id="base_column_list">
-        id, provider_id, product_type_id, name, price, quota, rate_of_return, start_up_point, publish_time, stop_issuing_time, duration, risk_level, is_delete, create_time, review_time, create_operator, review_operator    </sql>
+        id, provider_id, product_type_id, name, price, quota, rate_of_return, start_up_point, publish_date, stop_issuing_date, duration, risk_level, is_delete, create_time, review_time, create_operator, review_operator    </sql>
 
     <!--查询单个-->
     <select id="queryById" resultMap="ProductMap">
@@ -58,8 +58,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into financial_system.product(provider_id, product_type_id, name, price, quota, rate_of_return, start_up_point, publish_time, stop_issuing_time, duration, risk_level, is_delete, create_time, review_time, create_operator, review_operator)
-        values (#{providerId}, #{productTypeId}, #{name}, #{price}, #{quota}, #{rateOfReturn}, #{startUpPoint}, #{publishTime}, #{stopIssuingTime}, #{duration}, #{riskLevel}, #{isDelete}, #{createTime}, #{reviewTime}, #{createOperator}, #{reviewOperator})
+        insert into financial_system.product(provider_id, product_type_id, name, price, quota, rate_of_return, start_up_point, publish_date, stop_issuing_date, duration, risk_level, is_delete, create_time, review_time, create_operator, review_operator)
+        values (#{providerId}, #{productTypeId}, #{name}, #{price}, #{quota}, #{rateOfReturn}, #{startUpPoint}, #{publishDate}, #{stopIssuingDate}, #{duration}, #{riskLevel}, #{isDelete}, #{createTime}, #{reviewTime}, #{createOperator}, #{reviewOperator})
     </insert>
 
     <!--通过主键修改数据-->
@@ -87,11 +87,11 @@
             <if test="startUpPoint != null">
                 start_up_point = #{startUpPoint},
             </if>
-            <if test="publishTime != null">
-                publish_time = #{publishTime},
+            <if test="publishDate != null">
+                publish_date = #{publishDate},
             </if>
-            <if test="stopIssuingTime != null">
-                stop_issuing_time = #{stopIssuingTime},
+            <if test="stopIssuingDate != null">
+                stop_issuing_date = #{stopIssuingTime},
             </if>
             <if test="duration != null">
                 duration = #{duration},
@@ -148,11 +148,11 @@
             <if test="startUpPoint != null">
                 start_up_point,
             </if>
-            <if test="publishTime != null">
-                publish_time,
+            <if test="publishDate != null">
+                publish_date,
             </if>
-            <if test="stopIssuingTime != null">
-                stop_issuing_time,
+            <if test="stopIssuingDate != null">
+                stop_issuing_date,
             </if>
             <if test="duration != null">
                 duration,
@@ -198,11 +198,11 @@
             <if test="startUpPoint != null">
                 #{startUpPoint},
             </if>
-            <if test="publishTime != null">
-                #{publishTime},
+            <if test="publishDate != null">
+                #{publishDate},
             </if>
-            <if test="stopIssuingTime != null">
-                #{stopIssuingTime},
+            <if test="stopIssuingDate != null">
+                #{stopIssuingDate},
             </if>
             <if test="duration != null">
                 #{duration},
