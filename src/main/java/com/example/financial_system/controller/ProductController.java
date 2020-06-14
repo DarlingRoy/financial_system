@@ -14,8 +14,8 @@ import java.util.List;
 /**
  * (Product)表控制层
  *
- * @author laidilin
- * @since 2020-06-11 21:29:53
+ * @author linqx
+ * @since 2020-06-14 15:12:41
  */
 @Api(tags = "(Product)") 
 @RestController
@@ -28,15 +28,15 @@ public class ProductController {
     private ProductService productService;
 
     /**
-     * 根据产品id，查询产品所有信息、产品对应供应商的id和名称、以及产品对应的类型
+     * 通过主键查询单条数据
      *
      * @param id 主键
      * @return 单条数据
      */
-    @ApiOperation(value = "根据产品id，查询产品所有信息、产品对应供应商的id和名称、以及产品对应的类型 ")
+    @ApiOperation(value = "根据id查询 ")
     @GetMapping("selectOne")
-    public Product selectOne(@ApiParam(value = " ID") Integer id) {
-        return this.productService.queryById(id);
+    public JsonResult selectOne(@ApiParam(value = " ID") Integer id) {
+        return ResultTool.success(this.productService.queryById(id));
     }
     
     /**
@@ -92,8 +92,8 @@ public class ProductController {
      */
     @ApiOperation(value = "根据起始位置和查询条数查询多条数据")
     @GetMapping("selectAllByLimit")   
-    public List<Product> selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,@ApiParam(value = "查询记录条数") int limit) {
-        return this.productService.queryAllByLimit(offset, limit);
+    public JsonResult selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,@ApiParam(value = "查询记录条数") int limit) {
+        return ResultTool.success(this.productService.queryAllByLimit(offset, limit));
     }
     
     /**
@@ -103,9 +103,8 @@ public class ProductController {
      */
     @ApiOperation(value = "查询表中所有数据")
     @GetMapping("selectAll")   
-    public List<Product> selectAll() {
-        return this.productService.queryAll();
+    public JsonResult selectAll() {
+        return ResultTool.success(this.productService.queryAll());
     }
-
 
 }
