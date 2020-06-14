@@ -47,7 +47,7 @@ public class OperationTest {
 
     @Test
     public void testQueryByUserId(){
-        List<Operation> operations = operationDao.queryByUserId(1);
+        List<Operation> operations = operationDao.queryByUserId(5);
         for (Operation operation:operations){
             System.out.println(operation);
         }

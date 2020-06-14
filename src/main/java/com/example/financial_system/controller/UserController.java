@@ -9,7 +9,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
 
 /**
  * (User)表控制层
@@ -35,8 +34,10 @@ public class UserController {
      */
     @ApiOperation(value = "根据id查询 ")
     @GetMapping("selectOne")
-    public User selectOne(@ApiParam(value = " ID") Integer id) {
-        return this.userService.queryById(id);
+    public JsonResult selectOne(@ApiParam(value = " ID") Integer id) {
+//        return this.userService.queryById(id);
+        JsonResult result = ResultTool.success(this.userService.queryById(id));
+        return result;
     }
     
     /**
@@ -92,8 +93,10 @@ public class UserController {
      */
     @ApiOperation(value = "根据起始位置和查询条数查询多条数据")
     @GetMapping("selectAllByLimit")   
-    public List<User> selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,@ApiParam(value = "查询记录条数") int limit) {
-        return this.userService.queryAllByLimit(offset, limit);
+    public JsonResult selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,@ApiParam(value = "查询记录条数") int limit) {
+//        return this.userService.queryAllByLimit(offset, limit);
+        JsonResult result = ResultTool.success(this.userService.queryAllByLimit(offset, limit));
+        return result;
     }
     
     /**
@@ -103,8 +106,10 @@ public class UserController {
      */
     @ApiOperation(value = "查询表中所有数据")
     @GetMapping("selectAll")   
-    public List<User> selectAll() {
-        return this.userService.queryAll();
+    public JsonResult selectAll() {
+        JsonResult result = ResultTool.success(this.userService.queryAll());
+        return result;
+//        return this.userService.queryAll();
     }
 
     /**
