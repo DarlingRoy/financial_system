@@ -14,8 +14,8 @@ import java.util.List;
 /**
  * (OperationRole)表控制层
  *
- * @author laidilin
- * @since 2020-06-08 10:27:36
+ * @author linqx
+ * @since 2020-06-14 15:12:41
  */
 @Api(tags = "(OperationRole)") 
 @RestController
@@ -35,8 +35,8 @@ public class OperationRoleController {
      */
     @ApiOperation(value = "根据id查询 ")
     @GetMapping("selectOne")
-    public OperationRole selectOne(@ApiParam(value = " ID") Integer id) {
-        return this.operationRoleService.queryById(id);
+    public JsonResult selectOne(@ApiParam(value = " ID") Integer id) {
+        return ResultTool.success(this.operationRoleService.queryById(id));
     }
     
     /**
@@ -92,8 +92,8 @@ public class OperationRoleController {
      */
     @ApiOperation(value = "根据起始位置和查询条数查询多条数据")
     @GetMapping("selectAllByLimit")   
-    public List<OperationRole> selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,@ApiParam(value = "查询记录条数") int limit) {
-        return this.operationRoleService.queryAllByLimit(offset, limit);
+    public JsonResult selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,@ApiParam(value = "查询记录条数") int limit) {
+        return ResultTool.success(this.operationRoleService.queryAllByLimit(offset, limit));
     }
     
     /**
@@ -103,8 +103,8 @@ public class OperationRoleController {
      */
     @ApiOperation(value = "查询表中所有数据")
     @GetMapping("selectAll")   
-    public List<OperationRole> selectAll() {
-        return this.operationRoleService.queryAll();
+    public JsonResult selectAll() {
+        return ResultTool.success(this.operationRoleService.queryAll());
     }
 
 }

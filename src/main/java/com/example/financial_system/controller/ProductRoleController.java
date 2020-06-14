@@ -14,8 +14,8 @@ import java.util.List;
 /**
  * (ProductRole)表控制层
  *
- * @author laidilin
- * @since 2020-06-08 10:28:29
+ * @author linqx
+ * @since 2020-06-14 15:12:40
  */
 @Api(tags = "(ProductRole)") 
 @RestController
@@ -35,8 +35,8 @@ public class ProductRoleController {
      */
     @ApiOperation(value = "根据id查询 ")
     @GetMapping("selectOne")
-    public ProductRole selectOne(@ApiParam(value = " ID") Integer id) {
-        return this.productRoleService.queryById(id);
+    public JsonResult selectOne(@ApiParam(value = " ID") Integer id) {
+        return ResultTool.success(this.productRoleService.queryById(id));
     }
     
     /**
@@ -92,8 +92,8 @@ public class ProductRoleController {
      */
     @ApiOperation(value = "根据起始位置和查询条数查询多条数据")
     @GetMapping("selectAllByLimit")   
-    public List<ProductRole> selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,@ApiParam(value = "查询记录条数") int limit) {
-        return this.productRoleService.queryAllByLimit(offset, limit);
+    public JsonResult selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,@ApiParam(value = "查询记录条数") int limit) {
+        return ResultTool.success(this.productRoleService.queryAllByLimit(offset, limit));
     }
     
     /**
@@ -103,8 +103,8 @@ public class ProductRoleController {
      */
     @ApiOperation(value = "查询表中所有数据")
     @GetMapping("selectAll")   
-    public List<ProductRole> selectAll() {
-        return this.productRoleService.queryAll();
+    public JsonResult selectAll() {
+        return ResultTool.success(this.productRoleService.queryAll());
     }
 
 }

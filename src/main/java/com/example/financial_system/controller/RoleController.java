@@ -14,8 +14,8 @@ import java.util.List;
 /**
  * (Role)表控制层
  *
- * @author laidilin
- * @since 2020-06-08 10:29:11
+ * @author linqx
+ * @since 2020-06-14 15:12:39
  */
 @Api(tags = "(Role)") 
 @RestController
@@ -35,8 +35,8 @@ public class RoleController {
      */
     @ApiOperation(value = "根据id查询 ")
     @GetMapping("selectOne")
-    public Role selectOne(@ApiParam(value = " ID") Integer id) {
-        return this.roleService.queryById(id);
+    public JsonResult selectOne(@ApiParam(value = " ID") Integer id) {
+        return ResultTool.success(this.roleService.queryById(id));
     }
     
     /**
@@ -92,8 +92,8 @@ public class RoleController {
      */
     @ApiOperation(value = "根据起始位置和查询条数查询多条数据")
     @GetMapping("selectAllByLimit")   
-    public List<Role> selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,@ApiParam(value = "查询记录条数") int limit) {
-        return this.roleService.queryAllByLimit(offset, limit);
+    public JsonResult selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,@ApiParam(value = "查询记录条数") int limit) {
+        return ResultTool.success(this.roleService.queryAllByLimit(offset, limit));
     }
     
     /**
@@ -103,14 +103,19 @@ public class RoleController {
      */
     @ApiOperation(value = "查询表中所有数据")
     @GetMapping("selectAll")   
-    public List<Role> selectAll() {
-        return this.roleService.queryAll();
+    public JsonResult selectAll() {
+        return ResultTool.success(this.roleService.queryAll());
     }
 
-    @ApiOperation(value = "查询不同的角色名数目")
-    @GetMapping("countName")
-    public Integer countName(){
-        return this.roleService.countRoleName();
+    /**
+     * 查询不同的角色名数目
+     *
+     * @return 角色名数目
+     */
+    @ApiOperation(value  = "查询不同的角色名数目")
+    @GetMapping("count")
+    public JsonResult count() {
+        return ResultTool.success(this.roleService.countRoleName());
     }
 
 }
