@@ -7,7 +7,7 @@ import java.util.List;
  * (Order)表服务接口
  *
  * @author laidilin
- * @since 2020-06-07 20:55:38
+ * @since 2020-06-14 23:40:09
  */
 public interface OrderService {
 
@@ -66,11 +66,5 @@ public interface OrderService {
      * @return 实例对象
      */
     Order insertSelective(Order order);
-
-    /**
-     * 查询订单总数
-     * @return 订单总数
-     */
-    Integer countOrder();
 
 }

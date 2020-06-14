@@ -7,12 +7,13 @@
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="email" column="email" jdbcType="VARCHAR"/>
         <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="isDelete" column="is_delete" jdbcType="BOOLEAN"/>
     </resultMap>
     
     <sql id="base_column_list">
-        id, name, email, phone, create_time, is_delete    </sql>
+        id, name, email, phone, address, create_time, is_delete    </sql>
 
     <!--查询单个-->
     <select id="queryById" resultMap="ProviderMap">
@@ -38,7 +39,6 @@
         <include refid="base_column_list" />
 
         from financial_system.provider
-
     </select>
 
     <!--新增所有列-->

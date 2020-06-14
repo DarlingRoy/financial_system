@@ -14,8 +14,8 @@ import java.util.List;
 /**
  * (Operation)表控制层
  *
- * @author linqx
- * @since 2020-06-14 15:12:42
+ * @author laidilin
+ * @since 2020-06-14 23:40:09
  */
 @Api(tags = "(Operation)") 
 @RestController
@@ -35,7 +35,7 @@ public class OperationController {
      */
     @ApiOperation(value = "根据id查询 ")
     @GetMapping("selectOne")
-    public JsonResult selectOne(@ApiParam(value = " ID") Integer id) {
+    public JsonResult selectOne(@ApiParam(value = "权限id ID") Integer id) {
         return ResultTool.success(this.operationService.queryById(id));
     }
     
@@ -66,7 +66,7 @@ public class OperationController {
      * @param operation 实例对象
      */
     @ApiOperation("更新一条记录(只对不为空的字段进行更新)")
-    @PutMapping("update")
+    @PostMapping("update")
     public JsonResult update(Operation operation){
         this.operationService.update(operation);
         return ResultTool.success();
@@ -78,7 +78,7 @@ public class OperationController {
      */
     @ApiOperation("根据id删除一条记录")
     @DeleteMapping("delete")
-    public JsonResult delete(@ApiParam(value = " ID") Integer id){
+    public JsonResult delete(@ApiParam(value = "权限id ID") Integer id){
         this.operationService.deleteById(id);
         return ResultTool.success();
     }

@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * 单元测试类
  *
  * @author laidilin
- * @since 2020-06-08 01:21:24
+ * @since 2020-06-15 00:25:08
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -47,8 +47,8 @@ public class OperationTest {
 
     @Test
     public void testQueryByUserId(){
-        List<Operation> operations = operationDao.queryByUserId(5);
-        for (Operation operation:operations){
+        List<Operation> operations = operationDao.queryByUserId(1);
+        for(Operation operation : operations){
             System.out.println(operation);
         }
     }

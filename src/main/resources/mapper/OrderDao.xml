@@ -4,18 +4,16 @@
 
     <resultMap type="com.example.financial_system.entity.Order" id="OrderMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
-        <result property="user" column="user" jdbcType="INTEGER"/>
-        <result property="repository" column="repository" jdbcType="INTEGER"/>
-        <result property="count" column="count" jdbcType="INTEGER"/>
-        <result property="price" column="price" jdbcType="NUMERIC"/>
-        <result property="amount" column="amount" jdbcType="NUMERIC"/>
-        <result property="operator" column="operator" jdbcType="INTEGER"/>
-        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="productId" column="product_id" jdbcType="INTEGER"/>
+        <result property="orderTime" column="order_time" jdbcType="TIMESTAMP"/>
+        <result property="expireTime" column="expire_time" jdbcType="TIMESTAMP"/>
+        <result property="purchasePrice" column="purchase_price" jdbcType="NUMERIC"/>
         <result property="isDelete" column="is_delete" jdbcType="BOOLEAN"/>
     </resultMap>
     
     <sql id="base_column_list">
-        id, user, repository, count, price, amount, operator, create_time, is_delete    </sql>
+        id, user_id, product_id, order_time, expire_time, purchase_price, is_delete    </sql>
 
     <!--查询单个-->
     <select id="queryById" resultMap="OrderMap">
@@ -41,43 +39,37 @@
         <include refid="base_column_list" />
 
         from financial_system.order
-
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into financial_system.order(user, repository, count, price, amount, operator, create_time, is_delete)
-        values (#{user}, #{repository}, #{count}, #{price}, #{amount}, #{operator}, #{createTime}, #{isDelete})
+        insert into financial_system.order(user_id, product_id, order_time, expire_time, purchase_price, is_delete)
+        values (#{userId}, #{productId}, #{orderTime}, #{expireTime}, #{purchasePrice}, #{isDelete})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update financial_system.order
         <set>
-            <if test="user != null">
-                user = #{user},
+            <if test="userId != null">
+                user_id = #{userId},
             </if>
-            <if test="repository != null">
-                repository = #{repository},
+            <if test="productId != null">
+                product_id = #{productId},
             </if>
-            <if test="count != null">
-                count = #{count},
+            <if test="orderTime != null">
+                order_time = #{orderTime},
             </if>
-            <if test="price != null">
-                price = #{price},
+            <if test="expireTime != null">
+                expire_time = #{expireTime},
             </if>
-            <if test="amount != null">
-                amount = #{amount},
-            </if>
-            <if test="operator != null">
-                operator = #{operator},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime},
+            <if test="purchasePrice != null">
+                purchase_price = #{purchasePrice},
             </if>
             <if test="isDelete != null">
                 is_delete = #{isDelete},
             </if>
+
         </set>
         where id = #{id}
     </update>
@@ -91,62 +83,45 @@
     <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
         insert into financial_system.order
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="user != null">
-                user,
+            <if test="userId != null">
+                user_id,
             </if>
-            <if test="repository != null">
-                repository,
+            <if test="productId != null">
+                product_id,
             </if>
-            <if test="count != null">
-                count,
+            <if test="orderTime != null">
+                order_time,
             </if>
-            <if test="price != null">
-                price,
+            <if test="expireTime != null">
+                expire_time,
             </if>
-            <if test="amount != null">
-                amount,
-            </if>
-            <if test="operator != null">
-                operator,
-            </if>
-            <if test="createTime != null">
-                create_time,
+            <if test="purchasePrice != null">
+                purchase_price,
             </if>
             <if test="isDelete != null">
                 is_delete,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="user != null">
-                #{user},
+            <if test="userId != null">
+                #{userId},
             </if>
-            <if test="repository != null">
-                #{repository},
+            <if test="productId != null">
+                #{productId},
             </if>
-            <if test="count != null">
-                #{count},
+            <if test="orderTime != null">
+                #{orderTime},
             </if>
-            <if test="price != null">
-                #{price},
+            <if test="expireTime != null">
+                #{expireTime},
             </if>
-            <if test="amount != null">
-                #{amount},
-            </if>
-            <if test="operator != null">
-                #{operator},
-            </if>
-            <if test="createTime != null">
-                #{createTime},
+            <if test="purchasePrice != null">
+                #{purchasePrice},
             </if>
             <if test="isDelete != null">
                 #{isDelete},
             </if>
-        </trim>        
+        </trim>
     </insert>
-
-    <!--查询订单总数-->
-    <select id="countOrder" resultType="Integer">
-        select count(*) from financial_system.order
-    </select>
 
 </mapper>

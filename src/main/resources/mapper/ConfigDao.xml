@@ -4,28 +4,11 @@
 
     <resultMap type="com.example.financial_system.entity.Config" id="ConfigMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
-        <result property="provider" column="provider" jdbcType="INTEGER"/>
-        <result property="name" column="name" jdbcType="VARCHAR"/>
-        <result property="product1Id" column="product1_id" jdbcType="INTEGER"/>
-        <result property="product2Id" column="product2_id" jdbcType="INTEGER"/>
-        <result property="product3Id" column="product3_id" jdbcType="INTEGER"/>
-        <result property="price" column="price" jdbcType="NUMERIC"/>
-        <result property="discount" column="discount" jdbcType="VARCHAR"/>
-        <result property="quota" column="quota" jdbcType="INTEGER"/>
-        <result property="publishTime" column="publish_time" jdbcType="TIMESTAMP"/>
-        <result property="stopIssuingTime" column="stop_issuing_time" jdbcType="TIMESTAMP"/>
-        <result property="rateOfReturn" column="rate_of_return" jdbcType="NUMERIC"/>
-        <result property="startUpPoint" column="start_up_point" jdbcType="NUMERIC"/>
-        <result property="riskLevel" column="risk_level" jdbcType="INTEGER"/>
-        <result property="isDelete" column="is_delete" jdbcType="BOOLEAN"/>
-        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-        <result property="reviewTime" column="review_time" jdbcType="TIMESTAMP"/>
-        <result property="createOperator" column="create_operator" jdbcType="INTEGER"/>
-        <result property="reviewOperator" column="review_operator" jdbcType="INTEGER"/>
+        <result property="subProductList" column="sub_product_list" jdbcType="VARCHAR"/>
     </resultMap>
     
     <sql id="base_column_list">
-        id, provider, name, product1_id, product2_id, product3_id, price, discount, quota, publish_time, stop_issuing_time, rate_of_return, start_up_point, risk_level, is_delete, create_time, review_time, create_operator, review_operator    </sql>
+        id, sub_product_list    </sql>
 
     <!--查询单个-->
     <select id="queryById" resultMap="ConfigMap">
@@ -55,67 +38,16 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into financial_system.config(provider, name, product1_id, product2_id, product3_id, price, discount, quota, publish_time, stop_issuing_time, rate_of_return, start_up_point, risk_level, is_delete, create_time, review_time, create_operator, review_operator)
-        values (#{provider}, #{name}, #{product1Id}, #{product2Id}, #{product3Id}, #{price}, #{discount}, #{quota}, #{publishTime}, #{stopIssuingTime}, #{rateOfReturn}, #{startUpPoint}, #{riskLevel}, #{isDelete}, #{createTime}, #{reviewTime}, #{createOperator}, #{reviewOperator})
+        insert into financial_system.config(sub_product_list)
+        values (#{subProductList})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update financial_system.config
         <set>
-            <if test="provider != null">
-                provider = #{provider},
-            </if>
-            <if test="name != null and name != ''">
-                name = #{name},
-            </if>
-            <if test="product1Id != null">
-                product1_id = #{product1Id},
-            </if>
-            <if test="product2Id != null">
-                product2_id = #{product2Id},
-            </if>
-            <if test="product3Id != null">
-                product3_id = #{product3Id},
-            </if>
-            <if test="price != null">
-                price = #{price},
-            </if>
-            <if test="discount != null and discount != ''">
-                discount = #{discount},
-            </if>
-            <if test="quota != null">
-                quota = #{quota},
-            </if>
-            <if test="publishTime != null">
-                publish_time = #{publishTime},
-            </if>
-            <if test="stopIssuingTime != null">
-                stop_issuing_time = #{stopIssuingTime},
-            </if>
-            <if test="rateOfReturn != null">
-                rate_of_return = #{rateOfReturn},
-            </if>
-            <if test="startUpPoint != null">
-                start_up_point = #{startUpPoint},
-            </if>
-            <if test="riskLevel != null">
-                risk_level = #{riskLevel},
-            </if>
-            <if test="isDelete != null">
-                is_delete = #{isDelete},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime},
-            </if>
-            <if test="reviewTime != null">
-                review_time = #{reviewTime},
-            </if>
-            <if test="createOperator != null">
-                create_operator = #{createOperator},
-            </if>
-            <if test="reviewOperator != null">
-                review_operator = #{reviewOperator},
+            <if test="subProductList != null and subProductList != ''">
+                sub_product_list = #{subProductList},
             </if>
         </set>
         where id = #{id}
@@ -130,115 +62,13 @@
     <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
         insert into financial_system.config
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="provider != null">
-                provider,
-            </if>
-            <if test="name != null and name != ''">
-                name,
-            </if>
-            <if test="product1Id != null">
-                product1_id,
-            </if>
-            <if test="product2Id != null">
-                product2_id,
-            </if>
-            <if test="product3Id != null">
-                product3_id,
-            </if>
-            <if test="price != null">
-                price,
-            </if>
-            <if test="discount != null and discount != ''">
-                discount,
-            </if>
-            <if test="quota != null">
-                quota,
-            </if>
-            <if test="publishTime != null">
-                publish_time,
-            </if>
-            <if test="stopIssuingTime != null">
-                stop_issuing_time,
-            </if>
-            <if test="rateOfReturn != null">
-                rate_of_return,
-            </if>
-            <if test="startUpPoint != null">
-                start_up_point,
-            </if>
-            <if test="riskLevel != null">
-                risk_level,
-            </if>
-            <if test="isDelete != null">
-                is_delete,
-            </if>
-            <if test="createTime != null">
-                create_time,
-            </if>
-            <if test="reviewTime != null">
-                review_time,
-            </if>
-            <if test="createOperator != null">
-                create_operator,
-            </if>
-            <if test="reviewOperator != null">
-                review_operator,
+            <if test="subProductList != null and subProductList != ''">
+                sub_product_list,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="provider != null">
-                #{provider},
-            </if>
-            <if test="name != null and name != ''">
-                #{name},
-            </if>
-            <if test="product1Id != null">
-                #{product1Id},
-            </if>
-            <if test="product2Id != null">
-                #{product2Id},
-            </if>
-            <if test="product3Id != null">
-                #{product3Id},
-            </if>
-            <if test="price != null">
-                #{price},
-            </if>
-            <if test="discount != null and discount != ''">
-                #{discount},
-            </if>
-            <if test="quota != null">
-                #{quota},
-            </if>
-            <if test="publishTime != null">
-                #{publishTime},
-            </if>
-            <if test="stopIssuingTime != null">
-                #{stopIssuingTime},
-            </if>
-            <if test="rateOfReturn != null">
-                #{rateOfReturn},
-            </if>
-            <if test="startUpPoint != null">
-                #{startUpPoint},
-            </if>
-            <if test="riskLevel != null">
-                #{riskLevel},
-            </if>
-            <if test="isDelete != null">
-                #{isDelete},
-            </if>
-            <if test="createTime != null">
-                #{createTime},
-            </if>
-            <if test="reviewTime != null">
-                #{reviewTime},
-            </if>
-            <if test="createOperator != null">
-                #{createOperator},
-            </if>
-            <if test="reviewOperator != null">
-                #{reviewOperator},
+            <if test="subProductList != null and subProductList != ''">
+                #{subProductList},
             </if>
         </trim>        
     </insert>

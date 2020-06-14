@@ -1,8 +1,8 @@
 package com.example.financial_system.daoTest;
 
+import com.example.financial_system.entity.Config;
 import java.util.List;
 import com.example.financial_system.dao.ConfigDao;
-import com.example.financial_system.entity.Config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * 单元测试类
  *
  * @author laidilin
- * @since 2020-06-08 01:19:48
+ * @since 2020-06-15 00:11:03
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)

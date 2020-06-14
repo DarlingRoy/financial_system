@@ -5,15 +5,15 @@
     <resultMap type="com.example.financial_system.entity.ConfigAssessment" id="ConfigAssessmentMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="config" column="config" jdbcType="INTEGER"/>
-        <result property="grade" column="grade" jdbcType="INTEGER"/>
+        <result property="grade" column="grade" jdbcType="VARCHAR"/>
         <result property="description" column="description" jdbcType="VARCHAR"/>
-        <result property="operator" column="operator" jdbcType="INTEGER"/>
+        <result property="operatorId" column="operator_id" jdbcType="INTEGER"/>
         <result property="assessTime" column="assess_time" jdbcType="TIMESTAMP"/>
         <result property="isDelete" column="is_delete" jdbcType="BOOLEAN"/>
     </resultMap>
     
     <sql id="base_column_list">
-        id, config, grade, description, operator, assess_time, is_delete    </sql>
+        id, config, grade, description, operator_id, assess_time, is_delete    </sql>
 
     <!--查询单个-->
     <select id="queryById" resultMap="ConfigAssessmentMap">
@@ -39,13 +39,12 @@
         <include refid="base_column_list" />
 
         from financial_system.config_assessment
-
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into financial_system.config_assessment(config, grade, description, operator, assess_time, is_delete)
-        values (#{config}, #{grade}, #{description}, #{operator}, #{assessTime}, #{isDelete})
+        insert into financial_system.config_assessment(config, grade, description, assess_time, is_delete)
+        values (#{config}, #{grade}, #{description}, #{assessTime}, #{isDelete})
     </insert>
 
     <!--通过主键修改数据-->
@@ -55,14 +54,11 @@
             <if test="config != null">
                 config = #{config},
             </if>
-            <if test="grade != null">
+            <if test="grade != null and grade != ''">
                 grade = #{grade},
             </if>
             <if test="description != null and description != ''">
                 description = #{description},
-            </if>
-            <if test="operator != null">
-                operator = #{operator},
             </if>
             <if test="assessTime != null">
                 assess_time = #{assessTime},
@@ -86,14 +82,11 @@
             <if test="config != null">
                 config,
             </if>
-            <if test="grade != null">
+            <if test="grade != null and grade != ''">
                 grade,
             </if>
             <if test="description != null and description != ''">
                 description,
-            </if>
-            <if test="operator != null">
-                operator,
             </if>
             <if test="assessTime != null">
                 assess_time,
@@ -106,14 +99,11 @@
             <if test="config != null">
                 #{config},
             </if>
-            <if test="grade != null">
+            <if test="grade != null and grade != ''">
                 #{grade},
             </if>
             <if test="description != null and description != ''">
                 #{description},
-            </if>
-            <if test="operator != null">
-                #{operator},
             </if>
             <if test="assessTime != null">
                 #{assessTime},

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * (ProductType)表数据库访问层
  *
  * @author laidilin
- * @since 2020-06-11 21:30:26
+ * @since 2020-06-15 00:10:06
  */
 @Mapper
 @Repository 

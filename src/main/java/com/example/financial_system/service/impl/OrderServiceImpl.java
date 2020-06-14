@@ -12,7 +12,7 @@ import java.util.List;
  * (Order)表服务实现类
  *
  * @author laidilin
- * @since 2020-06-07 20:55:38
+ * @since 2020-06-14 23:40:09
  */
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
@@ -98,15 +98,4 @@ public class OrderServiceImpl implements OrderService {
         this.orderDao.insert(order);
         return order;
     }
-
-    /**
-     * 查询订单总数
-     * @return 订单总数
-     */
-    @Override
-    public Integer countOrder() {
-        return this.orderDao.countOrder();
-    }
-
-
 }

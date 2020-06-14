@@ -9,38 +9,46 @@ import lombok.Data;
  * (Order)实体类
  *
  * @author laidilin
- * @since 2020-06-07 20:55:38
+ * @since 2020-06-14 23:40:09
  */
 @Data
 @ApiModel("$tableInfo.comment")
 public class Order implements Serializable {
-    private static final long serialVersionUID = -73970314657671771L;
-        
-    @ApiModelProperty("$column.comment")
+    private static final long serialVersionUID = -27217555622232133L;
+    /**
+    * 订单id
+    */    
+    @ApiModelProperty("订单id")
     private Integer id;
-        
-    @ApiModelProperty("$column.comment")
-    private Integer user;
-        
-    @ApiModelProperty("$column.comment")
-    private Integer repository;
-        
-    @ApiModelProperty("$column.comment")
-    private Integer count;
-        
-    @ApiModelProperty("$column.comment")
-    private Double price;
-        
-    @ApiModelProperty("$column.comment")
-    private Double amount;
-        
-    @ApiModelProperty("$column.comment")
-    private Integer operator;
-        
-    @ApiModelProperty("$column.comment")
-    private Date createTime;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 用户id
+    */    
+    @ApiModelProperty("用户id")
+    private Integer userId;
+    /**
+    * 产品id
+    */    
+    @ApiModelProperty("产品id")
+    private Integer productId;
+    /**
+    * 下单时间
+    */    
+    @ApiModelProperty("下单时间")
+    private Date orderTime;
+    /**
+    * 到期时间
+    */    
+    @ApiModelProperty("到期时间")
+    private Date expireTime;
+    /**
+    * 购买金额
+    */    
+    @ApiModelProperty("购买金额")
+    private Double purchasePrice;
+    /**
+    * 逻辑删除
+    */    
+    @ApiModelProperty("逻辑删除")
     private Boolean isDelete;
 
 }

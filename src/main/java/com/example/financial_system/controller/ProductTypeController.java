@@ -14,8 +14,8 @@ import java.util.List;
 /**
  * (ProductType)表控制层
  *
- * @author linqx
- * @since 2020-06-14 15:12:40
+ * @author laidilin
+ * @since 2020-06-15 00:10:06
  */
 @Api(tags = "(ProductType)") 
 @RestController
@@ -66,7 +66,7 @@ public class ProductTypeController {
      * @param productType 实例对象
      */
     @ApiOperation("更新一条记录(只对不为空的字段进行更新)")
-    @PutMapping("update")
+    @PostMapping("update")
     public JsonResult update(ProductType productType){
         this.productTypeService.update(productType);
         return ResultTool.success();

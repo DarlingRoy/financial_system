@@ -1,8 +1,7 @@
 package com.example.financial_system.entity;
 
-import java.io.Serializable;
 import java.util.Date;
-
+import java.io.Serializable;
 import io.swagger.annotations.*;
 import lombok.Data;
 
@@ -10,12 +9,12 @@ import lombok.Data;
  * (Role)实体类
  *
  * @author laidilin
- * @since 2020-06-07 20:55:38
+ * @since 2020-06-14 23:40:29
  */
 @Data
 @ApiModel("$tableInfo.comment")
 public class Role implements Serializable {
-    private static final long serialVersionUID = 249213807842213398L;
+    private static final long serialVersionUID = -83364834695404778L;
         
     @ApiModelProperty("$column.comment")
     private Integer id;

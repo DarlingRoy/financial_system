@@ -7,7 +7,7 @@ import java.util.List;
  * (ConfigAssessment)表服务接口
  *
  * @author laidilin
- * @since 2020-06-07 20:55:38
+ * @since 2020-06-14 23:40:08
  */
 public interface ConfigAssessmentService {
 

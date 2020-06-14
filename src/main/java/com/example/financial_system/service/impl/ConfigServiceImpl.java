@@ -1,7 +1,7 @@
 package com.example.financial_system.service.impl;
 
-import com.example.financial_system.dao.ConfigDao;
 import com.example.financial_system.entity.Config;
+import com.example.financial_system.dao.ConfigDao;
 import com.example.financial_system.service.ConfigService;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * (Config)表服务实现类
  *
  * @author laidilin
- * @since 2020-06-07 20:55:36
+ * @since 2020-06-14 23:40:08
  */
 @Service("configService")
 public class ConfigServiceImpl implements ConfigService {

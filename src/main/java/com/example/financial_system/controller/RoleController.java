@@ -9,13 +9,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
 
 /**
  * (Role)表控制层
  *
- * @author linqx
- * @since 2020-06-14 15:12:39
+ * @author laidilin
+ * @since 2020-06-14 23:40:29
  */
 @Api(tags = "(Role)") 
 @RestController
@@ -66,7 +65,7 @@ public class RoleController {
      * @param role 实例对象
      */
     @ApiOperation("更新一条记录(只对不为空的字段进行更新)")
-    @PutMapping("update")
+    @PostMapping("update")
     public JsonResult update(Role role){
         this.roleService.update(role);
         return ResultTool.success();
@@ -105,17 +104,6 @@ public class RoleController {
     @GetMapping("selectAll")   
     public JsonResult selectAll() {
         return ResultTool.success(this.roleService.queryAll());
-    }
-
-    /**
-     * 查询不同的角色名数目
-     *
-     * @return 角色名数目
-     */
-    @ApiOperation(value  = "查询不同的角色名数目")
-    @GetMapping("count")
-    public JsonResult count() {
-        return ResultTool.success(this.roleService.countRoleName());
     }
 
 }

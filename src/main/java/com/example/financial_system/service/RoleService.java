@@ -7,7 +7,7 @@ import java.util.List;
  * (Role)表服务接口
  *
  * @author laidilin
- * @since 2020-06-07 20:55:38
+ * @since 2020-06-14 23:40:29
  */
 public interface RoleService {
 
@@ -66,11 +66,5 @@ public interface RoleService {
      * @return 实例对象
      */
     Role insertSelective(Role role);
-
-    /**
-     * 查询不同的角色名数目
-     * @return 不同的角色名数目
-     */
-    Integer countRoleName();
 
 }

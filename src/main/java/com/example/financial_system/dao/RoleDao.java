@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * (Role)表数据库访问层
  *
  * @author laidilin
- * @since 2020-06-07 20:55:38
+ * @since 2020-06-14 23:40:29
  */
 @Mapper
 @Repository 
@@ -72,11 +72,5 @@ public interface RoleDao {
      * @return 影响行数
      */
     int insertSelective(Role role);
-
-    /**
-     * 查询不同的角色名数目
-     * @return 不同的角色名数目
-     */
-    Integer countRoleName();
 
 }

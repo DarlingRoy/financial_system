@@ -13,7 +13,7 @@
     </resultMap>
     
     <sql id="base_column_list">
-        id, `order`, grade, `desc`, operator, comment_time, is_delete    </sql>
+        id, order, grade, desc, operator, comment_time, is_delete    </sql>
 
     <!--查询单个-->
     <select id="queryById" resultMap="OrderCommentMap">
@@ -39,7 +39,6 @@
         <include refid="base_column_list" />
 
         from financial_system.order_comment
-
     </select>
 
     <!--新增所有列-->
@@ -53,13 +52,13 @@
         update financial_system.order_comment
         <set>
             <if test="order != null">
-                `order` = #{order},
+                order = #{order},
             </if>
             <if test="grade != null">
                 grade = #{grade},
             </if>
             <if test="desc != null and desc != ''">
-                `desc` = #{desc},
+                desc = #{desc},
             </if>
             <if test="operator != null">
                 operator = #{operator},
@@ -84,13 +83,13 @@
         insert into financial_system.order_comment
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="order != null">
-                `order`,
+                order,
             </if>
             <if test="grade != null">
                 grade,
             </if>
             <if test="desc != null and desc != ''">
-                `desc`,
+                desc,
             </if>
             <if test="operator != null">
                 operator,

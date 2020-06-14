@@ -9,26 +9,36 @@ import lombok.Data;
  * (Department)实体类
  *
  * @author laidilin
- * @since 2020-06-07 20:55:38
+ * @since 2020-06-14 23:40:09
  */
 @Data
 @ApiModel("$tableInfo.comment")
 public class Department implements Serializable {
-    private static final long serialVersionUID = 986018735821513223L;
-        
-    @ApiModelProperty("$column.comment")
+    private static final long serialVersionUID = 537464938558626364L;
+    /**
+    * 部门id
+    */    
+    @ApiModelProperty("部门id")
     private Integer id;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 部门名称
+    */    
+    @ApiModelProperty("部门名称")
     private String name;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 部门类型
+    */    
+    @ApiModelProperty("部门类型")
     private String type;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 创建时间
+    */    
+    @ApiModelProperty("创建时间")
     private Date createTime;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 是否删除
+    */    
+    @ApiModelProperty("是否删除")
     private Boolean isDelete;
 
 }

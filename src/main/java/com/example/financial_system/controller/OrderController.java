@@ -14,8 +14,8 @@ import java.util.List;
 /**
  * (Order)表控制层
  *
- * @author linqx
- * @since 2020-06-14 15:12:41
+ * @author laidilin
+ * @since 2020-06-14 23:40:09
  */
 @Api(tags = "(Order)") 
 @RestController
@@ -35,7 +35,7 @@ public class OrderController {
      */
     @ApiOperation(value = "根据id查询 ")
     @GetMapping("selectOne")
-    public JsonResult selectOne(@ApiParam(value = " ID") Integer id) {
+    public JsonResult selectOne(@ApiParam(value = "订单id ID") Integer id) {
         return ResultTool.success(this.orderService.queryById(id));
     }
     
@@ -66,7 +66,7 @@ public class OrderController {
      * @param order 实例对象
      */
     @ApiOperation("更新一条记录(只对不为空的字段进行更新)")
-    @PutMapping("update")
+    @PostMapping("update")
     public JsonResult update(Order order){
         this.orderService.update(order);
         return ResultTool.success();
@@ -78,7 +78,7 @@ public class OrderController {
      */
     @ApiOperation("根据id删除一条记录")
     @DeleteMapping("delete")
-    public JsonResult delete(@ApiParam(value = " ID") Integer id){
+    public JsonResult delete(@ApiParam(value = "订单id ID") Integer id){
         this.orderService.deleteById(id);
         return ResultTool.success();
     }
@@ -107,14 +107,4 @@ public class OrderController {
         return ResultTool.success(this.orderService.queryAll());
     }
 
-    /**
-     * 查询订单总数
-     *
-     * @return 订单总数
-     */
-    @ApiOperation(value = "查询订单总数")
-    @GetMapping("count")
-    public JsonResult count() {
-        return ResultTool.success(this.orderService.countOrder());
-    }
 }

@@ -7,36 +7,31 @@
         <result property="providerId" column="provider_id" jdbcType="INTEGER"/>
         <result property="productTypeId" column="product_type_id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
-        <result property="price" column="price" jdbcType="NUMERIC"/>
-        <result property="quota" column="quota" jdbcType="INTEGER"/>
+        <result property="duration" column="duration" jdbcType="VARCHAR"/>
         <result property="rateOfReturn" column="rate_of_return" jdbcType="NUMERIC"/>
-        <result property="startUpPoint" column="start_up_point" jdbcType="NUMERIC"/>
-        <result property="publishDate" column="publish_date" jdbcType="TIMESTAMP"/>
-        <result property="stopIssuingDate" column="stop_issuing_date" jdbcType="TIMESTAMP"/>
-        <result property="duration" column="duration" jdbcType="INTEGER"/>
+        <result property="totalAmount" column="total_amount" jdbcType="INTEGER"/>
+        <result property="remainAmout" column="remain_amout" jdbcType="NUMERIC"/>
+        <result property="startUpAmount" column="start_up_amount" jdbcType="NUMERIC"/>
         <result property="riskLevel" column="risk_level" jdbcType="INTEGER"/>
-        <result property="isDelete" column="is_delete" jdbcType="BOOLEAN"/>
-        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-        <result property="reviewTime" column="review_time" jdbcType="TIMESTAMP"/>
-        <result property="createOperator" column="create_operator" jdbcType="INTEGER"/>
-        <result property="reviewOperator" column="review_operator" jdbcType="INTEGER"/>
-        <result property="providerName" column="provider_name" jdbcType="VARCHAR" />
-        <result property="type" column="type" jdbcType="VARCHAR" />
+        <result property="storageRemarks" column="storage_remarks" jdbcType="VARCHAR"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+        <result property="storageTime" column="storage_time" jdbcType="TIMESTAMP"/>
+        <result property="addedTime" column="added_time" jdbcType="TIMESTAMP"/>
+        <result property="reviewOperatorId" column="review_operator_id" jdbcType="INTEGER"/>
+        <result property="reviewResult" column="review_result" jdbcType="BOOLEAN"/>
+        <result property="reviewRemarks" column="review_remarks" jdbcType="VARCHAR"/>
     </resultMap>
     
     <sql id="base_column_list">
-        id, provider_id, product_type_id, name, price, quota, rate_of_return, start_up_point, publish_date, stop_issuing_date, duration, risk_level, is_delete, create_time, review_time, create_operator, review_operator    </sql>
+        id, provider_id, product_type_id, name, duration, rate_of_return, total_amount, remain_amout, start_up_amount, risk_level, storage_remarks, state, storage_time, added_time, review_operator_id, review_result, review_remarks    </sql>
 
     <!--查询单个-->
     <select id="queryById" resultMap="ProductMap">
         select
-        product.*, provider.name as provider_name, product_type.type
+        <include refid="base_column_list" />
+        
         from financial_system.product
-        join financial_system.provider
-          on product.provider_id=provider.id
-        join financial_system.product_type
-          on product.product_type_id=product_type.id
-        where product.id = #{id}
+        where id = #{id}
     </select>
 
     <!--查询指定行数据-->
@@ -58,8 +53,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into financial_system.product(provider_id, product_type_id, name, price, quota, rate_of_return, start_up_point, publish_date, stop_issuing_date, duration, risk_level, is_delete, create_time, review_time, create_operator, review_operator)
-        values (#{providerId}, #{productTypeId}, #{name}, #{price}, #{quota}, #{rateOfReturn}, #{startUpPoint}, #{publishDate}, #{stopIssuingDate}, #{duration}, #{riskLevel}, #{isDelete}, #{createTime}, #{reviewTime}, #{createOperator}, #{reviewOperator})
+        insert into financial_system.product(provider_id, product_type_id, name, duration, rate_of_return, risk_level)
+        values (#{providerId}, #{productTypeId}, #{name}, #{duration}, #{rateOfReturn}, #{riskLevel})
     </insert>
 
     <!--通过主键修改数据-->
@@ -75,44 +70,14 @@
             <if test="name != null and name != ''">
                 name = #{name},
             </if>
-            <if test="price != null">
-                price = #{price},
-            </if>
-            <if test="quota != null">
-                quota = #{quota},
+            <if test="duration != null and duration != ''">
+                duration = #{duration},
             </if>
             <if test="rateOfReturn != null">
                 rate_of_return = #{rateOfReturn},
             </if>
-            <if test="startUpPoint != null">
-                start_up_point = #{startUpPoint},
-            </if>
-            <if test="publishDate != null">
-                publish_date = #{publishDate},
-            </if>
-            <if test="stopIssuingDate != null">
-                stop_issuing_date = #{stopIssuingTime},
-            </if>
-            <if test="duration != null">
-                duration = #{duration},
-            </if>
             <if test="riskLevel != null">
                 risk_level = #{riskLevel},
-            </if>
-            <if test="isDelete != null">
-                is_delete = #{isDelete},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime},
-            </if>
-            <if test="reviewTime != null">
-                review_time = #{reviewTime},
-            </if>
-            <if test="createOperator != null">
-                create_operator = #{createOperator},
-            </if>
-            <if test="reviewOperator != null">
-                review_operator = #{reviewOperator},
             </if>
         </set>
         where id = #{id}
@@ -136,44 +101,14 @@
             <if test="name != null and name != ''">
                 name,
             </if>
-            <if test="price != null">
-                price,
-            </if>
-            <if test="quota != null">
-                quota,
+            <if test="duration != null and duration != ''">
+                duration,
             </if>
             <if test="rateOfReturn != null">
                 rate_of_return,
             </if>
-            <if test="startUpPoint != null">
-                start_up_point,
-            </if>
-            <if test="publishDate != null">
-                publish_date,
-            </if>
-            <if test="stopIssuingDate != null">
-                stop_issuing_date,
-            </if>
-            <if test="duration != null">
-                duration,
-            </if>
             <if test="riskLevel != null">
                 risk_level,
-            </if>
-            <if test="isDelete != null">
-                is_delete,
-            </if>
-            <if test="createTime != null">
-                create_time,
-            </if>
-            <if test="reviewTime != null">
-                review_time,
-            </if>
-            <if test="createOperator != null">
-                create_operator,
-            </if>
-            <if test="reviewOperator != null">
-                review_operator,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -186,44 +121,14 @@
             <if test="name != null and name != ''">
                 #{name},
             </if>
-            <if test="price != null">
-                #{price},
-            </if>
-            <if test="quota != null">
-                #{quota},
+            <if test="duration != null and duration != ''">
+                #{duration},
             </if>
             <if test="rateOfReturn != null">
                 #{rateOfReturn},
             </if>
-            <if test="startUpPoint != null">
-                #{startUpPoint},
-            </if>
-            <if test="publishDate != null">
-                #{publishDate},
-            </if>
-            <if test="stopIssuingDate != null">
-                #{stopIssuingDate},
-            </if>
-            <if test="duration != null">
-                #{duration},
-            </if>
             <if test="riskLevel != null">
                 #{riskLevel},
-            </if>
-            <if test="isDelete != null">
-                #{isDelete},
-            </if>
-            <if test="createTime != null">
-                #{createTime},
-            </if>
-            <if test="reviewTime != null">
-                #{reviewTime},
-            </if>
-            <if test="createOperator != null">
-                #{createOperator},
-            </if>
-            <if test="reviewOperator != null">
-                #{reviewOperator},
             </if>
         </trim>        
     </insert>

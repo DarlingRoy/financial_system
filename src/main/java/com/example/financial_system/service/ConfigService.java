@@ -1,14 +1,13 @@
 package com.example.financial_system.service;
 
 import com.example.financial_system.entity.Config;
-
 import java.util.List;
 
 /**
  * (Config)表服务接口
  *
  * @author laidilin
- * @since 2020-06-07 20:55:35
+ * @since 2020-06-14 23:40:08
  */
 public interface ConfigService {
 

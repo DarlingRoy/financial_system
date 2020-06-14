@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * 单元测试类
  *
  * @author laidilin
- * @since 2020-06-08 01:21:51
+ * @since 2020-06-15 00:24:50
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -43,11 +43,6 @@ public class OrderTest {
     public void testQueryById(){
         Order order = orderDao.queryById(1);
         System.out.println(order);
-    }
-
-    @Test
-    public void testCount(){
-        System.out.println(orderDao.countOrder());
     }
     
 }

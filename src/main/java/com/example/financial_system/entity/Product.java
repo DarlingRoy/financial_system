@@ -2,8 +2,6 @@ package com.example.financial_system.entity;
 
 import java.util.Date;
 import java.io.Serializable;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.*;
 import lombok.Data;
 
@@ -11,78 +9,94 @@ import lombok.Data;
  * (Product)实体类
  *
  * @author laidilin
- * @since 2020-06-11 21:29:53
+ * @since 2020-06-14 23:40:09
  */
 @Data
 @ApiModel("$tableInfo.comment")
 public class Product implements Serializable {
-    private static final long serialVersionUID = -61552594003739139L;
-        
-    @ApiModelProperty("$column.comment")
+    private static final long serialVersionUID = 902638852808144115L;
+    /**
+    * 产品id
+    */    
+    @ApiModelProperty("产品id")
     private Integer id;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 供应商id
+    */    
+    @ApiModelProperty("供应商id")
+    private Integer providerId;
+    /**
+    * 产品类型id
+    */    
+    @ApiModelProperty("产品类型id")
+    private Integer productTypeId;
+    /**
+    * 产品名称
+    */    
+    @ApiModelProperty("产品名称")
     private String name;
-        
-    @ApiModelProperty("$column.comment")
-    private Double price;
+    /**
+    * 期长
+    */    
+    @ApiModelProperty("期长")
+    private String duration;
+    /**
+    * 收益率
+    */    
+    @ApiModelProperty("收益率")
+    private Double rateOfReturn;
     /**
     * 产品额度
     */    
     @ApiModelProperty("产品额度")
-    private Integer quota;
-        
-    @ApiModelProperty("$column.comment")
-    private Double rateOfReturn;
-        
-    @ApiModelProperty("$column.comment")
-    private Double startUpPoint;
-        
-    @ApiModelProperty("$column.comment")
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date publishDate;
-
+    private Integer totalAmount;
     /**
-    * 停止发行时间
+    * 剩余金额(0.4表示 0.4%）
     */    
-    @ApiModelProperty("停止发行时间")
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date stopIssuingDate;
-
+    @ApiModelProperty("剩余金额(0.4表示 0.4%）")
+    private Double remainAmout;
     /**
-    * 定期理财产品的天数
+    * 起购金额
     */    
-    @ApiModelProperty("定期理财产品的天数")
-    private Integer duration;
-        
-    @ApiModelProperty("$column.comment")
+    @ApiModelProperty("起购金额")
+    private Double startUpAmount;
+    /**
+    * 风险评级（5个）
+    */    
+    @ApiModelProperty("风险评级（5个）")
     private Integer riskLevel;
+    /**
+    * 入库备注
+    */    
+    @ApiModelProperty("入库备注")
+    private String storageRemarks;
+    /**
+    * 状态
+    */    
+    @ApiModelProperty("状态")
+    private Integer state;
+    /**
+    * 入库时间
+    */    
+    @ApiModelProperty("入库时间")
+    private Date storageTime;
+    /**
+    * 上架时间
+    */    
+    @ApiModelProperty("上架时间")
+    private Date addedTime;
         
     @ApiModelProperty("$column.comment")
-    private Boolean isDelete;
-        
-    @ApiModelProperty("$column.comment")
-    private Date createTime;
-        
-    @ApiModelProperty("$column.comment")
-    private Date reviewTime;
-        
-    @ApiModelProperty("$column.comment")
-    private Integer createOperator;
-        
-    @ApiModelProperty("$column.comment")
-    private Integer reviewOperator;
-
-    @ApiModelProperty("产品对应的供应商ID")
-    private Integer providerId;
-
-    @ApiModelProperty("产品对应的供应商名称")
-    private String providerName;
-
-    @ApiModelProperty("$column.comment")
-    private Integer productTypeId;
-
-    @ApiModelProperty("产品对应类型名称")
-    private String type;
+    private Integer reviewOperatorId;
+    /**
+    * 审核结果
+    */    
+    @ApiModelProperty("审核结果")
+    private Boolean reviewResult;
+    /**
+    * 审核备注
+    */    
+    @ApiModelProperty("审核备注")
+    private String reviewRemarks;
 
 }

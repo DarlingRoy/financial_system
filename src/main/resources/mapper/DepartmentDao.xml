@@ -37,7 +37,6 @@
         <include refid="base_column_list" />
 
         from financial_system.department
-
     </select>
 
     <!--新增所有列-->

@@ -9,13 +9,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
 
 /**
  * (ConfigAssessment)表控制层
  *
- * @author linqx
- * @since 2020-06-14 15:12:42
+ * @author laidilin
+ * @since 2020-06-14 23:40:08
  */
 @Api(tags = "(ConfigAssessment)") 
 @RestController
@@ -66,7 +65,7 @@ public class ConfigAssessmentController {
      * @param configAssessment 实例对象
      */
     @ApiOperation("更新一条记录(只对不为空的字段进行更新)")
-    @PutMapping("update")
+    @PostMapping("update")
     public JsonResult update(ConfigAssessment configAssessment){
         this.configAssessmentService.update(configAssessment);
         return ResultTool.success();
@@ -92,7 +91,7 @@ public class ConfigAssessmentController {
      */
     @ApiOperation(value = "根据起始位置和查询条数查询多条数据")
     @GetMapping("selectAllByLimit")   
-    public JsonResult selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,@ApiParam(value = "查询记录条数") int limit) {
+    public JsonResult selectAllByLimit(@ApiParam(value = "查询起始位置") int offset, @ApiParam(value = "查询记录条数") int limit) {
         return ResultTool.success(this.configAssessmentService.queryAllByLimit(offset, limit));
     }
     

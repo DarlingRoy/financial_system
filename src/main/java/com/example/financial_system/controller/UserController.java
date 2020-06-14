@@ -66,7 +66,7 @@ public class UserController {
      * @param user 实例对象
      */
     @ApiOperation("更新一条记录(只对不为空的字段进行更新)")
-    @PutMapping("update")
+    @PostMapping("update")
     public JsonResult update(User user){
         this.userService.update(user);
         return ResultTool.success();

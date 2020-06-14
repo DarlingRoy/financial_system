@@ -9,29 +9,46 @@ import lombok.Data;
  * (Provider)实体类
  *
  * @author laidilin
- * @since 2020-06-07 20:55:38
+ * @since 2020-06-14 23:40:28
  */
 @Data
 @ApiModel("$tableInfo.comment")
 public class Provider implements Serializable {
-    private static final long serialVersionUID = -23998269489378900L;
-        
-    @ApiModelProperty("$column.comment")
+    private static final long serialVersionUID = 904462096715340068L;
+    /**
+    * 供应商id
+    */    
+    @ApiModelProperty("供应商id")
     private Integer id;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 供应商名称
+    */    
+    @ApiModelProperty("供应商名称")
     private String name;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 邮件
+    */    
+    @ApiModelProperty("邮件")
     private String email;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 电话
+    */    
+    @ApiModelProperty("电话")
     private String phone;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 地址
+    */    
+    @ApiModelProperty("地址")
+    private String address;
+    /**
+    * 创建时间
+    */    
+    @ApiModelProperty("创建时间")
     private Date createTime;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 是否删除
+    */    
+    @ApiModelProperty("是否删除")
     private Boolean isDelete;
 
 }

@@ -12,7 +12,7 @@ import java.util.List;
  * (ConfigAssessment)表服务实现类
  *
  * @author laidilin
- * @since 2020-06-07 20:55:38
+ * @since 2020-06-14 23:40:08
  */
 @Service("configAssessmentService")
 public class ConfigAssessmentServiceImpl implements ConfigAssessmentService {

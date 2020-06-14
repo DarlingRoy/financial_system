@@ -12,7 +12,7 @@ import java.util.List;
  * (Role)表服务实现类
  *
  * @author laidilin
- * @since 2020-06-07 20:55:38
+ * @since 2020-06-14 23:40:29
  */
 @Service("roleService")
 public class RoleServiceImpl implements RoleService {
@@ -97,14 +97,5 @@ public class RoleServiceImpl implements RoleService {
     public Role insertSelective(Role role) {
         this.roleDao.insert(role);
         return role;
-    }
-
-    /**
-     * 查询不同的角色名数目
-     * @return 不同的角色名数目
-     */
-    @Override
-    public Integer countRoleName() {
-        return this.roleDao.countRoleName();
     }
 }

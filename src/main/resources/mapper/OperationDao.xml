@@ -5,14 +5,11 @@
     <resultMap type="com.example.financial_system.entity.Operation" id="OperationMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
-        <result property="type" column="type" jdbcType="VARCHAR"/>
-        <result property="operator" column="operator" jdbcType="INTEGER"/>
-        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-        <result property="isDelete" column="is_delete" jdbcType="BOOLEAN"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
     </resultMap>
     
     <sql id="base_column_list">
-        id, name, type, operator, create_time, is_delete    </sql>
+        id, name, url    </sql>
 
     <!--查询单个-->
     <select id="queryById" resultMap="OperationMap">
@@ -38,13 +35,12 @@
         <include refid="base_column_list" />
 
         from financial_system.operation
-
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into financial_system.operation(name, type, operator, create_time, is_delete)
-        values (#{name}, #{type}, #{operator}, #{createTime}, #{isDelete})
+        insert into financial_system.operation(name,url)
+        values (#{name},#{url})
     </insert>
 
     <!--通过主键修改数据-->
@@ -54,17 +50,8 @@
             <if test="name != null and name != ''">
                 name = #{name},
             </if>
-            <if test="type != null and type != ''">
-                type = #{type},
-            </if>
-            <if test="operator != null">
-                operator = #{operator},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime},
-            </if>
-            <if test="isDelete != null">
-                is_delete = #{isDelete},
+            <if test="url != null and url != ''">
+                url = #{url}
             </if>
         </set>
         where id = #{id}
@@ -82,34 +69,16 @@
             <if test="name != null and name != ''">
                 name,
             </if>
-            <if test="type != null and type != ''">
-                type,
-            </if>
-            <if test="operator != null">
-                operator,
-            </if>
-            <if test="createTime != null">
-                create_time,
-            </if>
-            <if test="isDelete != null">
-                is_delete,
+            <if test="url != null and url != ''">
+                url,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="name != null and name != ''">
                 #{name},
             </if>
-            <if test="type != null and type != ''">
-                #{type},
-            </if>
-            <if test="operator != null">
-                #{operator},
-            </if>
-            <if test="createTime != null">
-                #{createTime},
-            </if>
-            <if test="isDelete != null">
-                #{isDelete},
+            <if test="url != null and url != ''">
+                #{url},
             </if>
         </trim>        
     </insert>

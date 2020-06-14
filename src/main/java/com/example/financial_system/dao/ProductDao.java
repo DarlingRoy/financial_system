@@ -3,7 +3,6 @@ package com.example.financial_system.dao;
 import com.example.financial_system.entity.Product;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -11,14 +10,14 @@ import org.springframework.stereotype.Repository;
  * (Product)表数据库访问层
  *
  * @author laidilin
- * @since 2020-06-11 21:29:53
+ * @since 2020-06-14 23:40:09
  */
 @Mapper
 @Repository 
 public interface ProductDao {
 
     /**
-     * 根据产品id，查询产品所有信息、产品对应供应商的id和名称、以及产品对应的类型
+     * 通过ID查询单条数据
      *
      * @param id 主键
      * @return 实例对象
@@ -73,7 +72,5 @@ public interface ProductDao {
      * @return 影响行数
      */
     int insertSelective(Product product);
-
-
 
 }

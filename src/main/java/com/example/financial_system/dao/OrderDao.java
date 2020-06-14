@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * (Order)表数据库访问层
  *
  * @author laidilin
- * @since 2020-06-07 20:55:38
+ * @since 2020-06-14 23:40:09
  */
 @Mapper
 @Repository 
@@ -72,12 +72,5 @@ public interface OrderDao {
      * @return 影响行数
      */
     int insertSelective(Order order);
-
-    /**
-     * 查询订单总数
-     *
-     * @return 订单总数
-     */
-    Integer countOrder();
 
 }

@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * 单元测试类
  *
  * @author laidilin
- * @since 2020-06-08 01:26:22
+ * @since 2020-06-15 00:25:35
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -44,9 +44,5 @@ public class RoleTest {
         Role role = roleDao.queryById(1);
         System.out.println(role);
     }
-
-    @Test
-    public void testCountName(){
-        System.out.println(roleDao.countRoleName());
-    }
+    
 }

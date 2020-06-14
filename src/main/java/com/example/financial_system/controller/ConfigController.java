@@ -14,8 +14,8 @@ import java.util.List;
 /**
  * (Config)表控制层
  *
- * @author linqx
- * @since 2020-06-14 15:12:42
+ * @author laidilin
+ * @since 2020-06-14 23:40:08
  */
 @Api(tags = "(Config)") 
 @RestController
@@ -35,7 +35,7 @@ public class ConfigController {
      */
     @ApiOperation(value = "根据id查询 ")
     @GetMapping("selectOne")
-    public JsonResult selectOne(@ApiParam(value = " ID") Integer id) {
+    public JsonResult selectOne(@ApiParam(value = "产品id ID") Integer id) {
         return ResultTool.success(this.configService.queryById(id));
     }
     
@@ -66,7 +66,7 @@ public class ConfigController {
      * @param config 实例对象
      */
     @ApiOperation("更新一条记录(只对不为空的字段进行更新)")
-    @PutMapping("update")
+    @PostMapping("update")
     public JsonResult update(Config config){
         this.configService.update(config);
         return ResultTool.success();
@@ -78,7 +78,7 @@ public class ConfigController {
      */
     @ApiOperation("根据id删除一条记录")
     @DeleteMapping("delete")
-    public JsonResult delete(@ApiParam(value = " ID") Integer id){
+    public JsonResult delete(@ApiParam(value = "产品id ID") Integer id){
         this.configService.deleteById(id);
         return ResultTool.success();
     }
@@ -92,7 +92,7 @@ public class ConfigController {
      */
     @ApiOperation(value = "根据起始位置和查询条数查询多条数据")
     @GetMapping("selectAllByLimit")   
-    public JsonResult selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,@ApiParam(value = "查询记录条数") int limit) {
+    public JsonResult selectAllByLimit(@ApiParam(value = "查询起始位置") int offset, @ApiParam(value = "查询记录条数") int limit) {
         return ResultTool.success(this.configService.queryAllByLimit(offset, limit));
     }
     

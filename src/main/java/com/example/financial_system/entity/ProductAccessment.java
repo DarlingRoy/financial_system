@@ -9,12 +9,12 @@ import lombok.Data;
  * (ProductAccessment)实体类
  *
  * @author laidilin
- * @since 2020-06-07 20:55:38
+ * @since 2020-06-14 23:40:09
  */
 @Data
 @ApiModel("$tableInfo.comment")
 public class ProductAccessment implements Serializable {
-    private static final long serialVersionUID = 205849581479986782L;
+    private static final long serialVersionUID = 460604065836400486L;
         
     @ApiModelProperty("$column.comment")
     private Integer id;
