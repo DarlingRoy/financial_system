@@ -11,7 +11,7 @@
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="isDelete" column="is_delete" jdbcType="BOOLEAN"/>
     </resultMap>
-
+    
     <sql id="base_column_list">
         id, name, email, phone, address, create_time, is_delete    </sql>
 
@@ -19,7 +19,7 @@
     <select id="queryById" resultMap="ProviderMap">
         select
         <include refid="base_column_list" />
-
+        
         from financial_system.provider
         where id = #{id}
     </select>
@@ -74,7 +74,7 @@
     <delete id="deleteById">
         delete from financial_system.provider where id = #{id}
     </delete>
-
+    
     <!--选择性的新增列-->
     <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
         insert into financial_system.provider
@@ -111,7 +111,13 @@
             <if test="isDelete != null">
                 #{isDelete},
             </if>
-        </trim>
+        </trim>        
     </insert>
+    
+    <!--返回表行数-->
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+        from financial_system.provider
+    </select>
 
 </mapper>

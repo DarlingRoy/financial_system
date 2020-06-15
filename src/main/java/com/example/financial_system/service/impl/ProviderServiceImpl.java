@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * (Provider)表服务实现类
  *
- * @author laidilin
- * @since 2020-06-14 23:40:28
+ * @author linqx
+ * @since 2020-06-15 21:01:57
  */
 @Service("providerService")
 public class ProviderServiceImpl implements ProviderService {
@@ -41,7 +41,7 @@ public class ProviderServiceImpl implements ProviderService {
     public List<Provider> queryAllByLimit(int offset, int limit) {
         return this.providerDao.queryAllByLimit(offset, limit);
     }
-
+    
     /**
      * 查询所有数据
      *
@@ -86,7 +86,7 @@ public class ProviderServiceImpl implements ProviderService {
     public boolean deleteById(Integer id) {
         return this.providerDao.deleteById(id) > 0;
     }
-
+    
     /**
      * 选择性新增数据
      *
@@ -98,4 +98,14 @@ public class ProviderServiceImpl implements ProviderService {
         this.providerDao.insert(provider);
         return provider;
     }
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+     @Override
+     public Integer count(){
+        return providerDao.count();
+     }
 }

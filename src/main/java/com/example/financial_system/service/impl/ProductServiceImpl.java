@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * (Product)表服务实现类
  *
- * @author laidilin
- * @since 2020-06-14 23:40:09
+ * @author linqx
+ * @since 2020-06-15 23:43:41
  */
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
@@ -98,4 +98,14 @@ public class ProductServiceImpl implements ProductService {
         this.productDao.insert(product);
         return product;
     }
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+     @Override
+     public Integer count(){
+        return productDao.count();
+     }
 }

@@ -6,8 +6,8 @@ import java.util.List;
 /**
  * (Product)表服务接口
  *
- * @author laidilin
- * @since 2020-06-14 23:40:09
+ * @author linqx
+ * @since 2020-06-15 23:43:40
  */
 public interface ProductService {
 
@@ -66,5 +66,12 @@ public interface ProductService {
      * @return 实例对象
      */
     Product insertSelective(Product product);
-
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+     Integer count();
+     
 }

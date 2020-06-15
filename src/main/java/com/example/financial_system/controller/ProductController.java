@@ -1,24 +1,29 @@
 package com.example.financial_system.controller;
 
+import com.example.financial_system.VO.OrderVO;
+import com.example.financial_system.VO.ProductVO;
 import com.example.financial_system.common.entity.JsonResult;
 import com.example.financial_system.common.utils.ResultTool;
 import com.example.financial_system.entity.Product;
 import com.example.financial_system.service.ProductService;
+import com.example.financial_system.service.ProductTypeService;
+import com.example.financial_system.service.ProviderService;
 import com.example.financial_system.service.UserService;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.dozer.Mapper;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * (Product)表控制层
  *
- * @author laidilin
- * @since 2020-06-14 23:40:09
+ * @author linqx
+ * @since 2020-06-15 21:34:48
  */
 @Api(tags = "(Product)") 
 @RestController
@@ -30,9 +35,20 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    /**
+     * dozer mapper 类
+     */
+    @Autowired
+    private Mapper mapper;
+
+    @Autowired
+    private ProviderService providerService;
+
+    @Autowired
+    private ProductTypeService productTypeService;
+
     @Autowired
     private UserService userService;
-
     /**
      * 通过主键查询单条数据
      *
@@ -42,7 +58,12 @@ public class ProductController {
     @ApiOperation(value = "根据id查询 ")
     @GetMapping("selectOne")
     public JsonResult selectOne(@ApiParam(value = "产品id ID") Integer id) {
-        return ResultTool.success(this.productService.queryById(id));
+        Product product = this.productService.queryById(id);
+        ProductVO productVO = mapper.map(product, ProductVO.class);
+        productVO.setProviderName(providerService.queryById(productVO.getProviderId()).getName());
+        productVO.setProductType(productTypeService.queryById(productVO.getProductTypeId()).getType());
+        productVO.setReviewOperatorName(userService.queryById(productVO.getReviewOperatorId()).getUsername());
+        return ResultTool.success(productVO);
     }
     
     /**
@@ -52,7 +73,6 @@ public class ProductController {
     @ApiOperation("增加一条记录(只填入不为空的字段)")
     @PostMapping("insertSelective")
     public JsonResult insertSelective(Product product){
-
         this.productService.insertSelective(product);
         return ResultTool.success();
     }
@@ -64,7 +84,6 @@ public class ProductController {
     @ApiOperation("增加一条记录(填入所有字段)")
     @PostMapping("insert")
     public JsonResult insert(Product product){
-
         this.productService.insert(product);
         return ResultTool.success();
     }
@@ -74,9 +93,8 @@ public class ProductController {
      * @param product 实例对象
      */
     @ApiOperation("更新一条记录(只对不为空的字段进行更新)")
-    @PostMapping("update")
+    @PutMapping("update")
     public JsonResult update(Product product){
-
         this.productService.update(product);
         return ResultTool.success();
     }
@@ -101,8 +119,18 @@ public class ProductController {
      */
     @ApiOperation(value = "根据起始位置和查询条数查询多条数据")
     @GetMapping("selectAllByLimit")   
-    public JsonResult selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,@ApiParam(value = "查询记录条数") int limit) {
-        return ResultTool.success(this.productService.queryAllByLimit(offset, limit));
+    public JsonResult selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,
+                                       @ApiParam(value = "查询记录条数") int limit) {
+        List<Product> productList = productService.queryAllByLimit(offset, limit);
+        List<ProductVO> productVOList = new ArrayList<>();
+        for (Product product: productList) {
+            ProductVO productVO = mapper.map(product, ProductVO.class);
+            productVO.setProviderName(providerService.queryById(productVO.getProviderId()).getName());
+            productVO.setProductType(productTypeService.queryById(productVO.getProductTypeId()).getType());
+            productVO.setReviewOperatorName(userService.queryById(productVO.getReviewOperatorId()).getUsername());
+            productVOList.add(productVO);
+        }
+        return ResultTool.success();
     }
     
     /**
@@ -113,7 +141,28 @@ public class ProductController {
     @ApiOperation(value = "查询表中所有数据")
     @GetMapping("selectAll")   
     public JsonResult selectAll() {
-        return ResultTool.success(this.productService.queryAll());
+        List<Product> productList = productService.queryAll();
+        List<ProductVO> productVOList = new ArrayList<>();
+        for (Product product: productList) {
+            ProductVO productVO = mapper.map(product, ProductVO.class);
+            productVO.setProviderName(providerService.queryById(product.getProviderId()).getName());
+            productVO.setProductType(productTypeService.queryById(product.getProductTypeId()).getType());
+            productVO.setReviewOperatorName(userService.queryById(product.getReviewOperatorId()).getUsername());
+            productVOList.add(productVO);
+        }
+
+       return ResultTool.success(productVOList);
     }
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+     @ApiOperation(value = "返回表中行数")
+     @GetMapping("count")
+     public JsonResult count() {
+        return ResultTool.success(this.productService.count());
+     }
 
 }

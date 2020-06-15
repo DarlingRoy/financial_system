@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 /**
  * (Product)表数据库访问层
  *
- * @author laidilin
- * @since 2020-06-14 23:40:09
+ * @author linqx
+ * @since 2020-06-15 23:43:40
  */
 @Mapper
 @Repository 
@@ -72,5 +72,11 @@ public interface ProductDao {
      * @return 影响行数
      */
     int insertSelective(Product product);
-
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+    Integer count();
 }

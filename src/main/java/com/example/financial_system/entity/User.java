@@ -2,6 +2,9 @@ package com.example.financial_system.entity;
 
 import java.util.Date;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.*;
 import lombok.Data;
 
@@ -13,6 +16,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel("$tableInfo.comment")
+@JsonIgnoreProperties(value = {"password", "createTime", "isDelete"})
 public class User implements Serializable {
     private static final long serialVersionUID = 235340578594477820L;
         

@@ -9,11 +9,11 @@ import org.springframework.stereotype.Repository;
 /**
  * (Provider)表数据库访问层
  *
- * @author laidilin
- * @since 2020-06-14 23:40:28
+ * @author linqx
+ * @since 2020-06-15 21:01:57
  */
 @Mapper
-@Repository
+@Repository 
 public interface ProviderDao {
 
     /**
@@ -64,7 +64,7 @@ public interface ProviderDao {
      * @return 影响行数
      */
     int deleteById(Integer id);
-
+    
     /**
      * 选择性插入数据
      *
@@ -72,5 +72,11 @@ public interface ProviderDao {
      * @return 影响行数
      */
     int insertSelective(Provider provider);
-
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+    Integer count();
 }

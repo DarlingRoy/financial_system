@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80015
 File Encoding         : 65001
 
-Date: 2020-06-14 23:09:04
+Date: 2020-06-15 23:45:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -89,8 +89,8 @@ CREATE TABLE `operation` (
 -- ----------------------------
 -- Records of operation
 -- ----------------------------
-INSERT INTO `operation` VALUES ('1', 'administrator', null);
-INSERT INTO `operation` VALUES ('2', 'general_user', null);
+INSERT INTO `operation` VALUES ('1', 'administrator', '/user/insertSelective');
+INSERT INTO `operation` VALUES ('2', 'general_user', '/user/selectAll');
 
 -- ----------------------------
 -- Table structure for operation_role
@@ -167,12 +167,12 @@ CREATE TABLE `product` (
   `product_type_id` int(16) DEFAULT NULL COMMENT '产品类型id',
   `name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '产品名称',
   `duration` varchar(255) DEFAULT NULL COMMENT '期长',
-  `rate_of_return` decimal(11,2) DEFAULT NULL COMMENT '收益率',
+  `return_rate` decimal(11,2) DEFAULT NULL COMMENT '收益率',
   `total_amount` int(16) DEFAULT NULL COMMENT '产品额度',
-  `remain_amout` decimal(11,2) DEFAULT NULL COMMENT '剩余金额(0.4表示 0.4%）',
-  `start_up_amount` decimal(11,2) DEFAULT NULL COMMENT '起购金额',
+  `remain_amount` decimal(11,2) DEFAULT NULL COMMENT '剩余金额(0.4表示 0.4%）',
+  `least_amount` decimal(11,2) DEFAULT NULL COMMENT '起购金额',
   `risk_level` tinyint(4) DEFAULT NULL COMMENT '风险评级（5个）',
-  `storage_remarks` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '入库备注',
+  `add_text` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '入库备注',
   `state` tinyint(4) DEFAULT NULL COMMENT '状态',
   `storage_time` datetime DEFAULT NULL COMMENT '入库时间',
   `added_time` datetime DEFAULT NULL COMMENT '上架时间',
@@ -181,7 +181,7 @@ CREATE TABLE `product` (
   `review_remarks` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '审核备注',
   PRIMARY KEY (`id`),
   KEY `FK_Reference_12` (`provider_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of product
@@ -189,7 +189,7 @@ CREATE TABLE `product` (
 INSERT INTO `product` VALUES ('1', '1', '1', '今明股票', '0', '3.00', '70', '30.00', '1.00', '3', '股票', '4', '2020-06-10 22:14:07', '2020-06-14 22:14:21', '3', '1', '通过');
 INSERT INTO `product` VALUES ('2', '1', '2', '荣耀基金', '0', '0.90', '200', '130.00', '5.00', '1', '基金', '4', '2020-06-02 22:24:51', '2020-06-14 22:25:01', '1', '1', '通过');
 INSERT INTO `product` VALUES ('3', '2', '3', '罗明债券', '3,2,0', '2.00', '120', '100.00', '2.00', '2', '债券', '4', '2020-06-02 22:29:53', '2020-06-20 22:29:57', '2', '1', '通过');
-INSERT INTO `product` VALUES ('4', '1', '2', '光明基金', '0', '1.00', '100', '80.00', '5.00', '1', '基金', '1', '2020-06-02 22:13:58', null, null, null, '');
+INSERT INTO `product` VALUES ('4', '1', '2', '光明基金', '0', '1.00', '100', '80.00', '5.00', '1', '基金', '1', '2020-06-02 22:13:58', null, '1', null, '');
 INSERT INTO `product` VALUES ('5', '2', '3', '华润债券', '2,3,0', '2.00', '90', '70.00', '2.00', '2', '债券', '2', '2020-06-09 22:14:02', null, '2', '1', '待上架');
 
 -- ----------------------------
@@ -244,7 +244,7 @@ CREATE TABLE `provider` (
   `phone` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '电话',
   `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '地址',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `is_delete` tinyint(1) DEFAULT NULL COMMENT '是否删除',
+  `is_delete` tinyint(1) DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -336,7 +336,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `username` (`username`),
   KEY `FK_Reference_11` (`department_id`),
   CONSTRAINT `FK_Reference_11` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of user
@@ -347,3 +347,4 @@ INSERT INTO `user` VALUES ('3', '3', 'John', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.4
 INSERT INTO `user` VALUES ('4', null, 'Alex', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13738424824@qq.com', '13638482943', '2020-06-07 00:00:00', '0');
 INSERT INTO `user` VALUES ('5', null, 'Bill', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13473747272@qq.com', '13470424924', '2020-06-07 00:00:00', '0');
 INSERT INTO `user` VALUES ('6', null, 'Klerk', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13473647274@qq.com', '13474747474', '2020-06-07 00:00:00', '0');
+INSERT INTO `user` VALUES ('33', null, 'Devin', '1234', null, null, null, null);

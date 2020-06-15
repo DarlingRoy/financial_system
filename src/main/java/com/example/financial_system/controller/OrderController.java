@@ -1,14 +1,20 @@
 package com.example.financial_system.controller;
 
+import com.example.financial_system.VO.OrderVO;
 import com.example.financial_system.common.entity.JsonResult;
 import com.example.financial_system.common.utils.ResultTool;
 import com.example.financial_system.entity.Order;
 import com.example.financial_system.service.OrderService;
+import com.example.financial_system.service.ProductService;
+import com.example.financial_system.service.UserService;
+import org.dozer.Mapper;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +34,18 @@ public class OrderController {
     private OrderService orderService;
 
     /**
+     * Dozer mapper 类
+     */
+    @Autowired
+    private Mapper mapper;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private ProductService productService;
+
+    /**
      * 通过主键查询单条数据
      *
      * @param id 主键
@@ -36,7 +54,11 @@ public class OrderController {
     @ApiOperation(value = "根据id查询 ")
     @GetMapping("selectOne")
     public JsonResult selectOne(@ApiParam(value = "订单id ID") Integer id) {
-        return ResultTool.success(this.orderService.queryById(id));
+        Order order = this.orderService.queryById(id);
+        OrderVO orderVO = mapper.map(order, OrderVO.class);
+        orderVO.setUsername(userService.queryById(orderVO.getUserId()).getUsername());
+        orderVO.setProductName(productService.queryById(orderVO.getProductId()).getName());
+        return ResultTool.success(orderVO);
     }
     
     /**
@@ -93,7 +115,15 @@ public class OrderController {
     @ApiOperation(value = "根据起始位置和查询条数查询多条数据")
     @GetMapping("selectAllByLimit")   
     public JsonResult selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,@ApiParam(value = "查询记录条数") int limit) {
-        return ResultTool.success(this.orderService.queryAllByLimit(offset, limit));
+        List<Order> orderList = this.orderService.queryAllByLimit(offset, limit);
+        List<OrderVO> orderVOList = new ArrayList<OrderVO>();
+        for (Order order: orderList) {
+            OrderVO orderVO = mapper.map(order, OrderVO.class);
+            orderVO.setUsername(userService.queryById(orderVO.getUserId()).getUsername());
+            orderVO.setProductName(productService.queryById(orderVO.getProductId()).getName());
+            orderVOList.add(orderVO);
+        }
+        return ResultTool.success(orderVOList);
     }
     
     /**
@@ -104,7 +134,15 @@ public class OrderController {
     @ApiOperation(value = "查询表中所有数据")
     @GetMapping("selectAll")   
     public JsonResult selectAll() {
-        return ResultTool.success(this.orderService.queryAll());
+        List<Order> orderList = this.orderService.queryAll();
+        List<OrderVO> orderVOList = new ArrayList<OrderVO>();
+        for (Order order: orderList) {
+            OrderVO orderVO = mapper.map(order, OrderVO.class);
+            orderVO.setUsername(userService.queryById(orderVO.getUserId()).getUsername());
+            orderVO.setProductName(productService.queryById(orderVO.getProductId()).getName());
+            orderVOList.add(orderVO);
+        }
+        return ResultTool.success(orderVOList);
     }
 
 }

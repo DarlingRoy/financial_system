@@ -90,6 +90,11 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+		<dependency>
+			<groupId>com.github.dozermapper</groupId>
+			<artifactId>dozer-spring-boot-starter</artifactId>
+			<version>6.2.0</version>
+		</dependency>
     </dependencies>
 
 	<build>

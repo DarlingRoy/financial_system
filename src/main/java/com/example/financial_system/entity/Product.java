@@ -8,13 +8,13 @@ import lombok.Data;
 /**
  * (Product)实体类
  *
- * @author laidilin
- * @since 2020-06-14 23:40:09
+ * @author linqx
+ * @since 2020-06-15 23:43:39
  */
 @Data
 @ApiModel("$tableInfo.comment")
 public class Product implements Serializable {
-    private static final long serialVersionUID = 902638852808144115L;
+    private static final long serialVersionUID = -74916479352952231L;
     /**
     * 产品id
     */    
@@ -54,12 +54,12 @@ public class Product implements Serializable {
     * 剩余金额(0.4表示 0.4%）
     */    
     @ApiModelProperty("剩余金额(0.4表示 0.4%）")
-    private Double remainAmout;
+    private Double remainAmount;
     /**
     * 起购金额
     */    
     @ApiModelProperty("起购金额")
-    private Double startUpAmount;
+    private Double leastAmount;
     /**
     * 风险评级（5个）
     */    
@@ -69,7 +69,7 @@ public class Product implements Serializable {
     * 入库备注
     */    
     @ApiModelProperty("入库备注")
-    private String storageRemarks;
+    private String addText;
     /**
     * 状态
     */    

@@ -6,8 +6,8 @@ import java.util.List;
 /**
  * (Provider)表服务接口
  *
- * @author laidilin
- * @since 2020-06-14 23:40:28
+ * @author linqx
+ * @since 2020-06-15 21:01:57
  */
 public interface ProviderService {
 
@@ -27,7 +27,7 @@ public interface ProviderService {
      * @return 对象列表
      */
     List<Provider> queryAllByLimit(int offset, int limit);
-
+    
     /**
      * 查询所有数据
      *
@@ -58,7 +58,7 @@ public interface ProviderService {
      * @return 是否成功
      */
     boolean deleteById(Integer id);
-
+    
     /**
      * 选择性插入数据
      *
@@ -66,5 +66,12 @@ public interface ProviderService {
      * @return 实例对象
      */
     Provider insertSelective(Provider provider);
-
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+     Integer count();
+     
 }
