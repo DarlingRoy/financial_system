@@ -113,4 +113,11 @@
         </trim>        
     </insert>
 
+    <select id="selectRoleOperation" resultType="com.example.financial_system.entity.RoleOperation">
+        select operation.url url, role.name roleName
+        from operation_role
+        left join role on role.id = operation_role.role_id
+        left join operation on operation_role.operation_id = operation.id;
+    </select>
+
 </mapper>

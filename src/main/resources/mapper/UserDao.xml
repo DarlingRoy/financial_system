@@ -130,7 +130,7 @@
     </select>
 
     <!--查询用户数目-->
-    <select id="countUser" resultType="Integer">
+    <select id="countUser" resultType="java.lang.Integer">
         select count(*) from user
     </select>
 

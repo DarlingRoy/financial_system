@@ -4,6 +4,9 @@ import com.example.financial_system.common.entity.JsonResult;
 import com.example.financial_system.common.utils.ResultTool;
 import com.example.financial_system.entity.Product;
 import com.example.financial_system.service.ProductService;
+import com.example.financial_system.service.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +30,9 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private UserService userService;
+
     /**
      * 通过主键查询单条数据
      *
@@ -46,6 +52,7 @@ public class ProductController {
     @ApiOperation("增加一条记录(只填入不为空的字段)")
     @PostMapping("insertSelective")
     public JsonResult insertSelective(Product product){
+
         this.productService.insertSelective(product);
         return ResultTool.success();
     }
@@ -57,6 +64,7 @@ public class ProductController {
     @ApiOperation("增加一条记录(填入所有字段)")
     @PostMapping("insert")
     public JsonResult insert(Product product){
+
         this.productService.insert(product);
         return ResultTool.success();
     }
@@ -68,6 +76,7 @@ public class ProductController {
     @ApiOperation("更新一条记录(只对不为空的字段进行更新)")
     @PostMapping("update")
     public JsonResult update(Product product){
+
         this.productService.update(product);
         return ResultTool.success();
     }

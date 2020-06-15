@@ -3,6 +3,7 @@ package com.example.financial_system.daoTest;
 import com.example.financial_system.entity.Role;
 import java.util.List;
 import com.example.financial_system.dao.RoleDao;
+import com.example.financial_system.entity.RoleOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,5 +45,14 @@ public class RoleTest {
         Role role = roleDao.queryById(1);
         System.out.println(role);
     }
+
+    @Test
+    public void testSelectRoleOperation() {
+        List<RoleOperation> list = roleDao.selectRoleOperation();
+        for (RoleOperation roleOperation: list) {
+            System.out.println(roleOperation);
+        }
+    }
+
     
 }

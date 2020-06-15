@@ -1,6 +1,7 @@
 package com.example.financial_system.dao;
 
 import com.example.financial_system.entity.Role;
+import com.example.financial_system.entity.RoleOperation;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
@@ -72,5 +73,11 @@ public interface RoleDao {
      * @return 影响行数
      */
     int insertSelective(Role role);
+
+    /**
+     * 查询所有角色与权限对应关系
+     * @return
+     */
+    List<RoleOperation> selectRoleOperation();
 
 }
