@@ -27,7 +27,7 @@ public interface ProviderService {
      * @return 对象列表
      */
     List<Provider> queryAllByLimit(int offset, int limit);
-    
+
     /**
      * 查询所有数据
      *
@@ -58,7 +58,7 @@ public interface ProviderService {
      * @return 是否成功
      */
     boolean deleteById(Integer id);
-    
+
     /**
      * 选择性插入数据
      *

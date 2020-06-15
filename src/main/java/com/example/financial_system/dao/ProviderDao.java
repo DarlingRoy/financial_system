@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  * @since 2020-06-14 23:40:28
  */
 @Mapper
-@Repository 
+@Repository
 public interface ProviderDao {
 
     /**
@@ -64,7 +64,7 @@ public interface ProviderDao {
      * @return 影响行数
      */
     int deleteById(Integer id);
-    
+
     /**
      * 选择性插入数据
      *

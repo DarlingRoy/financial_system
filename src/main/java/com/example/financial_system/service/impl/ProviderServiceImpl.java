@@ -41,7 +41,7 @@ public class ProviderServiceImpl implements ProviderService {
     public List<Provider> queryAllByLimit(int offset, int limit) {
         return this.providerDao.queryAllByLimit(offset, limit);
     }
-    
+
     /**
      * 查询所有数据
      *
@@ -86,7 +86,7 @@ public class ProviderServiceImpl implements ProviderService {
     public boolean deleteById(Integer id) {
         return this.providerDao.deleteById(id) > 0;
     }
-    
+
     /**
      * 选择性新增数据
      *
