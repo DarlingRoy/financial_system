@@ -76,7 +76,7 @@ public interface RoleDao {
 
     /**
      * 查询所有角色与权限对应关系
-     * @return
+     * @return 角色权限对象
      */
     List<RoleOperation> selectRoleOperation();
 
