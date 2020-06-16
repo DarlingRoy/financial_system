@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80015
 File Encoding         : 65001
 
-Date: 2020-06-16 09:16:07
+Date: 2020-06-16 18:41:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,9 +21,9 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `config`;
 CREATE TABLE `config` (
   `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '产品id',
-  `sub_product_list` varchar(255) DEFAULT NULL,
+  `sub_product_list` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '子产品列表',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='配置';
 
 -- ----------------------------
 -- Records of config
@@ -37,16 +37,16 @@ INSERT INTO `config` VALUES ('3', null);
 -- ----------------------------
 DROP TABLE IF EXISTS `config_assessment`;
 CREATE TABLE `config_assessment` (
-  `id` int(16) NOT NULL AUTO_INCREMENT,
-  `config` int(16) DEFAULT NULL,
-  `grade` char(1) DEFAULT NULL COMMENT '产品评估等级',
+  `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '配置评价id',
+  `config_id` int(16) DEFAULT NULL COMMENT '配置id',
+  `grade` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '配置评估等级',
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT '评价内容',
-  `operator_id` int(16) DEFAULT NULL,
-  `assess_time` datetime DEFAULT NULL,
-  `is_delete` tinyint(1) DEFAULT NULL,
+  `operator_id` int(16) DEFAULT NULL COMMENT '评价人员id',
+  `assess_time` datetime DEFAULT NULL COMMENT '评价时间',
+  `is_delete` tinyint(1) DEFAULT NULL COMMENT '逻辑删除',
   PRIMARY KEY (`id`),
-  KEY `FK_Reference_21` (`config`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `FK_Reference_21` (`config_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='配置评价';
 
 -- ----------------------------
 -- Records of config_assessment
@@ -65,7 +65,7 @@ CREATE TABLE `department` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `is_delete` tinyint(1) DEFAULT NULL COMMENT '是否删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='部门';
 
 -- ----------------------------
 -- Records of department
@@ -84,7 +84,7 @@ CREATE TABLE `operation` (
   `name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '权限名称',
   `url` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'url',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='权限';
 
 -- ----------------------------
 -- Records of operation
@@ -105,7 +105,7 @@ CREATE TABLE `operation_role` (
   PRIMARY KEY (`id`),
   KEY `FK_Reference_2` (`role_id`),
   KEY `FK_Reference_1` (`operation_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='权限-角色';
 
 -- ----------------------------
 -- Records of operation_role
@@ -122,12 +122,12 @@ CREATE TABLE `order` (
   `user_id` int(16) DEFAULT NULL COMMENT '用户id',
   `product_id` int(16) DEFAULT NULL COMMENT '产品id',
   `amount` decimal(11,2) DEFAULT NULL COMMENT '金额',
-  `order_type` tinyint(2) DEFAULT NULL COMMENT '买入时间',
+  `order_type` tinyint(4) DEFAULT NULL COMMENT '买入时间',
   `order_time` datetime DEFAULT NULL COMMENT '卖出时间',
   `is_delete` tinyint(1) DEFAULT NULL COMMENT '逻辑删除',
   PRIMARY KEY (`id`),
   KEY `FK_Reference_18` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='订单';
 
 -- ----------------------------
 -- Records of order
@@ -141,16 +141,16 @@ INSERT INTO `order` VALUES ('3', '3', '3', '30.00', '0', '2020-06-16 09:09:26', 
 -- ----------------------------
 DROP TABLE IF EXISTS `order_comment`;
 CREATE TABLE `order_comment` (
-  `id` int(16) NOT NULL AUTO_INCREMENT,
-  `order` int(16) DEFAULT NULL,
-  `grade` tinyint(4) DEFAULT NULL,
-  `desc` text,
-  `operator` int(16) DEFAULT NULL,
-  `comment_time` datetime DEFAULT NULL,
-  `is_delete` tinyint(1) DEFAULT NULL,
+  `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '订单评价id',
+  `order_id` int(16) DEFAULT NULL COMMENT '订单id',
+  `grade` tinyint(4) DEFAULT NULL COMMENT '订单评分',
+  `desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT '订单评价描述',
+  `operator_id` int(16) DEFAULT NULL COMMENT '评价人员id',
+  `comment_time` datetime DEFAULT NULL COMMENT '评价时间',
+  `is_delete` tinyint(1) DEFAULT NULL COMMENT '逻辑删除',
   PRIMARY KEY (`id`),
-  KEY `FK_Reference_14` (`order`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `FK_Reference_14` (`order_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='订单评价';
 
 -- ----------------------------
 -- Records of order_comment
@@ -177,53 +177,54 @@ CREATE TABLE `product` (
   `storage_time` datetime DEFAULT NULL COMMENT '入库时间',
   `added_time` datetime DEFAULT NULL COMMENT '上架时间',
   `review_operator_id` int(11) DEFAULT NULL,
-  `review_result` tinyint(1) DEFAULT NULL COMMENT '审核结果',
-  `review_remarks` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '审核备注',
+  `review_result` char(1) DEFAULT NULL COMMENT '审核结果',
+  `review_text` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '审核备注',
   PRIMARY KEY (`id`),
   KEY `FK_Reference_12` (`provider_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='产品';
 
 -- ----------------------------
 -- Records of product
 -- ----------------------------
-INSERT INTO `product` VALUES ('1', '1', '1', '今明股票', '0', '3.00', '70', '30.00', '1.00', '3', '股票', '4', '2020-06-10 22:14:07', '2020-06-14 22:14:21', '3', '1', '通过');
+INSERT INTO `product` VALUES ('1', '1', '1', '今明股票', '0', '3.00', '70', '30.00', '1.00', '3', '股票', '4', '2020-06-10 22:14:07', '2020-06-14 22:14:21', '3', 'A', '还可以，通过');
 INSERT INTO `product` VALUES ('2', '1', '2', '荣耀基金', '0', '0.90', '200', '130.00', '5.00', '1', '基金', '4', '2020-06-02 22:24:51', '2020-06-14 22:25:01', '1', '1', '通过');
 INSERT INTO `product` VALUES ('3', '2', '3', '罗明债券', '3,2,0', '2.00', '120', '100.00', '2.00', '2', '债券', '4', '2020-06-02 22:29:53', '2020-06-20 22:29:57', '2', '1', '通过');
 INSERT INTO `product` VALUES ('4', '1', '2', '光明基金', '0', '1.00', '100', '80.00', '5.00', '1', '基金', '1', '2020-06-02 22:13:58', null, '1', null, '');
 INSERT INTO `product` VALUES ('5', '2', '3', '华润债券', '2,3,0', '2.00', '90', '70.00', '2.00', '2', '债券', '2', '2020-06-09 22:14:02', null, '2', '1', '待上架');
 
 -- ----------------------------
--- Table structure for product_accessment
+-- Table structure for product_assessment
 -- ----------------------------
-DROP TABLE IF EXISTS `product_accessment`;
-CREATE TABLE `product_accessment` (
-  `id` int(16) NOT NULL AUTO_INCREMENT,
-  `product` int(16) DEFAULT NULL,
-  `grade` int(16) DEFAULT NULL,
-  `desc` text,
-  `operator` int(16) DEFAULT NULL,
-  `assess_time` datetime DEFAULT NULL,
-  `is_delete` tinyint(1) DEFAULT NULL,
+DROP TABLE IF EXISTS `product_assessment`;
+CREATE TABLE `product_assessment` (
+  `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '产品评价id',
+  `product_id` int(16) DEFAULT NULL COMMENT '产品id',
+  `assess_result` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '产品评价等级',
+  `assess_text` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT '评价文本',
+  `operator_id` int(16) DEFAULT NULL COMMENT '评价人员id',
+  `assess_time` datetime DEFAULT NULL COMMENT '评价时间',
+  `is_delete` tinyint(1) DEFAULT NULL COMMENT '逻辑删除',
   PRIMARY KEY (`id`),
-  KEY `FK_Reference_19` (`product`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `FK_Reference_19` (`product_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='产品评价';
 
 -- ----------------------------
--- Records of product_accessment
+-- Records of product_assessment
 -- ----------------------------
-INSERT INTO `product_accessment` VALUES ('1', '1', '5', '产品风险低，盈利高', '1', '2020-06-10 16:37:28', '0');
-INSERT INTO `product_accessment` VALUES ('2', '2', '10', '产品风险较高，盈利非常高', '2', '2020-06-10 16:39:01', '0');
-INSERT INTO `product_accessment` VALUES ('3', '3', '15', '产品风险极高，但回报也相当丰富', '1', null, null);
+INSERT INTO `product_assessment` VALUES ('1', '1', 'A', '产品风险低，盈利高', '1', '2020-06-10 16:37:28', '0');
+INSERT INTO `product_assessment` VALUES ('2', '2', 'B', '产品风险较高，盈利非常高', '2', '2020-06-10 16:39:01', '0');
+INSERT INTO `product_assessment` VALUES ('3', '3', 'C', '产品风险极高，但回报也相当丰富', '1', '2020-06-16 16:14:02', '0');
+INSERT INTO `product_assessment` VALUES ('4', '1', 'A', '该产品前景不错', '2', '2020-06-16 17:50:45', '0');
 
 -- ----------------------------
 -- Table structure for product_type
 -- ----------------------------
 DROP TABLE IF EXISTS `product_type`;
 CREATE TABLE `product_type` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(255) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '产品类型id',
+  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '产品类型',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='产品类型';
 
 -- ----------------------------
 -- Records of product_type
@@ -246,7 +247,7 @@ CREATE TABLE `provider` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `is_delete` tinyint(1) DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='供应商';
 
 -- ----------------------------
 -- Records of provider
@@ -260,14 +261,14 @@ INSERT INTO `provider` VALUES ('3', 'John', '13630424294@qq.com', '13630424294',
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
-  `id` int(16) NOT NULL AUTO_INCREMENT,
-  `name` varchar(128) DEFAULT NULL,
-  `type` varchar(256) DEFAULT NULL,
-  `status` varchar(256) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `is_delete` tinyint(1) DEFAULT NULL,
+  `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '角色id',
+  `name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '角色名称',
+  `type` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '角色类型',
+  `status` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '角色状态',
+  `create_time` datetime DEFAULT NULL COMMENT '角色创建时间',
+  `is_delete` tinyint(1) DEFAULT NULL COMMENT '逻辑删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色';
 
 -- ----------------------------
 -- Records of role
@@ -288,7 +289,7 @@ CREATE TABLE `role_department` (
   PRIMARY KEY (`id`),
   KEY `FK_Reference_7` (`department_id`),
   KEY `FK_Reference_9` (`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色-部门';
 
 -- ----------------------------
 -- Records of role_department
@@ -299,15 +300,15 @@ CREATE TABLE `role_department` (
 -- ----------------------------
 DROP TABLE IF EXISTS `role_user`;
 CREATE TABLE `role_user` (
-  `id` int(16) NOT NULL AUTO_INCREMENT,
-  `user_id` int(16) DEFAULT NULL,
-  `role_id` int(16) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `is_delete` tinyint(4) DEFAULT NULL,
+  `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '角色-用户id',
+  `user_id` int(16) DEFAULT NULL COMMENT '用户id',
+  `role_id` int(16) DEFAULT NULL COMMENT '角色id',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `is_delete` tinyint(4) DEFAULT NULL COMMENT '逻辑删除',
   PRIMARY KEY (`id`),
   KEY `FK_Reference_8` (`user_id`),
   KEY `FK_Reference_10` (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色-用户';
 
 -- ----------------------------
 -- Records of role_user
@@ -324,20 +325,20 @@ INSERT INTO `role_user` VALUES ('6', '6', '2', '2020-06-08 09:13:48', '0');
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `id` int(16) NOT NULL AUTO_INCREMENT,
-  `department_id` int(16) DEFAULT NULL,
-  `username` varchar(128) DEFAULT NULL,
-  `password` varchar(256) DEFAULT NULL,
-  `email` varchar(128) DEFAULT NULL,
-  `phone` varchar(128) DEFAULT NULL,
-  `balance` int(16) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `is_delete` tinyint(1) DEFAULT NULL,
+  `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '用户id',
+  `department_id` int(16) DEFAULT NULL COMMENT '部门id',
+  `username` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '用户名',
+  `password` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '用户密码',
+  `email` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '邮箱',
+  `phone` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '电话号码',
+  `balance` int(16) DEFAULT NULL COMMENT '余额',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `is_delete` tinyint(1) DEFAULT NULL COMMENT '逻辑删除',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   KEY `FK_Reference_11` (`department_id`),
   CONSTRAINT `FK_Reference_11` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户';
 
 -- ----------------------------
 -- Records of user
@@ -348,19 +349,20 @@ INSERT INTO `user` VALUES ('3', '3', 'John', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.4
 INSERT INTO `user` VALUES ('4', null, 'Alex', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13738424824@qq.com', '13638482943', '300', '2020-06-07 00:00:00', '0');
 INSERT INTO `user` VALUES ('5', null, 'Bill', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13473747272@qq.com', '13470424924', '600', '2020-06-07 00:00:00', '0');
 INSERT INTO `user` VALUES ('6', null, 'Klerk', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13473647274@qq.com', '13474747474', '700', '2020-06-07 00:00:00', '0');
+INSERT INTO `user` VALUES ('34', null, 'Devin', '1234', null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for user_product
 -- ----------------------------
 DROP TABLE IF EXISTS `user_product`;
 CREATE TABLE `user_product` (
-  `id` int(16) NOT NULL,
-  `user_id` int(16) DEFAULT NULL,
-  `product_id` int(16) DEFAULT NULL,
-  `holding_share` int(16) DEFAULT NULL,
-  `cumulative_income` decimal(11,2) DEFAULT NULL,
+  `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '用户产品id',
+  `user_id` int(16) DEFAULT NULL COMMENT '用户id',
+  `product_id` int(16) DEFAULT NULL COMMENT '产品id',
+  `holding_share` int(16) DEFAULT NULL COMMENT '持有份额',
+  `cumulative_income` decimal(11,2) DEFAULT NULL COMMENT '累计收益',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户产品';
 
 -- ----------------------------
 -- Records of user_product
