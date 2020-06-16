@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * (ConfigAssessment)表服务实现类
  *
- * @author laidilin
- * @since 2020-06-14 23:40:08
+ * @author linqx
+ * @since 2020-06-16 15:17:23
  */
 @Service("configAssessmentService")
 public class ConfigAssessmentServiceImpl implements ConfigAssessmentService {
@@ -28,18 +28,6 @@ public class ConfigAssessmentServiceImpl implements ConfigAssessmentService {
     @Override
     public ConfigAssessment queryById(Integer id) {
         return this.configAssessmentDao.queryById(id);
-    }
-
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    @Override
-    public List<ConfigAssessment> queryAllByLimit(int offset, int limit) {
-        return this.configAssessmentDao.queryAllByLimit(offset, limit);
     }
     
     /**
@@ -98,4 +86,14 @@ public class ConfigAssessmentServiceImpl implements ConfigAssessmentService {
         this.configAssessmentDao.insert(configAssessment);
         return configAssessment;
     }
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+     @Override
+     public Integer count(){
+        return configAssessmentDao.count();
+     }
 }

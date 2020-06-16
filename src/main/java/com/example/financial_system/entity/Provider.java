@@ -6,15 +6,15 @@ import io.swagger.annotations.*;
 import lombok.Data;
 
 /**
- * (Provider)实体类
+ * 供应商(Provider)实体类
  *
- * @author laidilin
- * @since 2020-06-14 23:40:28
+ * @author linqx
+ * @since 2020-06-16 15:50:26
  */
 @Data
-@ApiModel("$tableInfo.comment")
+@ApiModel("供应商")
 public class Provider implements Serializable {
-    private static final long serialVersionUID = 904462096715340068L;
+    private static final long serialVersionUID = -39864932834763278L;
     /**
     * 供应商id
     */    

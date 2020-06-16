@@ -5,20 +5,24 @@ import io.swagger.annotations.*;
 import lombok.Data;
 
 /**
- * (ProductType)实体类
+ * 产品类型(ProductType)实体类
  *
- * @author laidilin
- * @since 2020-06-15 00:10:06
+ * @author linqx
+ * @since 2020-06-16 15:50:26
  */
 @Data
-@ApiModel("$tableInfo.comment")
+@ApiModel("产品类型")
 public class ProductType implements Serializable {
-    private static final long serialVersionUID = 647741414206704601L;
-        
-    @ApiModelProperty("$column.comment")
+    private static final long serialVersionUID = 200499097499142396L;
+    /**
+    * 产品类型id
+    */    
+    @ApiModelProperty("产品类型id")
     private Integer id;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 产品类型
+    */    
+    @ApiModelProperty("产品类型")
     private String type;
 
 }

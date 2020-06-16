@@ -9,29 +9,21 @@
         <result property="password" column="password" jdbcType="VARCHAR"/>
         <result property="email" column="email" jdbcType="VARCHAR"/>
         <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="balance" column="balance" jdbcType="INTEGER"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="isDelete" column="is_delete" jdbcType="BOOLEAN"/>
     </resultMap>
-
+    
     <sql id="base_column_list">
-        id, department_id, username, password, email, phone, create_time, is_delete    </sql>
+        id, department_id, username, password, email, phone, balance, create_time, is_delete    </sql>
 
     <!--查询单个-->
     <select id="queryById" resultMap="UserMap">
         select
         <include refid="base_column_list" />
-
+        
         from financial_system.user
         where id = #{id}
-    </select>
-
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="UserMap">
-        select
-        <include refid="base_column_list" />
-
-        from financial_system.user
-        limit #{offset}, #{limit}
     </select>
 
     <!--查询所有-->
@@ -44,14 +36,17 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into financial_system.user(username, password, email, phone, create_time, is_delete)
-        values (#{username}, #{password}, #{email}, #{phone}, #{createTime}, #{isDelete})
+        insert into financial_system.user(department_id, username, password, email, phone, balance, create_time, is_delete)
+        values (#{departmentId}, #{username}, #{password}, #{email}, #{phone}, #{balance}, #{createTime}, #{isDelete})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update financial_system.user
         <set>
+            <if test="departmentId != null">
+                department_id = #{departmentId},
+            </if>
             <if test="username != null and username != ''">
                 username = #{username},
             </if>
@@ -63,6 +58,9 @@
             </if>
             <if test="phone != null and phone != ''">
                 phone = #{phone},
+            </if>
+            <if test="balance != null">
+                balance = #{balance},
             </if>
             <if test="createTime != null">
                 create_time = #{createTime},
@@ -78,11 +76,14 @@
     <delete id="deleteById">
         delete from financial_system.user where id = #{id}
     </delete>
-
+    
     <!--选择性的新增列-->
     <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
         insert into financial_system.user
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="departmentId != null">
+                department_id,
+            </if>
             <if test="username != null and username != ''">
                 username,
             </if>
@@ -95,6 +96,9 @@
             <if test="phone != null and phone != ''">
                 phone,
             </if>
+            <if test="balance != null">
+                balance,
+            </if>
             <if test="createTime != null">
                 create_time,
             </if>
@@ -103,6 +107,9 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="departmentId != null">
+                #{departmentId},
+            </if>
             <if test="username != null and username != ''">
                 #{username},
             </if>
@@ -115,23 +122,27 @@
             <if test="phone != null and phone != ''">
                 #{phone},
             </if>
+            <if test="balance != null">
+                #{balance},
+            </if>
             <if test="createTime != null">
                 #{createTime},
             </if>
             <if test="isDelete != null">
                 #{isDelete},
             </if>
-        </trim>
+        </trim>        
     </insert>
+    
+    <!--返回表行数-->
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+        from financial_system.user
+    </select>
 
     <!--根据用户名查询用户-->
     <select id="queryByUsername" resultMap="UserMap">
         select <include refid="base_column_list"/> from user where username=#{username}
-    </select>
-
-    <!--查询用户数目-->
-    <select id="countUser" resultType="java.lang.Integer">
-        select count(*) from user
     </select>
 
 </mapper>

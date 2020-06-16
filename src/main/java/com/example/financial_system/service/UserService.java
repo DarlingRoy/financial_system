@@ -6,8 +6,8 @@ import java.util.List;
 /**
  * (User)表服务接口
  *
- * @author laidilin
- * @since 2020-06-07 20:55:39
+ * @author linqx
+ * @since 2020-06-16 15:17:23
  */
 public interface UserService {
 
@@ -18,16 +18,7 @@ public interface UserService {
      * @return 实例对象
      */
     User queryById(Integer id);
-
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    List<User> queryAllByLimit(int offset, int limit);
-    
+ 
     /**
      * 查询所有数据
      *
@@ -66,6 +57,13 @@ public interface UserService {
      * @return 实例对象
      */
     User insertSelective(User user);
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+     Integer count();
 
     /**
      * 通过username查询用户id
@@ -74,12 +72,5 @@ public interface UserService {
      * @return 用户
      */
     User queryByUsername(String username);
-
-    /**
-     * 返回用户总数
-     *
-     * @return 用户总数
-     */
-    Integer countUser();
-
+     
 }

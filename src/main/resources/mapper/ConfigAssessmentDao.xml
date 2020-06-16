@@ -4,7 +4,7 @@
 
     <resultMap type="com.example.financial_system.entity.ConfigAssessment" id="ConfigAssessmentMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
-        <result property="config" column="config" jdbcType="INTEGER"/>
+        <result property="configId" column="config_id" jdbcType="INTEGER"/>
         <result property="grade" column="grade" jdbcType="VARCHAR"/>
         <result property="description" column="description" jdbcType="VARCHAR"/>
         <result property="operatorId" column="operator_id" jdbcType="INTEGER"/>
@@ -13,7 +13,7 @@
     </resultMap>
     
     <sql id="base_column_list">
-        id, config, grade, description, operator_id, assess_time, is_delete    </sql>
+        id, config_id, grade, description, operator_id, assess_time, is_delete    </sql>
 
     <!--查询单个-->
     <select id="queryById" resultMap="ConfigAssessmentMap">
@@ -22,15 +22,6 @@
         
         from financial_system.config_assessment
         where id = #{id}
-    </select>
-
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="ConfigAssessmentMap">
-        select
-        <include refid="base_column_list" />
-
-        from financial_system.config_assessment
-        limit #{offset}, #{limit}
     </select>
 
     <!--查询所有-->
@@ -43,17 +34,14 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into financial_system.config_assessment(config, grade, description, assess_time, is_delete)
-        values (#{config}, #{grade}, #{description}, #{assessTime}, #{isDelete})
+        insert into financial_system.config_assessment(grade, description, assess_time, is_delete)
+        values (#{grade}, #{description}, #{assessTime}, #{isDelete})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update financial_system.config_assessment
         <set>
-            <if test="config != null">
-                config = #{config},
-            </if>
             <if test="grade != null and grade != ''">
                 grade = #{grade},
             </if>
@@ -79,9 +67,6 @@
     <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
         insert into financial_system.config_assessment
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="config != null">
-                config,
-            </if>
             <if test="grade != null and grade != ''">
                 grade,
             </if>
@@ -96,9 +81,6 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="config != null">
-                #{config},
-            </if>
             <if test="grade != null and grade != ''">
                 #{grade},
             </if>
@@ -113,5 +95,11 @@
             </if>
         </trim>        
     </insert>
+    
+    <!--返回表行数-->
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+        from financial_system.config_assessment
+    </select>
 
 </mapper>

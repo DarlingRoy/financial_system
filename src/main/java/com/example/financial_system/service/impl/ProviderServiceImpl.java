@@ -12,7 +12,7 @@ import java.util.List;
  * (Provider)表服务实现类
  *
  * @author linqx
- * @since 2020-06-15 21:01:57
+ * @since 2020-06-16 15:17:23
  */
 @Service("providerService")
 public class ProviderServiceImpl implements ProviderService {
@@ -28,18 +28,6 @@ public class ProviderServiceImpl implements ProviderService {
     @Override
     public Provider queryById(Integer id) {
         return this.providerDao.queryById(id);
-    }
-
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    @Override
-    public List<Provider> queryAllByLimit(int offset, int limit) {
-        return this.providerDao.queryAllByLimit(offset, limit);
     }
     
     /**

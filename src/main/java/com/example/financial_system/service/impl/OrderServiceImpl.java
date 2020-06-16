@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * (Order)表服务实现类
  *
- * @author laidilin
- * @since 2020-06-14 23:40:09
+ * @author linqx
+ * @since 2020-06-16 15:17:23
  */
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
@@ -28,18 +28,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order queryById(Integer id) {
         return this.orderDao.queryById(id);
-    }
-
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    @Override
-    public List<Order> queryAllByLimit(int offset, int limit) {
-        return this.orderDao.queryAllByLimit(offset, limit);
     }
     
     /**
@@ -98,4 +86,14 @@ public class OrderServiceImpl implements OrderService {
         this.orderDao.insert(order);
         return order;
     }
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+     @Override
+     public Integer count(){
+        return orderDao.count();
+     }
 }

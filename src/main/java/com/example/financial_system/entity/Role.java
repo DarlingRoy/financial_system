@@ -6,32 +6,44 @@ import io.swagger.annotations.*;
 import lombok.Data;
 
 /**
- * (Role)实体类
+ * 角色(Role)实体类
  *
- * @author laidilin
- * @since 2020-06-14 23:40:29
+ * @author linqx
+ * @since 2020-06-16 15:50:26
  */
 @Data
-@ApiModel("$tableInfo.comment")
+@ApiModel("角色")
 public class Role implements Serializable {
-    private static final long serialVersionUID = -83364834695404778L;
-        
-    @ApiModelProperty("$column.comment")
+    private static final long serialVersionUID = 736852136356643997L;
+    /**
+    * 角色id
+    */    
+    @ApiModelProperty("角色id")
     private Integer id;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 角色名称
+    */    
+    @ApiModelProperty("角色名称")
     private String name;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 角色类型
+    */    
+    @ApiModelProperty("角色类型")
     private String type;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 角色状态
+    */    
+    @ApiModelProperty("角色状态")
     private String status;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 角色创建时间
+    */    
+    @ApiModelProperty("角色创建时间")
     private Date createTime;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 逻辑删除
+    */    
+    @ApiModelProperty("逻辑删除")
     private Boolean isDelete;
 
 }

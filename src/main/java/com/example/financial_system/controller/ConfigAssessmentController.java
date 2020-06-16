@@ -4,17 +4,17 @@ import com.example.financial_system.common.entity.JsonResult;
 import com.example.financial_system.common.utils.ResultTool;
 import com.example.financial_system.entity.ConfigAssessment;
 import com.example.financial_system.service.ConfigAssessmentService;
-import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * (ConfigAssessment)表控制层
  *
- * @author laidilin
- * @since 2020-06-14 23:40:08
+ * @author linqx
+ * @since 2020-06-16 15:17:23
  */
 @Api(tags = "(ConfigAssessment)") 
 @RestController
@@ -34,7 +34,7 @@ public class ConfigAssessmentController {
      */
     @ApiOperation(value = "根据id查询 ")
     @GetMapping("selectOne")
-    public JsonResult selectOne(@ApiParam(value = " ID") Integer id) {
+    public JsonResult selectOne(@ApiParam(value = "配置评价id ID") Integer id) {
         return ResultTool.success(this.configAssessmentService.queryById(id));
     }
     
@@ -65,7 +65,7 @@ public class ConfigAssessmentController {
      * @param configAssessment 实例对象
      */
     @ApiOperation("更新一条记录(只对不为空的字段进行更新)")
-    @PostMapping("update")
+    @PutMapping("update")
     public JsonResult update(ConfigAssessment configAssessment){
         this.configAssessmentService.update(configAssessment);
         return ResultTool.success();
@@ -77,22 +77,9 @@ public class ConfigAssessmentController {
      */
     @ApiOperation("根据id删除一条记录")
     @DeleteMapping("delete")
-    public JsonResult delete(@ApiParam(value = " ID") Integer id){
+    public JsonResult delete(@ApiParam(value = "配置评价id ID") Integer id){
         this.configAssessmentService.deleteById(id);
         return ResultTool.success();
-    }
-    
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    @ApiOperation(value = "根据起始位置和查询条数查询多条数据")
-    @GetMapping("selectAllByLimit")   
-    public JsonResult selectAllByLimit(@ApiParam(value = "查询起始位置") int offset, @ApiParam(value = "查询记录条数") int limit) {
-        return ResultTool.success(this.configAssessmentService.queryAllByLimit(offset, limit));
     }
     
     /**
@@ -105,5 +92,16 @@ public class ConfigAssessmentController {
     public JsonResult selectAll() {
         return ResultTool.success(this.configAssessmentService.queryAll());
     }
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+     @ApiOperation(value = "返回表中行数")
+     @GetMapping("count")
+     public JsonResult count() {
+        return ResultTool.success(this.configAssessmentService.count());
+     }
 
 }

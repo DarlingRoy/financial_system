@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 /**
  * (Department)表数据库访问层
  *
- * @author laidilin
- * @since 2020-06-14 23:40:09
+ * @author linqx
+ * @since 2020-06-16 15:17:23
  */
 @Mapper
 @Repository 
@@ -23,16 +23,6 @@ public interface DepartmentDao {
      * @return 实例对象
      */
     Department queryById(Integer id);
-
-    /**
-     * 查询指定行数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    List<Department> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
-
 
     /**
      * 查找所有记录
@@ -72,5 +62,11 @@ public interface DepartmentDao {
      * @return 影响行数
      */
     int insertSelective(Department department);
-
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+    Integer count();
 }

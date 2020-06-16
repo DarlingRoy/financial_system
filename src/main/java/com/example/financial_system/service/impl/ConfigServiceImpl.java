@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * (Config)表服务实现类
  *
- * @author laidilin
- * @since 2020-06-14 23:40:08
+ * @author linqx
+ * @since 2020-06-16 15:17:23
  */
 @Service("configService")
 public class ConfigServiceImpl implements ConfigService {
@@ -28,18 +28,6 @@ public class ConfigServiceImpl implements ConfigService {
     @Override
     public Config queryById(Integer id) {
         return this.configDao.queryById(id);
-    }
-
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    @Override
-    public List<Config> queryAllByLimit(int offset, int limit) {
-        return this.configDao.queryAllByLimit(offset, limit);
     }
     
     /**
@@ -98,4 +86,14 @@ public class ConfigServiceImpl implements ConfigService {
         this.configDao.insert(config);
         return config;
     }
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+     @Override
+     public Integer count(){
+        return configDao.count();
+     }
 }

@@ -6,15 +6,15 @@ import io.swagger.annotations.*;
 import lombok.Data;
 
 /**
- * (Product)实体类
+ * 产品(Product)实体类
  *
  * @author linqx
- * @since 2020-06-16 08:08:58
+ * @since 2020-06-16 15:50:26
  */
 @Data
-@ApiModel("$tableInfo.comment")
+@ApiModel("产品")
 public class Product implements Serializable {
-    private static final long serialVersionUID = 577006272448716811L;
+    private static final long serialVersionUID = 594840018509600814L;
     /**
     * 产品id
     */    
@@ -92,11 +92,11 @@ public class Product implements Serializable {
     * 审核结果
     */    
     @ApiModelProperty("审核结果")
-    private Boolean reviewResult;
+    private String reviewResult;
     /**
     * 审核备注
     */    
     @ApiModelProperty("审核备注")
-    private String reviewRemarks;
+    private String reviewText;
 
 }

@@ -6,8 +6,8 @@ import java.util.List;
 /**
  * (ProductType)表服务接口
  *
- * @author laidilin
- * @since 2020-06-15 00:10:06
+ * @author linqx
+ * @since 2020-06-16 15:17:23
  */
 public interface ProductTypeService {
 
@@ -18,16 +18,7 @@ public interface ProductTypeService {
      * @return 实例对象
      */
     ProductType queryById(Integer id);
-
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    List<ProductType> queryAllByLimit(int offset, int limit);
-    
+ 
     /**
      * 查询所有数据
      *
@@ -66,5 +57,12 @@ public interface ProductTypeService {
      * @return 实例对象
      */
     ProductType insertSelective(ProductType productType);
-
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+     Integer count();
+     
 }

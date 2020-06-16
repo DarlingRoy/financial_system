@@ -4,18 +4,17 @@ import com.example.financial_system.common.entity.JsonResult;
 import com.example.financial_system.common.utils.ResultTool;
 import com.example.financial_system.entity.OrderComment;
 import com.example.financial_system.service.OrderCommentService;
-import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * (OrderComment)表控制层
  *
- * @author laidilin
- * @since 2020-06-14 23:40:09
+ * @author linqx
+ * @since 2020-06-16 15:17:23
  */
 @Api(tags = "(OrderComment)") 
 @RestController
@@ -35,7 +34,7 @@ public class OrderCommentController {
      */
     @ApiOperation(value = "根据id查询 ")
     @GetMapping("selectOne")
-    public JsonResult selectOne(@ApiParam(value = " ID") Integer id) {
+    public JsonResult selectOne(@ApiParam(value = "订单评价id ID") Integer id) {
         return ResultTool.success(this.orderCommentService.queryById(id));
     }
     
@@ -66,7 +65,7 @@ public class OrderCommentController {
      * @param orderComment 实例对象
      */
     @ApiOperation("更新一条记录(只对不为空的字段进行更新)")
-    @PostMapping("update")
+    @PutMapping("update")
     public JsonResult update(OrderComment orderComment){
         this.orderCommentService.update(orderComment);
         return ResultTool.success();
@@ -78,22 +77,9 @@ public class OrderCommentController {
      */
     @ApiOperation("根据id删除一条记录")
     @DeleteMapping("delete")
-    public JsonResult delete(@ApiParam(value = " ID") Integer id){
+    public JsonResult delete(@ApiParam(value = "订单评价id ID") Integer id){
         this.orderCommentService.deleteById(id);
         return ResultTool.success();
-    }
-    
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    @ApiOperation(value = "根据起始位置和查询条数查询多条数据")
-    @GetMapping("selectAllByLimit")   
-    public JsonResult selectAllByLimit(@ApiParam(value = "查询起始位置") int offset, @ApiParam(value = "查询记录条数") int limit) {
-        return ResultTool.success(this.orderCommentService.queryAllByLimit(offset, limit));
     }
     
     /**
@@ -106,5 +92,16 @@ public class OrderCommentController {
     public JsonResult selectAll() {
         return ResultTool.success(this.orderCommentService.queryAll());
     }
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+     @ApiOperation(value = "返回表中行数")
+     @GetMapping("count")
+     public JsonResult count() {
+        return ResultTool.success(this.orderCommentService.count());
+     }
 
 }

@@ -6,14 +6,14 @@
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="userId" column="user_id" jdbcType="INTEGER"/>
         <result property="productId" column="product_id" jdbcType="INTEGER"/>
+        <result property="amount" column="amount" jdbcType="NUMERIC"/>
+        <result property="orderType" column="order_type" jdbcType="INTEGER"/>
         <result property="orderTime" column="order_time" jdbcType="TIMESTAMP"/>
-        <result property="expireTime" column="expire_time" jdbcType="TIMESTAMP"/>
-        <result property="purchasePrice" column="purchase_price" jdbcType="NUMERIC"/>
         <result property="isDelete" column="is_delete" jdbcType="BOOLEAN"/>
     </resultMap>
     
     <sql id="base_column_list">
-        id, user_id, product_id, order_time, expire_time, purchase_price, is_delete    </sql>
+        id, user_id, product_id, amount, order_type, order_time, is_delete    </sql>
 
     <!--查询单个-->
     <select id="queryById" resultMap="OrderMap">
@@ -22,15 +22,6 @@
         
         from financial_system.order
         where id = #{id}
-    </select>
-
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="OrderMap">
-        select
-        <include refid="base_column_list" />
-
-        from financial_system.order
-        limit #{offset}, #{limit}
     </select>
 
     <!--查询所有-->
@@ -43,8 +34,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into financial_system.order(user_id, product_id, order_time, expire_time, purchase_price, is_delete)
-        values (#{userId}, #{productId}, #{orderTime}, #{expireTime}, #{purchasePrice}, #{isDelete})
+        insert into financial_system.order(user_id, product_id, amount, order_type, order_time, is_delete)
+        values (#{userId}, #{productId}, #{amount}, #{orderType}, #{orderTime}, #{isDelete})
     </insert>
 
     <!--通过主键修改数据-->
@@ -57,19 +48,18 @@
             <if test="productId != null">
                 product_id = #{productId},
             </if>
+            <if test="amount != null">
+                amount = #{amount},
+            </if>
+            <if test="orderType != null">
+                order_type = #{orderType},
+            </if>
             <if test="orderTime != null">
                 order_time = #{orderTime},
-            </if>
-            <if test="expireTime != null">
-                expire_time = #{expireTime},
-            </if>
-            <if test="purchasePrice != null">
-                purchase_price = #{purchasePrice},
             </if>
             <if test="isDelete != null">
                 is_delete = #{isDelete},
             </if>
-
         </set>
         where id = #{id}
     </update>
@@ -89,14 +79,14 @@
             <if test="productId != null">
                 product_id,
             </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="orderType != null">
+                order_type,
+            </if>
             <if test="orderTime != null">
                 order_time,
-            </if>
-            <if test="expireTime != null">
-                expire_time,
-            </if>
-            <if test="purchasePrice != null">
-                purchase_price,
             </if>
             <if test="isDelete != null">
                 is_delete,
@@ -109,19 +99,25 @@
             <if test="productId != null">
                 #{productId},
             </if>
+            <if test="amount != null">
+                #{amount},
+            </if>
+            <if test="orderType != null">
+                #{orderType},
+            </if>
             <if test="orderTime != null">
                 #{orderTime},
-            </if>
-            <if test="expireTime != null">
-                #{expireTime},
-            </if>
-            <if test="purchasePrice != null">
-                #{purchasePrice},
             </if>
             <if test="isDelete != null">
                 #{isDelete},
             </if>
-        </trim>
+        </trim>        
     </insert>
+    
+    <!--返回表行数-->
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+        from financial_system.order
+    </select>
 
 </mapper>

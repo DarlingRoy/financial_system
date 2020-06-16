@@ -6,8 +6,8 @@ import java.util.List;
 /**
  * (Operation)表服务接口
  *
- * @author laidilin
- * @since 2020-06-14 23:40:09
+ * @author linqx
+ * @since 2020-06-16 15:17:23
  */
 public interface OperationService {
 
@@ -18,16 +18,7 @@ public interface OperationService {
      * @return 实例对象
      */
     Operation queryById(Integer id);
-
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    List<Operation> queryAllByLimit(int offset, int limit);
-    
+ 
     /**
      * 查询所有数据
      *
@@ -66,6 +57,13 @@ public interface OperationService {
      * @return 实例对象
      */
     Operation insertSelective(Operation operation);
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+     Integer count();
 
     /**
      * 根据用户id查询对应权限
@@ -74,5 +72,5 @@ public interface OperationService {
      * @return 权限列表
      */
     List<Operation> queryByUserId(Integer userId);
-
+     
 }

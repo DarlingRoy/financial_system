@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * (User)表服务实现类
  *
- * @author laidilin
- * @since 2020-06-07 20:55:39
+ * @author linqx
+ * @since 2020-06-16 15:17:23
  */
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -28,18 +28,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User queryById(Integer id) {
         return this.userDao.queryById(id);
-    }
-
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    @Override
-    public List<User> queryAllByLimit(int offset, int limit) {
-        return this.userDao.queryAllByLimit(offset, limit);
     }
     
     /**
@@ -98,6 +86,16 @@ public class UserServiceImpl implements UserService {
         this.userDao.insert(user);
         return user;
     }
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+     @Override
+     public Integer count(){
+        return userDao.count();
+     }
 
     /**
      * 通过username查询用户id
@@ -108,14 +106,5 @@ public class UserServiceImpl implements UserService {
     @Override
     public User queryByUsername(String username) {
         return this.userDao.queryByUsername(username);
-    }
-
-    /**
-     * 返回用户总数
-     * @return
-     */
-    @Override
-    public Integer countUser() {
-        return userDao.countUser();
     }
 }

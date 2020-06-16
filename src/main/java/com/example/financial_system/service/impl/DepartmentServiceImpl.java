@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * (Department)表服务实现类
  *
- * @author laidilin
- * @since 2020-06-14 23:40:09
+ * @author linqx
+ * @since 2020-06-16 15:17:23
  */
 @Service("departmentService")
 public class DepartmentServiceImpl implements DepartmentService {
@@ -28,18 +28,6 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Department queryById(Integer id) {
         return this.departmentDao.queryById(id);
-    }
-
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    @Override
-    public List<Department> queryAllByLimit(int offset, int limit) {
-        return this.departmentDao.queryAllByLimit(offset, limit);
     }
     
     /**
@@ -98,4 +86,14 @@ public class DepartmentServiceImpl implements DepartmentService {
         this.departmentDao.insert(department);
         return department;
     }
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+     @Override
+     public Integer count(){
+        return departmentDao.count();
+     }
 }

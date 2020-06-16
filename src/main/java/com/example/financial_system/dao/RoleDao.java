@@ -25,15 +25,6 @@ public interface RoleDao {
      */
     Role queryById(Integer id);
 
-    /**
-     * 查询指定行数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    List<Role> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
-
 
     /**
      * 查找所有记录

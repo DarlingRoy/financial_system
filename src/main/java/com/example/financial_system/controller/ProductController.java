@@ -1,19 +1,22 @@
 package com.example.financial_system.controller;
 
+import com.example.financial_system.VO.ProductAssessmentVO;
 import com.example.financial_system.VO.ProductVO;
 import com.example.financial_system.common.entity.JsonResult;
+import com.example.financial_system.common.entity.PageRequest;
+import com.example.financial_system.common.utils.PageUtils;
 import com.example.financial_system.common.utils.ResultTool;
 import com.example.financial_system.entity.Product;
-import com.example.financial_system.service.ProductService;
-import com.example.financial_system.service.ProductTypeService;
-import com.example.financial_system.service.ProviderService;
-import com.example.financial_system.service.UserService;
-import org.dozer.Mapper;
-import org.springframework.web.bind.annotation.*;
+import com.example.financial_system.entity.ProductAssessment;
+import com.example.financial_system.service.*;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +42,9 @@ public class ProductController {
      */
     @Autowired
     private Mapper mapper;
+
+    @Autowired
+    private ProductAssessmentService productAssessmentService;
 
     @Autowired
     private ProviderService providerService;
@@ -109,28 +115,6 @@ public class ProductController {
         return ResultTool.success();
     }
 
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    @ApiOperation(value = "根据起始位置和查询条数查询多条数据")
-    @GetMapping("selectAllByLimit")
-    public JsonResult selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,
-                                       @ApiParam(value = "查询记录条数") int limit) {
-        List<Product> productList = productService.queryAllByLimit(offset, limit);
-        List<ProductVO> productVOList = new ArrayList<>();
-        for (Product product: productList) {
-            ProductVO productVO = mapper.map(product, ProductVO.class);
-            productVO.setProviderName(providerService.queryById(productVO.getProviderId()).getName());
-            productVO.setProductType(productTypeService.queryById(productVO.getProductTypeId()).getType());
-            productVO.setReviewOperatorName(userService.queryById(productVO.getReviewOperatorId()).getUsername());
-            productVOList.add(productVO);
-        }
-        return ResultTool.success();
-    }
 
     /**
      * 查询所有数据
@@ -139,7 +123,8 @@ public class ProductController {
      */
     @ApiOperation(value = "查询表中所有数据")
     @GetMapping("selectAll")
-    public JsonResult selectAll() {
+    public JsonResult selectAll(PageRequest pageRequest) {
+        PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
         List<Product> productList = productService.queryAll();
         List<ProductVO> productVOList = new ArrayList<>();
         for (Product product: productList) {
@@ -149,8 +134,7 @@ public class ProductController {
             productVO.setReviewOperatorName(userService.queryById(product.getReviewOperatorId()).getUsername());
             productVOList.add(productVO);
         }
-
-        return ResultTool.success(productVOList);
+        return ResultTool.success(PageUtils. getPageResult(new PageInfo<>(productVOList)));
     }
 
     /**
@@ -163,5 +147,55 @@ public class ProductController {
     public JsonResult count() {
         return ResultTool.success(this.productService.count());
     }
+
+    /**
+     * 审核操作
+     * @param id 被审核产品id
+     * @param reviewResult 审核结果
+     * @param reviewText 审核备注
+     * @return JsonResult 的成功样式
+     */
+    @ApiOperation(value = "审核产品")
+    @PostMapping("review")
+    public JsonResult review(@ApiParam (value = "被审核产品id") Integer id,
+                             @ApiParam (value = "审核结果") String reviewResult,
+                             @ApiParam (value = "审核备注") String reviewText) {
+        Product product = new Product();
+        product.setId(id);
+        product.setReviewResult(reviewResult);
+        product.setReviewText(reviewText);
+        this.productService.update(product);
+        return ResultTool.success();
+    }
+
+    @ApiOperation(value = "评估产品")
+    @PostMapping("assess")
+    public JsonResult assess(@ApiParam (value = "被评估产品id") Integer id,
+                             @ApiParam (value = "评估结果 A,B,C") String assessResult,
+                             @ApiParam (value = "评估文本") String assessText) {
+        ProductAssessment productAssessment = new ProductAssessment();
+        productAssessment.setProductId(id);
+        productAssessment.setAssessResult(assessResult);
+        productAssessment.setAssessText(assessText);
+        this.productAssessmentService.insertSelective(productAssessment);
+        return ResultTool.success();
+    }
+
+    @ApiOperation(value = "获取产品评估结果")
+    @GetMapping("getAssessments")
+    public JsonResult getAssessments(@ApiParam (value = "被评估产品id") Integer id) {
+        List<ProductAssessment> productAssessmentList = this.productAssessmentService.queryByProductId(id);
+        List<ProductAssessmentVO> productAssessmentVOList = new ArrayList<>();
+        for (ProductAssessment productAssessment: productAssessmentList) {
+            ProductAssessmentVO productAssessmentVO = new ProductAssessmentVO();
+            productAssessmentVO.setAssessResult(productAssessment.getAssessResult());
+            productAssessmentVO.setAssessText(productAssessment.getAssessText());
+            productAssessmentVO.setAssessTime(productAssessment.getAssessTime());
+            productAssessmentVO.setAssessorName(userService.queryById(productAssessment.getOperatorId()).getUsername());
+            productAssessmentVOList.add(productAssessmentVO);
+        }
+        return ResultTool.success(productAssessmentVOList);
+    }
+
 
 }

@@ -23,7 +23,7 @@ import java.util.List;
  * @author laidilin
  * @since 2020-06-14 23:40:09
  */
-@Api(tags = "(Order)") 
+@Api(tags = "(Order)")
 @RestController
 @RequestMapping("order")
 public class OrderController {
@@ -60,7 +60,7 @@ public class OrderController {
         orderVO.setProductName(productService.queryById(orderVO.getProductId()).getName());
         return ResultTool.success(orderVO);
     }
-    
+
     /**
      * 增加一条记录(只填入不为空的字段)
      * @param order 实例对象
@@ -71,7 +71,7 @@ public class OrderController {
         this.orderService.insertSelective(order);
         return ResultTool.success();
     }
-    
+
     /**
      * 增加一条记录(填入所有字段)
      * @param order 实例对象
@@ -82,7 +82,7 @@ public class OrderController {
         this.orderService.insert(order);
         return ResultTool.success();
     }
-    
+
     /**
      * 更新一条记录(只对不为空的字段进行更新)
      * @param order 实例对象
@@ -93,7 +93,7 @@ public class OrderController {
         this.orderService.update(order);
         return ResultTool.success();
     }
-    
+
     /**
      * 根据id删除一条记录
      * @param id
@@ -104,35 +104,14 @@ public class OrderController {
         this.orderService.deleteById(id);
         return ResultTool.success();
     }
-    
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    @ApiOperation(value = "根据起始位置和查询条数查询多条数据")
-    @GetMapping("selectAllByLimit")   
-    public JsonResult selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,@ApiParam(value = "查询记录条数") int limit) {
-        List<Order> orderList = this.orderService.queryAllByLimit(offset, limit);
-        List<OrderVO> orderVOList = new ArrayList<OrderVO>();
-        for (Order order: orderList) {
-            OrderVO orderVO = mapper.map(order, OrderVO.class);
-            orderVO.setUsername(userService.queryById(orderVO.getUserId()).getUsername());
-            orderVO.setProductName(productService.queryById(orderVO.getProductId()).getName());
-            orderVOList.add(orderVO);
-        }
-        return ResultTool.success(orderVOList);
-    }
-    
+
     /**
      * 查询所有数据
      *
      * @return 对象列表
      */
     @ApiOperation(value = "查询表中所有数据")
-    @GetMapping("selectAll")   
+    @GetMapping("selectAll")
     public JsonResult selectAll() {
         List<Order> orderList = this.orderService.queryAll();
         List<OrderVO> orderVOList = new ArrayList<OrderVO>();

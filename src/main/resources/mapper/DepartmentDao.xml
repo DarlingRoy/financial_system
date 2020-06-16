@@ -22,15 +22,6 @@
         where id = #{id}
     </select>
 
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="DepartmentMap">
-        select
-        <include refid="base_column_list" />
-
-        from financial_system.department
-        limit #{offset}, #{limit}
-    </select>
-
     <!--查询所有-->
     <select id="queryAll" resultMap="DepartmentMap">
         select
@@ -102,5 +93,11 @@
             </if>
         </trim>        
     </insert>
+    
+    <!--返回表行数-->
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+        from financial_system.department
+    </select>
 
 </mapper>

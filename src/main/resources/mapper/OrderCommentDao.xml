@@ -4,16 +4,16 @@
 
     <resultMap type="com.example.financial_system.entity.OrderComment" id="OrderCommentMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
-        <result property="order" column="order" jdbcType="INTEGER"/>
+        <result property="orderId" column="order_id" jdbcType="INTEGER"/>
         <result property="grade" column="grade" jdbcType="INTEGER"/>
         <result property="desc" column="desc" jdbcType="VARCHAR"/>
-        <result property="operator" column="operator" jdbcType="INTEGER"/>
+        <result property="operatorId" column="operator_id" jdbcType="INTEGER"/>
         <result property="commentTime" column="comment_time" jdbcType="TIMESTAMP"/>
         <result property="isDelete" column="is_delete" jdbcType="BOOLEAN"/>
     </resultMap>
     
     <sql id="base_column_list">
-        id, order, grade, desc, operator, comment_time, is_delete    </sql>
+        id, order_id, grade, desc, operator_id, comment_time, is_delete    </sql>
 
     <!--查询单个-->
     <select id="queryById" resultMap="OrderCommentMap">
@@ -22,15 +22,6 @@
         
         from financial_system.order_comment
         where id = #{id}
-    </select>
-
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="OrderCommentMap">
-        select
-        <include refid="base_column_list" />
-
-        from financial_system.order_comment
-        limit #{offset}, #{limit}
     </select>
 
     <!--查询所有-->
@@ -43,25 +34,19 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into financial_system.order_comment(order, grade, desc, operator, comment_time, is_delete)
-        values (#{order}, #{grade}, #{desc}, #{operator}, #{commentTime}, #{isDelete})
+        insert into financial_system.order_comment(grade, desc, comment_time, is_delete)
+        values (#{grade}, #{desc}, #{commentTime}, #{isDelete})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update financial_system.order_comment
         <set>
-            <if test="order != null">
-                order = #{order},
-            </if>
             <if test="grade != null">
                 grade = #{grade},
             </if>
             <if test="desc != null and desc != ''">
                 desc = #{desc},
-            </if>
-            <if test="operator != null">
-                operator = #{operator},
             </if>
             <if test="commentTime != null">
                 comment_time = #{commentTime},
@@ -82,17 +67,11 @@
     <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
         insert into financial_system.order_comment
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="order != null">
-                order,
-            </if>
             <if test="grade != null">
                 grade,
             </if>
             <if test="desc != null and desc != ''">
                 desc,
-            </if>
-            <if test="operator != null">
-                operator,
             </if>
             <if test="commentTime != null">
                 comment_time,
@@ -102,17 +81,11 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="order != null">
-                #{order},
-            </if>
             <if test="grade != null">
                 #{grade},
             </if>
             <if test="desc != null and desc != ''">
                 #{desc},
-            </if>
-            <if test="operator != null">
-                #{operator},
             </if>
             <if test="commentTime != null">
                 #{commentTime},
@@ -122,5 +95,11 @@
             </if>
         </trim>        
     </insert>
+    
+    <!--返回表行数-->
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+        from financial_system.order_comment
+    </select>
 
 </mapper>

@@ -6,15 +6,15 @@ import io.swagger.annotations.*;
 import lombok.Data;
 
 /**
- * (Department)实体类
+ * 部门(Department)实体类
  *
- * @author laidilin
- * @since 2020-06-14 23:40:09
+ * @author linqx
+ * @since 2020-06-16 15:50:26
  */
 @Data
-@ApiModel("$tableInfo.comment")
+@ApiModel("部门")
 public class Department implements Serializable {
-    private static final long serialVersionUID = 537464938558626364L;
+    private static final long serialVersionUID = -12384982200818780L;
     /**
     * 部门id
     */    

@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * (ProductType)表服务实现类
  *
- * @author laidilin
- * @since 2020-06-15 00:10:06
+ * @author linqx
+ * @since 2020-06-16 15:17:23
  */
 @Service("productTypeService")
 public class ProductTypeServiceImpl implements ProductTypeService {
@@ -28,18 +28,6 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     @Override
     public ProductType queryById(Integer id) {
         return this.productTypeDao.queryById(id);
-    }
-
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    @Override
-    public List<ProductType> queryAllByLimit(int offset, int limit) {
-        return this.productTypeDao.queryAllByLimit(offset, limit);
     }
     
     /**
@@ -98,4 +86,14 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         this.productTypeDao.insert(productType);
         return productType;
     }
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+     @Override
+     public Integer count(){
+        return productTypeDao.count();
+     }
 }

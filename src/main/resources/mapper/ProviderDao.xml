@@ -24,15 +24,6 @@
         where id = #{id}
     </select>
 
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="ProviderMap">
-        select
-        <include refid="base_column_list" />
-
-        from financial_system.provider
-        limit #{offset}, #{limit}
-    </select>
-
     <!--查询所有-->
     <select id="queryAll" resultMap="ProviderMap">
         select

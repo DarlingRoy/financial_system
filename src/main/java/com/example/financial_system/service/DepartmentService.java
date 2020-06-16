@@ -6,8 +6,8 @@ import java.util.List;
 /**
  * (Department)表服务接口
  *
- * @author laidilin
- * @since 2020-06-14 23:40:09
+ * @author linqx
+ * @since 2020-06-16 15:17:23
  */
 public interface DepartmentService {
 
@@ -18,16 +18,7 @@ public interface DepartmentService {
      * @return 实例对象
      */
     Department queryById(Integer id);
-
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    List<Department> queryAllByLimit(int offset, int limit);
-    
+ 
     /**
      * 查询所有数据
      *
@@ -66,5 +57,12 @@ public interface DepartmentService {
      * @return 实例对象
      */
     Department insertSelective(Department department);
-
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+     Integer count();
+     
 }

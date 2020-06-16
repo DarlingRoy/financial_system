@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80015
 File Encoding         : 65001
 
-Date: 2020-06-15 23:45:36
+Date: 2020-06-16 09:16:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -120,10 +120,10 @@ DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '订单id',
   `user_id` int(16) DEFAULT NULL COMMENT '用户id',
-  `product_id` int(11) DEFAULT NULL COMMENT '产品id',
-  `order_time` datetime DEFAULT NULL COMMENT '下单时间',
-  `expire_time` datetime DEFAULT NULL COMMENT '到期时间',
-  `purchase_price` decimal(11,2) DEFAULT NULL COMMENT '购买金额',
+  `product_id` int(16) DEFAULT NULL COMMENT '产品id',
+  `amount` decimal(11,2) DEFAULT NULL COMMENT '金额',
+  `order_type` tinyint(2) DEFAULT NULL COMMENT '买入时间',
+  `order_time` datetime DEFAULT NULL COMMENT '卖出时间',
   `is_delete` tinyint(1) DEFAULT NULL COMMENT '逻辑删除',
   PRIMARY KEY (`id`),
   KEY `FK_Reference_18` (`user_id`)
@@ -132,9 +132,9 @@ CREATE TABLE `order` (
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES ('1', '1', '1', '2020-06-01 21:48:23', '2020-06-26 21:48:27', '10.00', '0');
-INSERT INTO `order` VALUES ('2', '2', '2', '2020-06-01 21:48:40', '2020-06-28 21:48:43', '20.00', '0');
-INSERT INTO `order` VALUES ('3', '3', '3', '2020-06-03 21:48:53', '2020-06-24 21:49:02', '30.00', '0');
+INSERT INTO `order` VALUES ('1', '1', '1', '10.00', '0', '2020-06-16 09:08:41', '0');
+INSERT INTO `order` VALUES ('2', '2', '2', '20.00', '0', '2020-06-18 09:08:45', '0');
+INSERT INTO `order` VALUES ('3', '3', '3', '30.00', '0', '2020-06-16 09:09:26', '0');
 
 -- ----------------------------
 -- Table structure for order_comment
@@ -330,6 +330,7 @@ CREATE TABLE `user` (
   `password` varchar(256) DEFAULT NULL,
   `email` varchar(128) DEFAULT NULL,
   `phone` varchar(128) DEFAULT NULL,
+  `balance` int(16) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `is_delete` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -341,10 +342,29 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '1', 'Mike', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '784264272@qq.com', '13763041138', '2020-06-05 00:00:00', '0');
-INSERT INTO `user` VALUES ('2', '2', 'David', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13463742932@qq.com', '13463742932', '2020-06-07 00:00:00', '0');
-INSERT INTO `user` VALUES ('3', '3', 'John', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13630424294@qq.com', '13630424294', '2020-06-07 00:00:00', '0');
-INSERT INTO `user` VALUES ('4', null, 'Alex', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13738424824@qq.com', '13638482943', '2020-06-07 00:00:00', '0');
-INSERT INTO `user` VALUES ('5', null, 'Bill', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13473747272@qq.com', '13470424924', '2020-06-07 00:00:00', '0');
-INSERT INTO `user` VALUES ('6', null, 'Klerk', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13473647274@qq.com', '13474747474', '2020-06-07 00:00:00', '0');
-INSERT INTO `user` VALUES ('33', null, 'Devin', '1234', null, null, null, null);
+INSERT INTO `user` VALUES ('1', '1', 'Mike', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '784264272@qq.com', '13763041138', '600', '2020-06-05 00:00:00', '0');
+INSERT INTO `user` VALUES ('2', '2', 'David', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13463742932@qq.com', '13463742932', '500', '2020-06-07 00:00:00', '0');
+INSERT INTO `user` VALUES ('3', '3', 'John', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13630424294@qq.com', '13630424294', '1000', '2020-06-07 00:00:00', '0');
+INSERT INTO `user` VALUES ('4', null, 'Alex', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13738424824@qq.com', '13638482943', '300', '2020-06-07 00:00:00', '0');
+INSERT INTO `user` VALUES ('5', null, 'Bill', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13473747272@qq.com', '13470424924', '600', '2020-06-07 00:00:00', '0');
+INSERT INTO `user` VALUES ('6', null, 'Klerk', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13473647274@qq.com', '13474747474', '700', '2020-06-07 00:00:00', '0');
+
+-- ----------------------------
+-- Table structure for user_product
+-- ----------------------------
+DROP TABLE IF EXISTS `user_product`;
+CREATE TABLE `user_product` (
+  `id` int(16) NOT NULL,
+  `user_id` int(16) DEFAULT NULL,
+  `product_id` int(16) DEFAULT NULL,
+  `holding_share` int(16) DEFAULT NULL,
+  `cumulative_income` decimal(11,2) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of user_product
+-- ----------------------------
+INSERT INTO `user_product` VALUES ('1', '1', '1', '10', null);
+INSERT INTO `user_product` VALUES ('2', '2', '2', '20', null);
+INSERT INTO `user_product` VALUES ('3', '3', '3', '30', null);

@@ -5,15 +5,15 @@ import io.swagger.annotations.*;
 import lombok.Data;
 
 /**
- * (Operation)实体类
+ * 权限(Operation)实体类
  *
- * @author laidilin
- * @since 2020-06-14 23:40:09
+ * @author linqx
+ * @since 2020-06-16 15:50:26
  */
 @Data
-@ApiModel("$tableInfo.comment")
+@ApiModel("权限")
 public class Operation implements Serializable {
-    private static final long serialVersionUID = 952401008061523856L;
+    private static final long serialVersionUID = 423286600598182029L;
     /**
     * 权限id
     */    

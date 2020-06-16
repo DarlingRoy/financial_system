@@ -4,8 +4,6 @@ import com.example.financial_system.entity.Order;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.util.Date;
-
 /**
  * @Author: linqx
  * @Date: 2020/6/15 20:52

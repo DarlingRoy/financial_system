@@ -1,21 +1,26 @@
 package com.example.financial_system.controller;
 
 import com.example.financial_system.common.entity.JsonResult;
+import com.example.financial_system.common.entity.PageRequest;
+import com.example.financial_system.common.utils.PageUtils;
 import com.example.financial_system.common.utils.ResultTool;
 import com.example.financial_system.entity.Provider;
 import com.example.financial_system.service.ProviderService;
-import org.springframework.web.bind.annotation.*;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 /**
  * (Provider)表控制层
  *
  * @author linqx
- * @since 2020-06-15 21:01:57
+ * @since 2020-06-16 15:17:23
  */
 @Api(tags = "(Provider)") 
 @RestController
@@ -84,27 +89,16 @@ public class ProviderController {
     }
     
     /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    @ApiOperation(value = "根据起始位置和查询条数查询多条数据")
-    @GetMapping("selectAllByLimit")   
-    public JsonResult selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,@ApiParam(value = "查询记录条数") int limit) {
-        return ResultTool.success(this.providerService.queryAllByLimit(offset, limit));
-    }
-    
-    /**
      * 查询所有数据
      *
      * @return 对象列表
      */
     @ApiOperation(value = "查询表中所有数据")
     @GetMapping("selectAll")   
-    public JsonResult selectAll() {
-        return ResultTool.success(this.providerService.queryAll());
+    public JsonResult selectAll(PageRequest pageRequest) {
+        PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
+        List<Provider> providerList = providerService.queryAll();
+        return ResultTool.success(PageUtils. getPageResult(new PageInfo<>(providerList)));
     }
     
     /**

@@ -7,7 +7,7 @@ import java.util.List;
  * (Product)表服务接口
  *
  * @author linqx
- * @since 2020-06-16 08:08:59
+ * @since 2020-06-16 15:17:23
  */
 public interface ProductService {
 
@@ -18,16 +18,7 @@ public interface ProductService {
      * @return 实例对象
      */
     Product queryById(Integer id);
-
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    List<Product> queryAllByLimit(int offset, int limit);
-    
+ 
     /**
      * 查询所有数据
      *

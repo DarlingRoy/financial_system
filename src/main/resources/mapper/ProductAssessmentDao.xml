@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.financial_system.dao.ProductAssessmentDao">
+
+    <resultMap type="com.example.financial_system.entity.ProductAssessment" id="ProductAssessmentMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="productId" column="product_id" jdbcType="INTEGER"/>
+        <result property="assessResult" column="assess_result" jdbcType="VARCHAR"/>
+        <result property="assessText" column="assess_text" jdbcType="VARCHAR"/>
+        <result property="operatorId" column="operator_id" jdbcType="INTEGER"/>
+        <result property="assessTime" column="assess_time" jdbcType="TIMESTAMP"/>
+        <result property="isDelete" column="is_delete" jdbcType="BOOLEAN"/>
+    </resultMap>
+    
+    <sql id="base_column_list">
+        id, product_id, assess_result, assess_text, operator_id, assess_time, is_delete    </sql>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ProductAssessmentMap">
+        select
+        <include refid="base_column_list" />
+        
+        from financial_system.product_assessment
+        where id = #{id}
+    </select>
+
+    <!--查询所有-->
+    <select id="queryAll" resultMap="ProductAssessmentMap">
+        select
+        <include refid="base_column_list" />
+
+        from financial_system.product_assessment
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into financial_system.product_assessment(product_id, assess_result, assess_text, operator_id, assess_time, is_delete)
+        values (#{productId}, #{assessResult}, #{assessText}, #{operatorId}, #{assessTime}, #{isDelete})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update financial_system.product_assessment
+        <set>
+            <if test="productId != null">
+                product_id = #{productId},
+            </if>
+            <if test="assessResult != null and assessResult != ''">
+                assess_result = #{assessResult},
+            </if>
+            <if test="assessText != null and assessText != ''">
+                assess_text = #{assessText},
+            </if>
+            <if test="operatorId != null">
+                operator_id = #{operatorId},
+            </if>
+            <if test="assessTime != null">
+                assess_time = #{assessTime},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from financial_system.product_assessment where id = #{id}
+    </delete>
+    
+    <!--选择性的新增列-->
+    <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
+        insert into financial_system.product_assessment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productId != null">
+                product_id,
+            </if>
+            <if test="assessResult != null and assessResult != ''">
+                assess_result,
+            </if>
+            <if test="assessText != null and assessText != ''">
+                assess_text,
+            </if>
+            <if test="operatorId != null">
+                operator_id,
+            </if>
+            <if test="assessTime != null">
+                assess_time,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productId != null">
+                #{productId},
+            </if>
+            <if test="assessResult != null and assessResult != ''">
+                #{assessResult},
+            </if>
+            <if test="assessText != null and assessText != ''">
+                #{assessText},
+            </if>
+            <if test="operatorId != null">
+                #{operatorId},
+            </if>
+            <if test="assessTime != null">
+                #{assessTime},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete},
+            </if>
+        </trim>        
+    </insert>
+    
+    <!--返回表行数-->
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+        from financial_system.product_assessment
+    </select>
+
+    <!-- 根据产品id查询评价 -->
+    <select id="queryByProductId" parameterType="java.lang.Integer" resultMap="ProductAssessmentMap">
+        select
+            <include refid="base_column_list"/>
+        from financial_system.product_assessment
+        where product_id = #{productId}
+    </select>
+
+</mapper>

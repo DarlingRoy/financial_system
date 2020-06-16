@@ -6,39 +6,49 @@ import io.swagger.annotations.*;
 import lombok.Data;
 
 /**
- * (ConfigAssessment)实体类
+ * 配置评价(ConfigAssessment)实体类
  *
- * @author laidilin
- * @since 2020-06-14 23:40:08
+ * @author linqx
+ * @since 2020-06-16 15:50:26
  */
 @Data
-@ApiModel("$tableInfo.comment")
+@ApiModel("配置评价")
 public class ConfigAssessment implements Serializable {
-    private static final long serialVersionUID = -98725308444089656L;
-        
-    @ApiModelProperty("$column.comment")
-    private Integer id;
-        
-    @ApiModelProperty("$column.comment")
-    private Integer config;
+    private static final long serialVersionUID = 913421224387843394L;
     /**
-    * 产品评估等级
+    * 配置评价id
     */    
-    @ApiModelProperty("产品评估等级")
+    @ApiModelProperty("配置评价id")
+    private Integer id;
+    /**
+    * 配置id
+    */    
+    @ApiModelProperty("配置id")
+    private Integer configId;
+    /**
+    * 配置评估等级
+    */    
+    @ApiModelProperty("配置评估等级")
     private String grade;
     /**
     * 评价内容
     */    
     @ApiModelProperty("评价内容")
     private String description;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 评价人员id
+    */    
+    @ApiModelProperty("评价人员id")
     private Integer operatorId;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 评价时间
+    */    
+    @ApiModelProperty("评价时间")
     private Date assessTime;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 逻辑删除
+    */    
+    @ApiModelProperty("逻辑删除")
     private Boolean isDelete;
 
 }

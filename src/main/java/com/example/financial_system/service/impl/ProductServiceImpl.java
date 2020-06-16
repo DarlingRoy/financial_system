@@ -12,7 +12,7 @@ import java.util.List;
  * (Product)表服务实现类
  *
  * @author linqx
- * @since 2020-06-16 08:09:00
+ * @since 2020-06-16 15:17:23
  */
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
@@ -28,18 +28,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product queryById(Integer id) {
         return this.productDao.queryById(id);
-    }
-
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    @Override
-    public List<Product> queryAllByLimit(int offset, int limit) {
-        return this.productDao.queryAllByLimit(offset, limit);
     }
     
     /**

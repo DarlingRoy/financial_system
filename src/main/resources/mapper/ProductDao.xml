@@ -18,12 +18,12 @@
         <result property="storageTime" column="storage_time" jdbcType="TIMESTAMP"/>
         <result property="addedTime" column="added_time" jdbcType="TIMESTAMP"/>
         <result property="reviewOperatorId" column="review_operator_id" jdbcType="INTEGER"/>
-        <result property="reviewResult" column="review_result" jdbcType="BOOLEAN"/>
-        <result property="reviewRemarks" column="review_remarks" jdbcType="VARCHAR"/>
+        <result property="reviewResult" column="review_result" jdbcType="VARCHAR"/>
+        <result property="reviewText" column="review_text" jdbcType="VARCHAR"/>
     </resultMap>
     
     <sql id="base_column_list">
-        id, provider_id, product_type_id, name, duration, return_rate, total_amount, remain_amount, least_amount, risk_level, add_text, state, storage_time, added_time, review_operator_id, review_result, review_remarks    </sql>
+        id, provider_id, product_type_id, name, duration, return_rate, total_amount, remain_amount, least_amount, risk_level, add_text, state, storage_time, added_time, review_operator_id, review_result, review_text    </sql>
 
     <!--查询单个-->
     <select id="queryById" resultMap="ProductMap">
@@ -32,15 +32,6 @@
         
         from financial_system.product
         where id = #{id}
-    </select>
-
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="ProductMap">
-        select
-        <include refid="base_column_list" />
-
-        from financial_system.product
-        limit #{offset}, #{limit}
     </select>
 
     <!--查询所有-->
@@ -53,8 +44,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into financial_system.product(provider_id, product_type_id, name, duration, return_rate, total_amount, remain_amount, least_amount, risk_level, add_text, state, storage_time, added_time, review_operator_id, review_result, review_remarks)
-        values (#{providerId}, #{productTypeId}, #{name}, #{duration}, #{returnRate}, #{totalAmount}, #{remainAmount}, #{leastAmount}, #{riskLevel}, #{addText}, #{state}, #{storageTime}, #{addedTime}, #{reviewOperatorId}, #{reviewResult}, #{reviewRemarks})
+        insert into financial_system.product(provider_id, product_type_id, name, duration, return_rate, total_amount, remain_amount, least_amount, risk_level, add_text, state, storage_time, added_time, review_operator_id, review_result, review_text)
+        values (#{providerId}, #{productTypeId}, #{name}, #{duration}, #{returnRate}, #{totalAmount}, #{remainAmount}, #{leastAmount}, #{riskLevel}, #{addText}, #{state}, #{storageTime}, #{addedTime}, #{reviewOperatorId}, #{reviewResult}, #{reviewText})
     </insert>
 
     <!--通过主键修改数据-->
@@ -103,11 +94,11 @@
             <if test="reviewOperatorId != null">
                 review_operator_id = #{reviewOperatorId},
             </if>
-            <if test="reviewResult != null">
+            <if test="reviewResult != null and reviewResult != ''">
                 review_result = #{reviewResult},
             </if>
-            <if test="reviewRemarks != null and reviewRemarks != ''">
-                review_remarks = #{reviewRemarks},
+            <if test="reviewText != null and reviewText != ''">
+                review_text = #{reviewText},
             </if>
         </set>
         where id = #{id}
@@ -164,11 +155,11 @@
             <if test="reviewOperatorId != null">
                 review_operator_id,
             </if>
-            <if test="reviewResult != null">
+            <if test="reviewResult != null and reviewResult != ''">
                 review_result,
             </if>
-            <if test="reviewRemarks != null and reviewRemarks != ''">
-                review_remarks,
+            <if test="reviewText != null and reviewText != ''">
+                review_text,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -214,11 +205,11 @@
             <if test="reviewOperatorId != null">
                 #{reviewOperatorId},
             </if>
-            <if test="reviewResult != null">
+            <if test="reviewResult != null and reviewResult != ''">
                 #{reviewResult},
             </if>
-            <if test="reviewRemarks != null and reviewRemarks != ''">
-                #{reviewRemarks},
+            <if test="reviewText != null and reviewText != ''">
+                #{reviewText},
             </if>
         </trim>        
     </insert>

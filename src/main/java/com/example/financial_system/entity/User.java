@@ -2,46 +2,63 @@ package com.example.financial_system.entity;
 
 import java.util.Date;
 import java.io.Serializable;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.*;
 import lombok.Data;
 
 /**
- * (User)实体类
+ * 用户(User)实体类
  *
- * @author laidilin
- * @since 2020-06-07 20:55:39
+ * @author linqx
+ * @since 2020-06-16 15:50:26
  */
 @Data
-@ApiModel("$tableInfo.comment")
-@JsonIgnoreProperties(value = {"password", "createTime", "isDelete"})
+@ApiModel("用户")
 public class User implements Serializable {
-    private static final long serialVersionUID = 235340578594477820L;
-        
-    @ApiModelProperty("$column.comment")
+    private static final long serialVersionUID = -35279123583447742L;
+    /**
+    * 用户id
+    */    
+    @ApiModelProperty("用户id")
     private Integer id;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 部门id
+    */    
+    @ApiModelProperty("部门id")
     private Integer departmentId;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 用户名
+    */    
+    @ApiModelProperty("用户名")
     private String username;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 用户密码
+    */    
+    @ApiModelProperty("用户密码")
     private String password;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 邮箱
+    */    
+    @ApiModelProperty("邮箱")
     private String email;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 电话号码
+    */    
+    @ApiModelProperty("电话号码")
     private String phone;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 余额
+    */    
+    @ApiModelProperty("余额")
+    private Integer balance;
+    /**
+    * 创建时间
+    */    
+    @ApiModelProperty("创建时间")
     private Date createTime;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 逻辑删除
+    */    
+    @ApiModelProperty("逻辑删除")
     private Boolean isDelete;
 
 }

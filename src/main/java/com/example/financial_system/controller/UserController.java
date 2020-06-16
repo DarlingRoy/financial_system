@@ -4,18 +4,17 @@ import com.example.financial_system.common.entity.JsonResult;
 import com.example.financial_system.common.utils.ResultTool;
 import com.example.financial_system.entity.User;
 import com.example.financial_system.service.UserService;
-import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * (User)表控制层
  *
  * @author linqx
- * @since 2020-06-14 15:12:36
+ * @since 2020-06-16 15:17:23
  */
 @Api(tags = "(User)") 
 @RestController
@@ -35,7 +34,7 @@ public class UserController {
      */
     @ApiOperation(value = "根据id查询 ")
     @GetMapping("selectOne")
-    public JsonResult selectOne(@ApiParam(value = " ID") Integer id) {
+    public JsonResult selectOne(@ApiParam(value = "用户id ID") Integer id) {
         return ResultTool.success(this.userService.queryById(id));
     }
     
@@ -66,7 +65,7 @@ public class UserController {
      * @param user 实例对象
      */
     @ApiOperation("更新一条记录(只对不为空的字段进行更新)")
-    @PostMapping("update")
+    @PutMapping("update")
     public JsonResult update(User user){
         this.userService.update(user);
         return ResultTool.success();
@@ -78,22 +77,9 @@ public class UserController {
      */
     @ApiOperation("根据id删除一条记录")
     @DeleteMapping("delete")
-    public JsonResult delete(@ApiParam(value = " ID") Integer id){
+    public JsonResult delete(@ApiParam(value = "用户id ID") Integer id){
         this.userService.deleteById(id);
         return ResultTool.success();
-    }
-    
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    @ApiOperation(value = "根据起始位置和查询条数查询多条数据")
-    @GetMapping("selectAllByLimit")   
-    public JsonResult selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,@ApiParam(value = "查询记录条数") int limit) {
-        return ResultTool.success(this.userService.queryAllByLimit(offset, limit));
     }
     
     /**
@@ -106,15 +92,16 @@ public class UserController {
     public JsonResult selectAll() {
         return ResultTool.success(this.userService.queryAll());
     }
-
+    
     /**
-     * 查询用户总数
+     * 返回表行数
      *
-     * @return 用户总数
+     * @return 返回表行数
      */
-    @ApiOperation(value = "查询用户总数")
-    @GetMapping("count")
-    public JsonResult count() {
-        return ResultTool.success(this.userService.countUser());
-    }
+     @ApiOperation(value = "返回表中行数")
+     @GetMapping("count")
+     public JsonResult count() {
+        return ResultTool.success(this.userService.count());
+     }
+
 }

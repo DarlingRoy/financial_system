@@ -1,7 +1,6 @@
 package com.example.financial_system.config.acl;
 
 import com.example.financial_system.dao.RoleDao;
-import com.example.financial_system.dao.UserDao;
 import com.example.financial_system.entity.RoleOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;

@@ -1,16 +1,16 @@
 package com.example.financial_system.dao;
 
 import com.example.financial_system.entity.User;
-import org.apache.ibatis.annotations.Param;
-import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * (User)表数据库访问层
  *
- * @author laidilin
- * @since 2020-06-07 20:55:39
+ * @author linqx
+ * @since 2020-06-16 15:17:23
  */
 @Mapper
 @Repository 
@@ -23,16 +23,6 @@ public interface UserDao {
      * @return 实例对象
      */
     User queryById(Integer id);
-
-    /**
-     * 查询指定行数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    List<User> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
-
 
     /**
      * 查找所有记录
@@ -72,6 +62,13 @@ public interface UserDao {
      * @return 影响行数
      */
     int insertSelective(User user);
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+    Integer count();
 
     /**
      *  通过用户名查询用户
@@ -80,12 +77,4 @@ public interface UserDao {
      *  @return 用户
      */
     User queryByUsername(String username);
-
-    /**
-     * 查询用户数目
-     *
-     * @return
-     */
-    Integer countUser();
-
 }

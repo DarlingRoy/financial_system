@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * (Provider)表数据库访问层
  *
  * @author linqx
- * @since 2020-06-15 21:01:57
+ * @since 2020-06-16 15:17:23
  */
 @Mapper
 @Repository 
@@ -23,16 +23,6 @@ public interface ProviderDao {
      * @return 实例对象
      */
     Provider queryById(Integer id);
-
-    /**
-     * 查询指定行数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    List<Provider> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
-
 
     /**
      * 查找所有记录

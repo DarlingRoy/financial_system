@@ -5,22 +5,24 @@ import io.swagger.annotations.*;
 import lombok.Data;
 
 /**
- * (Config)实体类
+ * 配置(Config)实体类
  *
- * @author laidilin
- * @since 2020-06-14 23:40:08
+ * @author linqx
+ * @since 2020-06-16 15:50:26
  */
 @Data
-@ApiModel("$tableInfo.comment")
+@ApiModel("配置")
 public class Config implements Serializable {
-    private static final long serialVersionUID = -44518455439061612L;
+    private static final long serialVersionUID = -53339466743038985L;
     /**
     * 产品id
     */    
     @ApiModelProperty("产品id")
     private Integer id;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 子产品列表
+    */    
+    @ApiModelProperty("子产品列表")
     private String subProductList;
 
 }

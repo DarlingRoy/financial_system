@@ -83,19 +83,6 @@ public class RoleController {
     }
     
     /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    @ApiOperation(value = "根据起始位置和查询条数查询多条数据")
-    @GetMapping("selectAllByLimit")   
-    public JsonResult selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,@ApiParam(value = "查询记录条数") int limit) {
-        return ResultTool.success(this.roleService.queryAllByLimit(offset, limit));
-    }
-    
-    /**
      * 查询所有数据
      *
      * @return 对象列表

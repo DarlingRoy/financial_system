@@ -31,18 +31,6 @@ public class RoleServiceImpl implements RoleService {
     }
 
     /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    @Override
-    public List<Role> queryAllByLimit(int offset, int limit) {
-        return this.roleDao.queryAllByLimit(offset, limit);
-    }
-    
-    /**
      * 查询所有数据
      *
      * @return 对象列表

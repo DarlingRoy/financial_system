@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.financial_system.dao.RoleDepartmentDao">
+
+    <resultMap type="com.example.financial_system.entity.RoleDepartment" id="RoleDepartmentMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="departmentId" column="department_id" jdbcType="INTEGER"/>
+        <result property="roleId" column="role_id" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="isDelete" column="is_delete" jdbcType="BOOLEAN"/>
+    </resultMap>
+    
+    <sql id="base_column_list">
+        id, department_id, role_id, create_time, is_delete    </sql>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="RoleDepartmentMap">
+        select
+        <include refid="base_column_list" />
+        
+        from financial_system.role_department
+        where id = #{id}
+    </select>
+
+    <!--查询所有-->
+    <select id="queryAll" resultMap="RoleDepartmentMap">
+        select
+        <include refid="base_column_list" />
+
+        from financial_system.role_department
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into financial_system.role_department(department_id, role_id, create_time, is_delete)
+        values (#{departmentId}, #{roleId}, #{createTime}, #{isDelete})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update financial_system.role_department
+        <set>
+            <if test="departmentId != null">
+                department_id = #{departmentId},
+            </if>
+            <if test="roleId != null">
+                role_id = #{roleId},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from financial_system.role_department where id = #{id}
+    </delete>
+    
+    <!--选择性的新增列-->
+    <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
+        insert into financial_system.role_department
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="departmentId != null">
+                department_id,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="departmentId != null">
+                #{departmentId},
+            </if>
+            <if test="roleId != null">
+                #{roleId},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete},
+            </if>
+        </trim>        
+    </insert>
+    
+    <!--返回表行数-->
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+        from financial_system.role_department
+    </select>
+
+</mapper>

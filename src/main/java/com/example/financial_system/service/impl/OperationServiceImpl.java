@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * (Operation)表服务实现类
  *
- * @author laidilin
- * @since 2020-06-14 23:40:09
+ * @author linqx
+ * @since 2020-06-16 15:17:23
  */
 @Service("operationService")
 public class OperationServiceImpl implements OperationService {
@@ -28,18 +28,6 @@ public class OperationServiceImpl implements OperationService {
     @Override
     public Operation queryById(Integer id) {
         return this.operationDao.queryById(id);
-    }
-
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    @Override
-    public List<Operation> queryAllByLimit(int offset, int limit) {
-        return this.operationDao.queryAllByLimit(offset, limit);
     }
     
     /**
@@ -98,6 +86,16 @@ public class OperationServiceImpl implements OperationService {
         this.operationDao.insert(operation);
         return operation;
     }
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+     @Override
+     public Integer count(){
+        return operationDao.count();
+     }
 
     /**
      * 根据用户id查询对应权限

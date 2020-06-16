@@ -2,30 +2,29 @@ package com.example.financial_system.controller;
 
 import com.example.financial_system.common.entity.JsonResult;
 import com.example.financial_system.common.utils.ResultTool;
-import com.example.financial_system.entity.ProductAccessment;
-import com.example.financial_system.service.ProductAccessmentService;
-import org.springframework.web.bind.annotation.*;
+import com.example.financial_system.entity.OperationRole;
+import com.example.financial_system.service.OperationRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 /**
- * (ProductAccessment)表控制层
+ * (OperationRole)表控制层
  *
- * @author laidilin
- * @since 2020-06-14 23:40:09
+ * @author linqx
+ * @since 2020-06-16 15:17:23
  */
-@Api(tags = "(ProductAccessment)") 
+@Api(tags = "(OperationRole)") 
 @RestController
-@RequestMapping("productAccessment")
-public class ProductAccessmentController {
+@RequestMapping("operationRole")
+public class OperationRoleController {
     /**
      * 服务对象
      */
     @Autowired
-    private ProductAccessmentService productAccessmentService;
+    private OperationRoleService operationRoleService;
 
     /**
      * 通过主键查询单条数据
@@ -36,39 +35,39 @@ public class ProductAccessmentController {
     @ApiOperation(value = "根据id查询 ")
     @GetMapping("selectOne")
     public JsonResult selectOne(@ApiParam(value = " ID") Integer id) {
-        return ResultTool.success(this.productAccessmentService.queryById(id));
+        return ResultTool.success(this.operationRoleService.queryById(id));
     }
     
     /**
      * 增加一条记录(只填入不为空的字段)
-     * @param productAccessment 实例对象
+     * @param operationRole 实例对象
      */
     @ApiOperation("增加一条记录(只填入不为空的字段)")
     @PostMapping("insertSelective")
-    public JsonResult insertSelective(ProductAccessment productAccessment){
-        this.productAccessmentService.insertSelective(productAccessment);
+    public JsonResult insertSelective(OperationRole operationRole){
+        this.operationRoleService.insertSelective(operationRole);
         return ResultTool.success();
     }
     
     /**
      * 增加一条记录(填入所有字段)
-     * @param productAccessment 实例对象
+     * @param operationRole 实例对象
      */
     @ApiOperation("增加一条记录(填入所有字段)")
     @PostMapping("insert")
-    public JsonResult insert(ProductAccessment productAccessment){
-        this.productAccessmentService.insert(productAccessment);
+    public JsonResult insert(OperationRole operationRole){
+        this.operationRoleService.insert(operationRole);
         return ResultTool.success();
     }
     
     /**
      * 更新一条记录(只对不为空的字段进行更新)
-     * @param productAccessment 实例对象
+     * @param operationRole 实例对象
      */
     @ApiOperation("更新一条记录(只对不为空的字段进行更新)")
-    @PostMapping("update")
-    public JsonResult update(ProductAccessment productAccessment){
-        this.productAccessmentService.update(productAccessment);
+    @PutMapping("update")
+    public JsonResult update(OperationRole operationRole){
+        this.operationRoleService.update(operationRole);
         return ResultTool.success();
     }
     
@@ -79,21 +78,8 @@ public class ProductAccessmentController {
     @ApiOperation("根据id删除一条记录")
     @DeleteMapping("delete")
     public JsonResult delete(@ApiParam(value = " ID") Integer id){
-        this.productAccessmentService.deleteById(id);
+        this.operationRoleService.deleteById(id);
         return ResultTool.success();
-    }
-    
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    @ApiOperation(value = "根据起始位置和查询条数查询多条数据")
-    @GetMapping("selectAllByLimit")   
-    public JsonResult selectAllByLimit(@ApiParam(value = "查询起始位置") int offset, @ApiParam(value = "查询记录条数") int limit) {
-        return ResultTool.success(this.productAccessmentService.queryAllByLimit(offset, limit));
     }
     
     /**
@@ -104,7 +90,18 @@ public class ProductAccessmentController {
     @ApiOperation(value = "查询表中所有数据")
     @GetMapping("selectAll")   
     public JsonResult selectAll() {
-        return ResultTool.success(this.productAccessmentService.queryAll());
+        return ResultTool.success(this.operationRoleService.queryAll());
     }
+    
+    /**
+     * 返回表行数
+     *
+     * @return 返回表行数
+     */
+     @ApiOperation(value = "返回表中行数")
+     @GetMapping("count")
+     public JsonResult count() {
+        return ResultTool.success(this.operationRoleService.count());
+     }
 
 }

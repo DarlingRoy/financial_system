@@ -6,35 +6,49 @@ import io.swagger.annotations.*;
 import lombok.Data;
 
 /**
- * (OrderComment)实体类
+ * 订单评价(OrderComment)实体类
  *
- * @author laidilin
- * @since 2020-06-14 23:40:09
+ * @author linqx
+ * @since 2020-06-16 15:50:26
  */
 @Data
-@ApiModel("$tableInfo.comment")
+@ApiModel("订单评价")
 public class OrderComment implements Serializable {
-    private static final long serialVersionUID = -61665180061167444L;
-        
-    @ApiModelProperty("$column.comment")
+    private static final long serialVersionUID = 621803642270207896L;
+    /**
+    * 订单评价id
+    */    
+    @ApiModelProperty("订单评价id")
     private Integer id;
-        
-    @ApiModelProperty("$column.comment")
-    private Integer order;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 订单id
+    */    
+    @ApiModelProperty("订单id")
+    private Integer orderId;
+    /**
+    * 订单评分
+    */    
+    @ApiModelProperty("订单评分")
     private Integer grade;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 订单评价描述
+    */    
+    @ApiModelProperty("订单评价描述")
     private String desc;
-        
-    @ApiModelProperty("$column.comment")
-    private Integer operator;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 评价人员id
+    */    
+    @ApiModelProperty("评价人员id")
+    private Integer operatorId;
+    /**
+    * 评价时间
+    */    
+    @ApiModelProperty("评价时间")
     private Date commentTime;
-        
-    @ApiModelProperty("$column.comment")
+    /**
+    * 逻辑删除
+    */    
+    @ApiModelProperty("逻辑删除")
     private Boolean isDelete;
 
 }
