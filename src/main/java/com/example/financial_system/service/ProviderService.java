@@ -1,6 +1,7 @@
 package com.example.financial_system.service;
 
 import com.example.financial_system.entity.Provider;
+
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public interface ProviderService {
      * @return 实例对象
      */
     Provider queryById(Integer id);
- 
+
     /**
      * 查询所有数据
      *
@@ -49,7 +50,7 @@ public interface ProviderService {
      * @return 是否成功
      */
     boolean deleteById(Integer id);
-    
+
     /**
      * 选择性插入数据
      *
@@ -57,12 +58,18 @@ public interface ProviderService {
      * @return 实例对象
      */
     Provider insertSelective(Provider provider);
-    
+
     /**
      * 返回表行数
      *
      * @return 返回表行数
      */
-     Integer count();
-     
+    Integer count();
+
+    /**
+     * 根据供应商名字检索
+     * @param name
+     * @return 供应商
+     */
+     Provider queryByName(String name);
 }

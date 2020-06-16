@@ -6,6 +6,7 @@ import com.example.financial_system.service.ProviderService;
 import org.springframework.stereotype.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ public class ProviderServiceImpl implements ProviderService {
     public Provider queryById(Integer id) {
         return this.providerDao.queryById(id);
     }
-    
+
     /**
      * 查询所有数据
      *
@@ -74,7 +75,7 @@ public class ProviderServiceImpl implements ProviderService {
     public boolean deleteById(Integer id) {
         return this.providerDao.deleteById(id) > 0;
     }
-    
+
     /**
      * 选择性新增数据
      *
@@ -86,14 +87,25 @@ public class ProviderServiceImpl implements ProviderService {
         this.providerDao.insert(provider);
         return provider;
     }
-    
+
     /**
      * 返回表行数
      *
      * @return 返回表行数
      */
-     @Override
-     public Integer count(){
+    @Override
+    public Integer count() {
         return providerDao.count();
-     }
+    }
+
+    /**
+     * 根据供应商名字检索
+     *
+     * @param name
+     * @return 供应商
+     */
+    @Override
+    public Provider queryByName(String name) {
+        return providerDao.queryByName(name);
+    }
 }

@@ -1,6 +1,6 @@
 package com.example.financial_system.controller;
 
-import com.example.financial_system.VO.OrderVO;
+import com.example.financial_system.vo.OrderVO;
 import com.example.financial_system.common.entity.JsonResult;
 import com.example.financial_system.common.utils.ResultTool;
 import com.example.financial_system.entity.Order;

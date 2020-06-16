@@ -1,10 +1,10 @@
 package com.example.financial_system.dao;
 
 import com.example.financial_system.entity.Provider;
-import org.apache.ibatis.annotations.Param;
-import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * (Provider)表数据库访问层
@@ -69,4 +69,6 @@ public interface ProviderDao {
      * @return 返回表行数
      */
     Integer count();
+
+    Provider queryByName(String name);
 }

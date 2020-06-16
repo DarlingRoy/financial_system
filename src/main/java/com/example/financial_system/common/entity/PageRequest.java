@@ -1,5 +1,6 @@
 package com.example.financial_system.common.entity;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -8,6 +9,7 @@ import lombok.Data;
  * @Date: 2020/6/16 10:32
  */
 @Data
+@ApiModel("分页请求类")
 public class PageRequest {
     /**
      * 当前页码

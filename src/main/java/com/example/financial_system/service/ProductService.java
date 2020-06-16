@@ -1,6 +1,8 @@
 package com.example.financial_system.service;
 
+import com.example.financial_system.dto.ProductDTO;
 import com.example.financial_system.entity.Product;
+
 import java.util.List;
 
 /**
@@ -64,5 +66,12 @@ public interface ProductService {
      * @return 返回表行数
      */
      Integer count();
+
+    /**
+     * 实现产品的模糊查询
+     * @param productDTO
+     * @return
+     */
+     List<Product> search(ProductDTO productDTO);
      
 }

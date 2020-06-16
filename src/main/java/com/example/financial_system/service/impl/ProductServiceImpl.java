@@ -1,5 +1,6 @@
 package com.example.financial_system.service.impl;
 
+import com.example.financial_system.dto.ProductDTO;
 import com.example.financial_system.entity.Product;
 import com.example.financial_system.dao.ProductDao;
 import com.example.financial_system.service.ProductService;
@@ -96,4 +97,15 @@ public class ProductServiceImpl implements ProductService {
      public Integer count(){
         return productDao.count();
      }
+
+    /**
+     * 实现产品的模糊查询
+     *
+     * @param productDTO
+     * @return
+     */
+    @Override
+    public List<Product> search(ProductDTO productDTO) {
+        return productDao.search(productDTO);
+    }
 }

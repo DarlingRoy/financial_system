@@ -111,4 +111,11 @@
         from financial_system.provider
     </select>
 
+    <select id="queryByName" parameterType="java.lang.String" resultMap="ProviderMap">
+        select
+            <include refid="base_column_list"/>
+        from financial_system.provider
+        where name = #{name}
+    </select>
+
 </mapper>

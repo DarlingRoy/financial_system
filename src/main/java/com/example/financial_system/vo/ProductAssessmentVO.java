@@ -1,4 +1,4 @@
-package com.example.financial_system.VO;
+package com.example.financial_system.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

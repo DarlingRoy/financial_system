@@ -1,10 +1,11 @@
 package com.example.financial_system.dao;
 
+import com.example.financial_system.dto.ProductDTO;
 import com.example.financial_system.entity.Product;
-import org.apache.ibatis.annotations.Param;
-import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * (Product)表数据库访问层
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * @since 2020-06-16 15:17:23
  */
 @Mapper
-@Repository 
+@Repository
 public interface ProductDao {
 
     /**
@@ -54,7 +55,7 @@ public interface ProductDao {
      * @return 影响行数
      */
     int deleteById(Integer id);
-    
+
     /**
      * 选择性插入数据
      *
@@ -62,11 +63,13 @@ public interface ProductDao {
      * @return 影响行数
      */
     int insertSelective(Product product);
-    
+
     /**
      * 返回表行数
      *
      * @return 返回表行数
      */
     Integer count();
+
+    List<Product> search(ProductDTO productDTO);
 }

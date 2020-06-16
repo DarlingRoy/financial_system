@@ -1,7 +1,8 @@
 package com.example.financial_system.controller;
 
-import com.example.financial_system.VO.ProductAssessmentVO;
-import com.example.financial_system.VO.ProductVO;
+import com.example.financial_system.dto.ProductDTO;
+import com.example.financial_system.vo.ProductAssessmentVO;
+import com.example.financial_system.vo.ProductVO;
 import com.example.financial_system.common.entity.JsonResult;
 import com.example.financial_system.common.entity.PageRequest;
 import com.example.financial_system.common.utils.PageUtils;
@@ -197,5 +198,12 @@ public class ProductController {
         return ResultTool.success(productAssessmentVOList);
     }
 
+    @ApiOperation(value = "产品模糊搜索和排序")
+    @GetMapping("search")
+    public JsonResult search(ProductDTO productDTO) {
+        PageHelper.startPage(productDTO.getPageNum(), productDTO.getPageSize());
+        List<Product> productList = this.productService.search(productDTO);
+        return ResultTool.success(PageUtils. getPageResult(new PageInfo<>(productList)));
+    }
 
 }

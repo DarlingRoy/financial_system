@@ -220,4 +220,46 @@
         from financial_system.product
     </select>
 
+    <!--模糊搜索 -->
+    <select id="search" parameterType="com.example.financial_system.dto.ProductDTO" resultMap="ProductMap">
+        select
+            <include refid="base_column_list"/>
+        from product
+        where
+        <if test="providerId != null">
+            provider_id = #{providerId} and
+        </if>
+        <if test="typeId != null">
+            product_type_id = #{typeId} and
+        </if>
+        <if test="riskLevel != null">
+            risk_level = #{riskLevel} and
+        </if>
+        <if test="state != null">
+            state = #{state} and
+        </if>
+        name like concat('%', #{keyword}, '%')
+
+        <if test="orderFlag != null">
+            order by
+            <trim suffixOverrides=",">
+                <if test="orderFlag == 2">
+                    name,
+                </if>
+                <if test="orderFlag == 3">
+                    product_type_id,
+                </if>
+                <if test="orderFlag == 4">
+                    risk_level,
+                </if>
+                <if test="orderFlag == 5">
+                    state,
+                </if>
+                <if test="orderFlag == 6">
+                    storage_time,
+                </if>
+            </trim>
+        </if>
+    </select>
+
 </mapper>

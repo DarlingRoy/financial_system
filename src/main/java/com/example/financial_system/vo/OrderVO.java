@@ -1,4 +1,4 @@
-package com.example.financial_system.VO;
+package com.example.financial_system.vo;
 
 import com.example.financial_system.entity.Order;
 import io.swagger.annotations.ApiModelProperty;
