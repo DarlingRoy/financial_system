@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * (Product)表数据库访问层
  *
  * @author linqx
- * @since 2020-06-15 23:43:40
+ * @since 2020-06-16 08:08:59
  */
 @Mapper
 @Repository 

@@ -1,14 +1,13 @@
 package com.example.financial_system.service;
 
 import com.example.financial_system.entity.Product;
-
 import java.util.List;
 
 /**
  * (Product)表服务接口
  *
  * @author linqx
- * @since 2020-06-15 23:43:40
+ * @since 2020-06-16 08:08:59
  */
 public interface ProductService {
 

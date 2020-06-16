@@ -222,5 +222,11 @@
             </if>
         </trim>        
     </insert>
+    
+    <!--返回表行数-->
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+        from financial_system.product
+    </select>
 
 </mapper>

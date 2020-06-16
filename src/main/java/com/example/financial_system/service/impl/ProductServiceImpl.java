@@ -1,7 +1,7 @@
 package com.example.financial_system.service.impl;
 
-import com.example.financial_system.dao.ProductDao;
 import com.example.financial_system.entity.Product;
+import com.example.financial_system.dao.ProductDao;
 import com.example.financial_system.service.ProductService;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * (Product)表服务实现类
  *
  * @author linqx
- * @since 2020-06-15 23:43:41
+ * @since 2020-06-16 08:09:00
  */
 @Service("productService")
 public class ProductServiceImpl implements ProductService {

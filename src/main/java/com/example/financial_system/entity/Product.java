@@ -8,13 +8,13 @@ import lombok.Data;
 /**
  * (Product)实体类
  *
- * @author laidilin
- * @since 2020-06-16 07:58:46
+ * @author linqx
+ * @since 2020-06-16 08:08:58
  */
 @Data
 @ApiModel("$tableInfo.comment")
 public class Product implements Serializable {
-    private static final long serialVersionUID = -54357499309591544L;
+    private static final long serialVersionUID = 577006272448716811L;
     /**
     * 产品id
     */    
