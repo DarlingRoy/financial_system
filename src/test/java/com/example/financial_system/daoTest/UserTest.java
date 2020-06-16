@@ -44,5 +44,10 @@ public class UserTest {
         User user = userDao.queryById(1);
         System.out.println(user);
     }
+
+    @Test
+    public void testQueryByUsername(){
+        System.out.println(userDao.queryByUsername("Mike"));
+    }
     
 }

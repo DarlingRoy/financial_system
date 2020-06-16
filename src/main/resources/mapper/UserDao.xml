@@ -12,7 +12,7 @@
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="isDelete" column="is_delete" jdbcType="BOOLEAN"/>
     </resultMap>
-    
+
     <sql id="base_column_list">
         id, department_id, username, password, email, phone, create_time, is_delete    </sql>
 
@@ -20,7 +20,7 @@
     <select id="queryById" resultMap="UserMap">
         select
         <include refid="base_column_list" />
-        
+
         from financial_system.user
         where id = #{id}
     </select>
@@ -78,7 +78,7 @@
     <delete id="deleteById">
         delete from financial_system.user where id = #{id}
     </delete>
-    
+
     <!--选择性的新增列-->
     <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
         insert into financial_system.user
@@ -121,7 +121,7 @@
             <if test="isDelete != null">
                 #{isDelete},
             </if>
-        </trim>        
+        </trim>
     </insert>
 
     <!--根据用户名查询用户-->

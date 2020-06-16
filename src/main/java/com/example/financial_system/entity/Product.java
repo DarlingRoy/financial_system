@@ -8,13 +8,13 @@ import lombok.Data;
 /**
  * (Product)实体类
  *
- * @author linqx
- * @since 2020-06-15 23:43:39
+ * @author laidilin
+ * @since 2020-06-16 07:58:46
  */
 @Data
 @ApiModel("$tableInfo.comment")
 public class Product implements Serializable {
-    private static final long serialVersionUID = -74916479352952231L;
+    private static final long serialVersionUID = -54357499309591544L;
     /**
     * 产品id
     */    
@@ -44,7 +44,7 @@ public class Product implements Serializable {
     * 收益率
     */    
     @ApiModelProperty("收益率")
-    private Double rateOfReturn;
+    private Double returnRate;
     /**
     * 产品额度
     */    

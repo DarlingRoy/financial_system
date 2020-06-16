@@ -1,6 +1,5 @@
 package com.example.financial_system.controller;
 
-import com.example.financial_system.VO.OrderVO;
 import com.example.financial_system.VO.ProductVO;
 import com.example.financial_system.common.entity.JsonResult;
 import com.example.financial_system.common.utils.ResultTool;
@@ -25,7 +24,7 @@ import java.util.List;
  * @author linqx
  * @since 2020-06-15 21:34:48
  */
-@Api(tags = "(Product)") 
+@Api(tags = "(Product)")
 @RestController
 @RequestMapping("product")
 public class ProductController {
@@ -65,7 +64,7 @@ public class ProductController {
         productVO.setReviewOperatorName(userService.queryById(productVO.getReviewOperatorId()).getUsername());
         return ResultTool.success(productVO);
     }
-    
+
     /**
      * 增加一条记录(只填入不为空的字段)
      * @param product 实例对象
@@ -76,7 +75,7 @@ public class ProductController {
         this.productService.insertSelective(product);
         return ResultTool.success();
     }
-    
+
     /**
      * 增加一条记录(填入所有字段)
      * @param product 实例对象
@@ -87,7 +86,7 @@ public class ProductController {
         this.productService.insert(product);
         return ResultTool.success();
     }
-    
+
     /**
      * 更新一条记录(只对不为空的字段进行更新)
      * @param product 实例对象
@@ -98,7 +97,7 @@ public class ProductController {
         this.productService.update(product);
         return ResultTool.success();
     }
-    
+
     /**
      * 根据id删除一条记录
      * @param id
@@ -109,7 +108,7 @@ public class ProductController {
         this.productService.deleteById(id);
         return ResultTool.success();
     }
-    
+
     /**
      * 查询多条数据
      *
@@ -118,7 +117,7 @@ public class ProductController {
      * @return 对象列表
      */
     @ApiOperation(value = "根据起始位置和查询条数查询多条数据")
-    @GetMapping("selectAllByLimit")   
+    @GetMapping("selectAllByLimit")
     public JsonResult selectAllByLimit(@ApiParam(value = "查询起始位置") int offset,
                                        @ApiParam(value = "查询记录条数") int limit) {
         List<Product> productList = productService.queryAllByLimit(offset, limit);
@@ -132,14 +131,14 @@ public class ProductController {
         }
         return ResultTool.success();
     }
-    
+
     /**
      * 查询所有数据
      *
      * @return 对象列表
      */
     @ApiOperation(value = "查询表中所有数据")
-    @GetMapping("selectAll")   
+    @GetMapping("selectAll")
     public JsonResult selectAll() {
         List<Product> productList = productService.queryAll();
         List<ProductVO> productVOList = new ArrayList<>();
@@ -151,18 +150,18 @@ public class ProductController {
             productVOList.add(productVO);
         }
 
-       return ResultTool.success(productVOList);
+        return ResultTool.success(productVOList);
     }
-    
+
     /**
      * 返回表行数
      *
      * @return 返回表行数
      */
-     @ApiOperation(value = "返回表中行数")
-     @GetMapping("count")
-     public JsonResult count() {
+    @ApiOperation(value = "返回表中行数")
+    @GetMapping("count")
+    public JsonResult count() {
         return ResultTool.success(this.productService.count());
-     }
+    }
 
 }

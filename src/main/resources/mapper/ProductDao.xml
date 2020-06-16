@@ -8,7 +8,7 @@
         <result property="productTypeId" column="product_type_id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="duration" column="duration" jdbcType="VARCHAR"/>
-        <result property="rateOfReturn" column="rate_of_return" jdbcType="NUMERIC"/>
+        <result property="returnRate" column="return_rate" jdbcType="NUMERIC"/>
         <result property="totalAmount" column="total_amount" jdbcType="INTEGER"/>
         <result property="remainAmount" column="remain_amount" jdbcType="NUMERIC"/>
         <result property="leastAmount" column="least_amount" jdbcType="NUMERIC"/>
@@ -23,7 +23,7 @@
     </resultMap>
     
     <sql id="base_column_list">
-        id, provider_id, product_type_id, name, duration, rate_of_return, total_amount, remain_amount, least_amount, risk_level, add_text, state, storage_time, added_time, review_operator_id, review_result, review_remarks    </sql>
+        id, provider_id, product_type_id, name, duration, return_rate, total_amount, remain_amount, least_amount, risk_level, add_text, state, storage_time, added_time, review_operator_id, review_result, review_remarks    </sql>
 
     <!--查询单个-->
     <select id="queryById" resultMap="ProductMap">
@@ -53,8 +53,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into financial_system.product(provider_id, product_type_id, name, duration, rate_of_return, total_amount, remain_amount, least_amount, risk_level, add_text, state, storage_time, added_time, review_operator_id, review_result, review_remarks)
-        values (#{providerId}, #{productTypeId}, #{name}, #{duration}, #{rateOfReturn}, #{totalAmount}, #{remainAmount}, #{leastAmount}, #{riskLevel}, #{addText}, #{state}, #{storageTime}, #{addedTime}, #{reviewOperatorId}, #{reviewResult}, #{reviewRemarks})
+        insert into financial_system.product(provider_id, product_type_id, name, duration, return_rate, total_amount, remain_amount, least_amount, risk_level, add_text, state, storage_time, added_time, review_operator_id, review_result, review_remarks)
+        values (#{providerId}, #{productTypeId}, #{name}, #{duration}, #{returnRate}, #{totalAmount}, #{remainAmount}, #{leastAmount}, #{riskLevel}, #{addText}, #{state}, #{storageTime}, #{addedTime}, #{reviewOperatorId}, #{reviewResult}, #{reviewRemarks})
     </insert>
 
     <!--通过主键修改数据-->
@@ -73,8 +73,8 @@
             <if test="duration != null and duration != ''">
                 duration = #{duration},
             </if>
-            <if test="rateOfReturn != null">
-                rate_of_return = #{rateOfReturn},
+            <if test="returnRate != null">
+                return_rate = #{returnRate},
             </if>
             <if test="totalAmount != null">
                 total_amount = #{totalAmount},
@@ -134,8 +134,8 @@
             <if test="duration != null and duration != ''">
                 duration,
             </if>
-            <if test="rateOfReturn != null">
-                rate_of_return,
+            <if test="returnRate != null">
+                return_rate,
             </if>
             <if test="totalAmount != null">
                 total_amount,
@@ -184,8 +184,8 @@
             <if test="duration != null and duration != ''">
                 #{duration},
             </if>
-            <if test="rateOfReturn != null">
-                #{rateOfReturn},
+            <if test="returnRate != null">
+                #{returnRate},
             </if>
             <if test="totalAmount != null">
                 #{totalAmount},
@@ -222,11 +222,5 @@
             </if>
         </trim>        
     </insert>
-    
-    <!--返回表行数-->
-    <select id="count" resultType="java.lang.Integer">
-        select count(*)
-        from financial_system.product
-    </select>
 
 </mapper>

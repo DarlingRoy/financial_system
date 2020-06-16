@@ -1,7 +1,7 @@
 package com.example.financial_system.service.impl;
 
-import com.example.financial_system.entity.Product;
 import com.example.financial_system.dao.ProductDao;
+import com.example.financial_system.entity.Product;
 import com.example.financial_system.service.ProductService;
 import org.springframework.stereotype.Service;
 

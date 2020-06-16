@@ -9,7 +9,7 @@ import lombok.Data;
  * @Date: 2020/6/15 20:51
  */
 @Data
-public class ProductVO extends Product{
+public class ProductVO extends Product {
 
     @ApiModelProperty("产品名称")
     private String providerName;
