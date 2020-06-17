@@ -1,9 +1,12 @@
 package com.example.financial_system.entity;
 
-import java.util.Date;
-import java.io.Serializable;
-import io.swagger.annotations.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 用户(User)实体类
@@ -13,6 +16,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel("用户")
+@JsonIgnoreProperties(value = {"password", "createTime", "isDelete"})
 public class User implements Serializable {
     private static final long serialVersionUID = -35279123583447742L;
     /**

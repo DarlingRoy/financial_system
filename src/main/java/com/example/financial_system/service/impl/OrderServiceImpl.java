@@ -96,4 +96,14 @@ public class OrderServiceImpl implements OrderService {
      public Integer count(){
         return orderDao.count();
      }
+
+    /**
+     * 根据用户id查询所有订单
+     *
+     * @param userId
+     */
+    @Override
+    public List<Order> queryByUserId(Integer userId) {
+        return orderDao.queryByUserId(userId);
+    }
 }

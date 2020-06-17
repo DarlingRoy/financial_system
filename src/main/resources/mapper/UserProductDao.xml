@@ -100,4 +100,19 @@
         from financial_system.user_product
     </select>
 
+    <!--根据用户查询-->
+    <select id="queryByUserId" parameterType="java.lang.Integer" resultMap="UserProductMap">
+        select
+            <include refid="base_column_list"/>
+        from financial_system.user_product
+        where user_id = #{userId}
+    </select>
+
+    <!--根据用户id和产品id查询用户持有产品情况-->
+    <select id="queryByUserIdAndProductId" resultMap="UserProductMap">
+        select
+            <include refid="base_column_list"/>
+        from financial_system.user_product
+        where user_id = #{param1,jdbcType=INTEGER} and product_id = #{param2,jdbcType=INTEGER}
+    </select>
 </mapper>

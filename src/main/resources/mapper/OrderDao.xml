@@ -6,7 +6,7 @@
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="userId" column="user_id" jdbcType="INTEGER"/>
         <result property="productId" column="product_id" jdbcType="INTEGER"/>
-        <result property="amount" column="amount" jdbcType="NUMERIC"/>
+        <result property="amount" column="amount" jdbcType="INTEGER"/>
         <result property="orderType" column="order_type" jdbcType="INTEGER"/>
         <result property="orderTime" column="order_time" jdbcType="TIMESTAMP"/>
         <result property="isDelete" column="is_delete" jdbcType="BOOLEAN"/>
@@ -118,6 +118,14 @@
     <select id="count" resultType="java.lang.Integer">
         select count(*)
         from financial_system.order
+    </select>
+
+    <!--根据用户id查询-->
+    <select id="queryByUserId" parameterType="java.lang.Integer" resultMap="OrderMap">
+        select
+            <include refid="base_column_list"/>
+        from financial_system.`order`
+        where user_id = #{userId}
     </select>
 
 </mapper>

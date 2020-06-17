@@ -1,10 +1,10 @@
 package com.example.financial_system.dao;
 
 import com.example.financial_system.entity.UserProduct;
-import org.apache.ibatis.annotations.Param;
-import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * (UserProduct)表数据库访问层
@@ -69,4 +69,19 @@ public interface UserProductDao {
      * @return 返回表行数
      */
     Integer count();
+
+    /**
+     * 根据用户id查询用户持有产品情况
+     * @param userId
+     * @return
+     */
+    List<UserProduct> queryByUserId(Integer userId);
+
+    /**
+     * 根据用户id和产品id查询用户持有产品信息
+     * @param userId
+     * @param productId
+     * @return
+     */
+    UserProduct queryByUserIdAndProductId(Integer userId, Integer productId);
 }

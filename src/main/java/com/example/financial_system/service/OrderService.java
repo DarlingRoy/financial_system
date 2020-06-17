@@ -64,5 +64,12 @@ public interface OrderService {
      * @return 返回表行数
      */
      Integer count();
-     
+
+    /**
+     * 根据用户id查询所有订单
+     */
+    List<Order> queryByUserId(Integer userId);
+
+
+
 }

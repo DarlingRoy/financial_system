@@ -25,7 +25,7 @@ public class CustomizeAuthenticationSuccessHandler implements AuthenticationSucc
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         org.springframework.security.core.userdetails.User userDetails= (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user=userService.queryByUsername(userDetails.getUsername());
+        User user = userService.queryByUsername(userDetails.getUsername());
 
         //返回json数据
         JsonResult result=ResultTool.success(user);

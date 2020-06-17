@@ -96,4 +96,27 @@ public class UserProductServiceImpl implements UserProductService {
      public Integer count(){
         return userProductDao.count();
      }
+
+    /**
+     * 根据用户id查询该用户持有产品情况
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<UserProduct> queryByUserId(Integer userId) {
+        return userProductDao.queryByUserId(userId);
+    }
+
+    /**
+     * 根据用户id和产品id查询用户持有产品情况
+     *
+     * @param userId
+     * @param productId
+     * @return
+     */
+    @Override
+    public UserProduct queryByUserIdAndProductId(Integer userId, Integer productId) {
+        return userProductDao.queryByUserIdAndProductId(userId, productId);
+    }
 }

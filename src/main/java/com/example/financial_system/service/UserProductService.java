@@ -64,5 +64,20 @@ public interface UserProductService {
      * @return 返回表行数
      */
      Integer count();
-     
+
+    /**
+     * 根据用户id查询该用户持有产品情况
+     * @param userId
+     * @return
+     */
+     List<UserProduct> queryByUserId(Integer userId);
+
+    /**
+     * 根据用户id和产品id查询用户持有产品情况
+     * @param userId
+     * @param productId
+     * @return
+     */
+     UserProduct queryByUserIdAndProductId(Integer userId, Integer productId);
+
 }

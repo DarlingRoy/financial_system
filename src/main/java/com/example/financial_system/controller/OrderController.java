@@ -1,18 +1,19 @@
 package com.example.financial_system.controller;
 
-import com.example.financial_system.vo.OrderVO;
 import com.example.financial_system.common.entity.JsonResult;
 import com.example.financial_system.common.utils.ResultTool;
+import com.example.financial_system.common.utils.SystemUtils;
 import com.example.financial_system.entity.Order;
 import com.example.financial_system.service.OrderService;
 import com.example.financial_system.service.ProductService;
 import com.example.financial_system.service.UserService;
-import org.dozer.Mapper;
-import org.springframework.web.bind.annotation.*;
+import com.example.financial_system.vo.OrderVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +69,7 @@ public class OrderController {
     @ApiOperation("增加一条记录(只填入不为空的字段)")
     @PostMapping("insertSelective")
     public JsonResult insertSelective(Order order){
+        order.setUserId(userService.queryByUsername(SystemUtils.getCurrentUserName()).getId());
         this.orderService.insertSelective(order);
         return ResultTool.success();
     }
@@ -79,6 +81,7 @@ public class OrderController {
     @ApiOperation("增加一条记录(填入所有字段)")
     @PostMapping("insert")
     public JsonResult insert(Order order){
+        order.setUserId(userService.queryByUsername(SystemUtils.getCurrentUserName()).getId());
         this.orderService.insert(order);
         return ResultTool.success();
     }

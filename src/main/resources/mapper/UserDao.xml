@@ -141,8 +141,8 @@
     </select>
 
     <!--根据用户名查询用户-->
-    <select id="queryByUsername" resultMap="UserMap">
-        select <include refid="base_column_list"/> from user where username=#{username}
+    <select id="queryByUsername" resultMap="UserMap" parameterType="java.lang.String">
+        select <include refid="base_column_list"/> from user where username = #{username}
     </select>
 
 </mapper>

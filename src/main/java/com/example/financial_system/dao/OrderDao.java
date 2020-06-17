@@ -1,10 +1,10 @@
 package com.example.financial_system.dao;
 
 import com.example.financial_system.entity.Order;
-import org.apache.ibatis.annotations.Param;
-import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * (Order)表数据库访问层
@@ -69,4 +69,13 @@ public interface OrderDao {
      * @return 返回表行数
      */
     Integer count();
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    List<Order> queryByUserId(Integer userId);
+
+
 }

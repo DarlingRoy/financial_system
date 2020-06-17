@@ -1,9 +1,11 @@
 package com.example.financial_system.entity;
 
-import java.util.Date;
-import java.io.Serializable;
-import io.swagger.annotations.*;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 订单(Order)实体类
@@ -34,11 +36,11 @@ public class Order implements Serializable {
     * 金额
     */    
     @ApiModelProperty("金额")
-    private Double amount;
+    private Integer amount;
     /**
     * 买入时间
     */    
-    @ApiModelProperty("买入时间")
+    @ApiModelProperty("订单类型，0表示买入，1表示卖出")
     private Integer orderType;
     /**
     * 卖出时间
