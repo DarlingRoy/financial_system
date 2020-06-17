@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80015
 File Encoding         : 65001
 
-Date: 2020-06-16 18:41:45
+Date: 2020-06-17 23:11:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,7 +30,7 @@ CREATE TABLE `config` (
 -- ----------------------------
 INSERT INTO `config` VALUES ('1', '1,2');
 INSERT INTO `config` VALUES ('2', '2,3');
-INSERT INTO `config` VALUES ('3', null);
+INSERT INTO `config` VALUES ('3', '1,3');
 
 -- ----------------------------
 -- Table structure for config_assessment
@@ -45,7 +45,10 @@ CREATE TABLE `config_assessment` (
   `assess_time` datetime DEFAULT NULL COMMENT '评价时间',
   `is_delete` tinyint(1) DEFAULT NULL COMMENT '逻辑删除',
   PRIMARY KEY (`id`),
-  KEY `FK_Reference_21` (`config_id`)
+  KEY `FK_Reference_21` (`config_id`),
+  KEY `fk_configAssessment_user` (`operator_id`),
+  CONSTRAINT `fk_configAssessment_config` FOREIGN KEY (`config_id`) REFERENCES `config` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fk_configAssessment_user` FOREIGN KEY (`operator_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='配置评价';
 
 -- ----------------------------
@@ -104,7 +107,9 @@ CREATE TABLE `operation_role` (
   `is_delete` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_Reference_2` (`role_id`),
-  KEY `FK_Reference_1` (`operation_id`)
+  KEY `FK_Reference_1` (`operation_id`),
+  CONSTRAINT `fk_operationRole_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fk_operationRole_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='权限-角色';
 
 -- ----------------------------
@@ -121,20 +126,23 @@ CREATE TABLE `order` (
   `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '订单id',
   `user_id` int(16) DEFAULT NULL COMMENT '用户id',
   `product_id` int(16) DEFAULT NULL COMMENT '产品id',
-  `amount` decimal(11,2) DEFAULT NULL COMMENT '金额',
-  `order_type` tinyint(4) DEFAULT NULL COMMENT '买入时间',
-  `order_time` datetime DEFAULT NULL COMMENT '卖出时间',
+  `amount` int(16) DEFAULT NULL COMMENT '金额',
+  `order_type` tinyint(4) DEFAULT NULL COMMENT '订单类型，0表示买入，1表示卖出',
+  `order_time` datetime DEFAULT NULL COMMENT '订单时间',
   `is_delete` tinyint(1) DEFAULT NULL COMMENT '逻辑删除',
   PRIMARY KEY (`id`),
-  KEY `FK_Reference_18` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='订单';
+  KEY `FK_Reference_18` (`user_id`),
+  KEY `fk_order_product` (`product_id`),
+  CONSTRAINT ` fk_order_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fk_order_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='订单';
 
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES ('1', '1', '1', '10.00', '0', '2020-06-16 09:08:41', '0');
-INSERT INTO `order` VALUES ('2', '2', '2', '20.00', '0', '2020-06-18 09:08:45', '0');
-INSERT INTO `order` VALUES ('3', '3', '3', '30.00', '0', '2020-06-16 09:09:26', '0');
+INSERT INTO `order` VALUES ('1', '1', '1', '10', '0', '2020-06-16 09:08:41', '0');
+INSERT INTO `order` VALUES ('2', '2', '2', '20', '0', '2020-06-18 09:08:45', '0');
+INSERT INTO `order` VALUES ('3', '3', '3', '30', '0', '2020-06-16 09:09:26', '0');
 
 -- ----------------------------
 -- Table structure for order_comment
@@ -149,13 +157,18 @@ CREATE TABLE `order_comment` (
   `comment_time` datetime DEFAULT NULL COMMENT '评价时间',
   `is_delete` tinyint(1) DEFAULT NULL COMMENT '逻辑删除',
   PRIMARY KEY (`id`),
-  KEY `FK_Reference_14` (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='订单评价';
+  KEY `FK_Reference_14` (`order_id`),
+  KEY `fk_orderComment_user` (`operator_id`),
+  CONSTRAINT `fk_orderComment_order` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fk_orderComment_user` FOREIGN KEY (`operator_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='订单评价';
 
 -- ----------------------------
 -- Records of order_comment
 -- ----------------------------
 INSERT INTO `order_comment` VALUES ('1', '1', '5', '很好', '1', '2020-06-11 09:50:07', '0');
+INSERT INTO `order_comment` VALUES ('2', '2', '4', '还行', '2', '2020-06-17 23:10:35', '0');
+INSERT INTO `order_comment` VALUES ('3', '3', '5', '不错', '3', '2020-06-17 23:10:54', '0');
 
 -- ----------------------------
 -- Table structure for product
@@ -180,7 +193,12 @@ CREATE TABLE `product` (
   `review_result` char(1) DEFAULT NULL COMMENT '审核结果',
   `review_text` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '审核备注',
   PRIMARY KEY (`id`),
-  KEY `FK_Reference_12` (`provider_id`)
+  KEY `FK_Reference_12` (`provider_id`),
+  KEY `fk_product_productType` (`product_type_id`),
+  KEY `fk_product_user` (`review_operator_id`),
+  CONSTRAINT `fk_product_productType` FOREIGN KEY (`product_type_id`) REFERENCES `product_type` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fk_product_provider` FOREIGN KEY (`provider_id`) REFERENCES `provider` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fk_product_user` FOREIGN KEY (`review_operator_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='产品';
 
 -- ----------------------------
@@ -205,7 +223,10 @@ CREATE TABLE `product_assessment` (
   `assess_time` datetime DEFAULT NULL COMMENT '评价时间',
   `is_delete` tinyint(1) DEFAULT NULL COMMENT '逻辑删除',
   PRIMARY KEY (`id`),
-  KEY `FK_Reference_19` (`product_id`) USING BTREE
+  KEY `FK_Reference_19` (`product_id`) USING BTREE,
+  KEY `fk_productAssessment_user` (`operator_id`),
+  CONSTRAINT `fk_productAssessment_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fk_productAssessment_user` FOREIGN KEY (`operator_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='产品评价';
 
 -- ----------------------------
@@ -288,7 +309,9 @@ CREATE TABLE `role_department` (
   `is_delete` tinyint(1) DEFAULT NULL COMMENT '是否删除',
   PRIMARY KEY (`id`),
   KEY `FK_Reference_7` (`department_id`),
-  KEY `FK_Reference_9` (`role_id`)
+  KEY `FK_Reference_9` (`role_id`),
+  CONSTRAINT `fk_roleDepartment_department` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fk_roleDepartment_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色-部门';
 
 -- ----------------------------
@@ -307,7 +330,9 @@ CREATE TABLE `role_user` (
   `is_delete` tinyint(4) DEFAULT NULL COMMENT '逻辑删除',
   PRIMARY KEY (`id`),
   KEY `FK_Reference_8` (`user_id`),
-  KEY `FK_Reference_10` (`role_id`)
+  KEY `FK_Reference_10` (`role_id`),
+  CONSTRAINT `fk_userRole_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fk_userRole_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色-用户';
 
 -- ----------------------------
@@ -338,7 +363,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `username` (`username`),
   KEY `FK_Reference_11` (`department_id`),
   CONSTRAINT `FK_Reference_11` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户';
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户';
 
 -- ----------------------------
 -- Records of user
@@ -349,7 +374,6 @@ INSERT INTO `user` VALUES ('3', '3', 'John', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.4
 INSERT INTO `user` VALUES ('4', null, 'Alex', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13738424824@qq.com', '13638482943', '300', '2020-06-07 00:00:00', '0');
 INSERT INTO `user` VALUES ('5', null, 'Bill', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13473747272@qq.com', '13470424924', '600', '2020-06-07 00:00:00', '0');
 INSERT INTO `user` VALUES ('6', null, 'Klerk', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13473647274@qq.com', '13474747474', '700', '2020-06-07 00:00:00', '0');
-INSERT INTO `user` VALUES ('34', null, 'Devin', '1234', null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for user_product
@@ -361,12 +385,16 @@ CREATE TABLE `user_product` (
   `product_id` int(16) DEFAULT NULL COMMENT '产品id',
   `holding_share` int(16) DEFAULT NULL COMMENT '持有份额',
   `cumulative_income` decimal(11,2) DEFAULT NULL COMMENT '累计收益',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `fk_userProduct_user` (`user_id`),
+  KEY `fk_userProduct_product` (`product_id`),
+  CONSTRAINT `fk_userProduct_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fk_userProduct_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户产品';
 
 -- ----------------------------
 -- Records of user_product
 -- ----------------------------
-INSERT INTO `user_product` VALUES ('1', '1', '1', '10', null);
-INSERT INTO `user_product` VALUES ('2', '2', '2', '20', null);
-INSERT INTO `user_product` VALUES ('3', '3', '3', '30', null);
+INSERT INTO `user_product` VALUES ('1', '1', '1', '10', '110.00');
+INSERT INTO `user_product` VALUES ('2', '2', '2', '20', '220.00');
+INSERT INTO `user_product` VALUES ('3', '3', '3', '30', '2280.00');
