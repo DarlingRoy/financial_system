@@ -71,5 +71,10 @@ public interface ProductDao {
      */
     Integer count();
 
+    /**
+     * 产品模糊搜索、排序
+     * @param productDTO
+     * @return
+     */
     List<Product> search(ProductDTO productDTO);
 }

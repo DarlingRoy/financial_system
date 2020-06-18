@@ -111,11 +111,23 @@
         from financial_system.provider
     </select>
 
+    <!--根据名字搜索供应商-->
     <select id="queryByName" parameterType="java.lang.String" resultMap="ProviderMap">
         select
             <include refid="base_column_list"/>
         from financial_system.provider
         where name = #{name}
+    </select>
+
+    <!--供应商模糊搜索、排序-->
+    <select id="search" parameterType="com.example.financial_system.dto.ProviderDTO" resultMap="ProviderMap">
+        select
+            <include refid="base_column_list"/>
+        from financial_system.provider
+        where name like concat('%', #{keyword}, '%')
+        <if test="orderFlag == 2">
+            order by convert(`name` using gbk)
+        </if>
     </select>
 
 </mapper>

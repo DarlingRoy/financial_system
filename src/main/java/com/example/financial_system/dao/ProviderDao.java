@@ -1,5 +1,6 @@
 package com.example.financial_system.dao;
 
+import com.example.financial_system.dto.ProviderDTO;
 import com.example.financial_system.entity.Provider;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -70,5 +71,15 @@ public interface ProviderDao {
      */
     Integer count();
 
+    /**
+     * 根据名字搜索供应商
+     * @param name 供应商名字
+     * @return 供应商
+     */
     Provider queryByName(String name);
+
+    /**
+     * 供应商模糊搜索、排序
+     */
+    List<Provider> search(ProviderDTO providerDTO);
 }

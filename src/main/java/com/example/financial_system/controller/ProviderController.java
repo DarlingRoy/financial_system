@@ -114,19 +114,7 @@ public class ProviderController {
     @GetMapping("search")
     public JsonResult search(ProviderDTO providerDTO) {
         PageHelper.startPage(providerDTO.getPageNum(), providerDTO.getPageSize());
-        List<Provider> providerList = providerService.queryAll();
-        if (providerDTO.getKeyword() != null) {
-            Iterator<Provider> iterator = providerList.iterator();
-            while (iterator.hasNext()) {
-                // 判断是否包含keyword，如果没有包含删除该元素
-                if (!iterator.next().getName().contains(providerDTO.getKeyword())) {
-                    iterator.remove();
-                }
-            }
-        }
-        if (providerDTO.getOrderFlag() == 2) {
-            providerList.sort((a, b) -> a.getName().compareTo(b.getName()));
-        }
+        List<Provider> providerList = providerService.search(providerDTO);
         return ResultTool.success(PageUtils.getPageResult(new PageInfo<>(providerList)));
     }
 

@@ -1,5 +1,6 @@
 package com.example.financial_system.service;
 
+import com.example.financial_system.dto.ProviderDTO;
 import com.example.financial_system.entity.Provider;
 
 import java.util.List;
@@ -72,4 +73,9 @@ public interface ProviderService {
      * @return 供应商
      */
      Provider queryByName(String name);
+
+    /**
+     * 供应商模糊搜索、排序
+     */
+    List<Provider> search(ProviderDTO providerDTO);
 }

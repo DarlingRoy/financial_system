@@ -244,7 +244,7 @@
             order by
             <trim suffixOverrides=",">
                 <if test="orderFlag == 2">
-                    name,
+                    convert(`name` using gbk)
                 </if>
                 <if test="orderFlag == 3">
                     product_type_id,

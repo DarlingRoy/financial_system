@@ -1,5 +1,6 @@
 package com.example.financial_system.service.impl;
 
+import com.example.financial_system.dto.ProviderDTO;
 import com.example.financial_system.entity.Provider;
 import com.example.financial_system.dao.ProviderDao;
 import com.example.financial_system.service.ProviderService;
@@ -108,4 +109,15 @@ public class ProviderServiceImpl implements ProviderService {
     public Provider queryByName(String name) {
         return providerDao.queryByName(name);
     }
+
+    /**
+     * 供应商模糊搜索、排序
+     *
+     * @param providerDTO
+     */
+    @Override
+    public List<Provider> search(ProviderDTO providerDTO) {
+        return providerDao.search(providerDTO);
+    }
+
 }
