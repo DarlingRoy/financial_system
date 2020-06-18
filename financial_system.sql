@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80015
 File Encoding         : 65001
 
-Date: 2020-06-17 23:11:44
+Date: 2020-06-18 12:43:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -110,13 +110,14 @@ CREATE TABLE `operation_role` (
   KEY `FK_Reference_1` (`operation_id`),
   CONSTRAINT `fk_operationRole_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `fk_operationRole_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='权限-角色';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='权限-角色';
 
 -- ----------------------------
 -- Records of operation_role
 -- ----------------------------
 INSERT INTO `operation_role` VALUES ('1', '1', '1', '2020-06-07 00:00:00', '0');
 INSERT INTO `operation_role` VALUES ('2', '2', '2', '2020-06-07 00:00:00', '0');
+INSERT INTO `operation_role` VALUES ('3', '2', '1', '2020-06-18 12:21:13', '0');
 
 -- ----------------------------
 -- Table structure for order
@@ -363,7 +364,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `username` (`username`),
   KEY `FK_Reference_11` (`department_id`),
   CONSTRAINT `FK_Reference_11` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户';
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户';
 
 -- ----------------------------
 -- Records of user
