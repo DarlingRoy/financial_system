@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80015
 File Encoding         : 65001
 
-Date: 2020-06-18 12:43:15
+Date: 2020-06-18 19:09:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -205,7 +205,7 @@ CREATE TABLE `product` (
 -- ----------------------------
 -- Records of product
 -- ----------------------------
-INSERT INTO `product` VALUES ('1', '1', '1', '今明股票', '0', '3.00', '70', '30.00', '1.00', '3', '股票', '4', '2020-06-10 22:14:07', '2020-06-14 22:14:21', '3', 'A', '还可以，通过');
+INSERT INTO `product` VALUES ('1', '1', '4', '今明股票', '0', '3.00', '70', '30.00', '1.00', '3', '股票', '4', '2020-06-10 22:14:07', '2020-06-14 22:14:21', '3', 'A', '还可以，通过');
 INSERT INTO `product` VALUES ('2', '1', '2', '荣耀基金', '0', '0.90', '200', '130.00', '5.00', '1', '基金', '4', '2020-06-02 22:24:51', '2020-06-14 22:25:01', '1', '1', '通过');
 INSERT INTO `product` VALUES ('3', '2', '3', '罗明债券', '3,2,0', '2.00', '120', '100.00', '2.00', '2', '债券', '4', '2020-06-02 22:29:53', '2020-06-20 22:29:57', '2', '1', '通过');
 INSERT INTO `product` VALUES ('4', '1', '2', '光明基金', '0', '1.00', '100', '80.00', '5.00', '1', '基金', '1', '2020-06-02 22:13:58', null, '1', null, '');
@@ -246,15 +246,15 @@ CREATE TABLE `product_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '产品类型id',
   `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '产品类型',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='产品类型';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='产品类型';
 
 -- ----------------------------
 -- Records of product_type
 -- ----------------------------
-INSERT INTO `product_type` VALUES ('1', '股票');
+INSERT INTO `product_type` VALUES ('1', '产品包');
 INSERT INTO `product_type` VALUES ('2', ' 基金');
 INSERT INTO `product_type` VALUES ('3', ' 债券');
-INSERT INTO `product_type` VALUES ('4', '产品包');
+INSERT INTO `product_type` VALUES ('4', '股票');
 
 -- ----------------------------
 -- Table structure for provider
@@ -269,7 +269,7 @@ CREATE TABLE `provider` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `is_delete` tinyint(1) DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='供应商';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='供应商';
 
 -- ----------------------------
 -- Records of provider
@@ -277,6 +277,10 @@ CREATE TABLE `provider` (
 INSERT INTO `provider` VALUES ('1', 'Mike', '784264272@qq.com', '13763041138', '广东省广州市番禺区', '2020-06-05 00:00:00', '0');
 INSERT INTO `provider` VALUES ('2', 'David', '13463742932@qq.com', '13463742932', '广东省广州市天河区', '2020-06-07 00:00:00', '0');
 INSERT INTO `provider` VALUES ('3', 'John', '13630424294@qq.com', '13630424294', '广东省广州市越秀区', '2020-06-14 16:56:33', '0');
+INSERT INTO `provider` VALUES ('4', '得力股票', '13764727427@qq.com', '13764727427', '广东省佛山市三水区', '2020-06-18 15:32:58', '0');
+INSERT INTO `provider` VALUES ('5', '罗天科技', '13874272022@qq.com', '13874272022', '广东省深圳市南山区', '2020-06-18 15:33:37', '0');
+INSERT INTO `provider` VALUES ('6', '今进股份', '13763401373@qq.com', '13763401373', '广东省深圳市龙岗区', '2020-06-18 15:34:09', '0');
+INSERT INTO `provider` VALUES ('7', '光大科技', '13763047204@qq.com', '13763047204', '广东省深圳市南山区', '2020-06-18 15:34:36', '0');
 
 -- ----------------------------
 -- Table structure for role
