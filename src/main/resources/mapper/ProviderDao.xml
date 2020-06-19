@@ -124,9 +124,12 @@
         select
             <include refid="base_column_list"/>
         from financial_system.provider
-        where name like concat('%', #{keyword}, '%')
+        where
+        <if test="keyword != null">
+            name like concat('%', #{keyword}, '%')
+        </if>
         <if test="orderFlag == 2">
-            order by convert(`name` using gbk)
+            order by convert(name using gbk)
         </if>
     </select>
 
