@@ -124,8 +124,8 @@
         select
             <include refid="base_column_list"/>
         from financial_system.provider
-        where
         <if test="keyword != null">
+        where
             name like concat('%', #{keyword}, '%')
         </if>
         <if test="orderFlag == 2">

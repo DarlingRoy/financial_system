@@ -21,15 +21,15 @@
         <result property="reviewResult" column="review_result" jdbcType="VARCHAR"/>
         <result property="reviewText" column="review_text" jdbcType="VARCHAR"/>
     </resultMap>
-    
+
     <sql id="base_column_list">
         id, provider_id, product_type_id, name, duration, return_rate, total_amount, remain_amount, least_amount, risk_level, add_text, state, storage_time, added_time, review_operator_id, review_result, review_text    </sql>
 
     <!--查询单个-->
     <select id="queryById" resultMap="ProductMap">
         select
-        <include refid="base_column_list" />
-        
+        <include refid="base_column_list"/>
+
         from financial_system.product
         where id = #{id}
     </select>
@@ -37,15 +37,17 @@
     <!--查询所有-->
     <select id="queryAll" resultMap="ProductMap">
         select
-        <include refid="base_column_list" />
+        <include refid="base_column_list"/>
 
         from financial_system.product
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into financial_system.product(provider_id, product_type_id, name, duration, return_rate, total_amount, remain_amount, least_amount, risk_level, add_text, state, storage_time, added_time, review_operator_id, review_result, review_text)
-        values (#{providerId}, #{productTypeId}, #{name}, #{duration}, #{returnRate}, #{totalAmount}, #{remainAmount}, #{leastAmount}, #{riskLevel}, #{addText}, #{state}, #{storageTime}, #{addedTime}, #{reviewOperatorId}, #{reviewResult}, #{reviewText})
+        INSERT INTO financial_system.product (provider_id, product_type_id, name, duration, return_rate, total_amount, remain_amount, least_amount, risk_level, add_text, state, storage_time, added_time, review_operator_id, review_result, review_text)
+        VALUES (#{providerId}, #{productTypeId}, #{name}, #{duration}, #{returnRate}, #{totalAmount}, #{remainAmount},
+                               #{leastAmount}, #{riskLevel}, #{addText}, #{state}, #{storageTime}, #{addedTime},
+                #{reviewOperatorId}, #{reviewResult}, #{reviewText})
     </insert>
 
     <!--通过主键修改数据-->
@@ -106,9 +108,10 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from financial_system.product where id = #{id}
+        DELETE FROM financial_system.product
+        WHERE id = #{id}
     </delete>
-    
+
     <!--选择性的新增列-->
     <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
         insert into financial_system.product
@@ -211,35 +214,37 @@
             <if test="reviewText != null and reviewText != ''">
                 #{reviewText},
             </if>
-        </trim>        
+        </trim>
     </insert>
-    
+
     <!--返回表行数-->
     <select id="count" resultType="java.lang.Integer">
-        select count(*)
-        from financial_system.product
+        SELECT count(*)
+        FROM financial_system.product
     </select>
 
     <!--模糊搜索 -->
     <select id="search" parameterType="com.example.financial_system.dto.ProductDTO" resultMap="ProductMap">
         select
-            <include refid="base_column_list"/>
+        <include refid="base_column_list"/>
         from product
-        where
-        <if test="providerId != null">
-            provider_id = #{providerId} and
-        </if>
-        <if test="typeId != null">
-            product_type_id = #{typeId} and
-        </if>
-        <if test="riskLevel != null">
-            risk_level = #{riskLevel} and
-        </if>
-        <if test="state != null">
-            state = #{state} and
-        </if>
-        <if test="keyword != null">
-            name like concat('%', #{keyword}, '%')
+        <if test="providerId != null or typeId != null or riskLevel != null or state != null or keyword != null">
+            where
+            <if test="providerId != null">
+                provider_id = #{providerId} and
+            </if>
+            <if test="typeId != null">
+                product_type_id = #{typeId} and
+            </if>
+            <if test="riskLevel != null">
+                risk_level = #{riskLevel} and
+            </if>
+            <if test="state != null">
+                state = #{state} and
+            </if>
+            <if test="keyword != null">
+                name like concat('%', #{keyword}, '%')
+            </if>
         </if>
 
         <if test="orderFlag != null">
