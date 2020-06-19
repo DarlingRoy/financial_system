@@ -135,5 +135,4 @@ public class ProviderController {
     public JsonResult selectByName(@ApiParam(value = "供应商名字") String name) {
          return ResultTool.success(this.providerService.queryByName(name));
     }
-
 }
