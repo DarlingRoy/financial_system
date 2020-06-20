@@ -4,11 +4,18 @@ import com.example.financial_system.common.entity.JsonResult;
 import com.example.financial_system.common.utils.ResultTool;
 import com.example.financial_system.entity.ConfigAssessment;
 import com.example.financial_system.service.ConfigAssessmentService;
+import com.example.financial_system.service.UserService;
+import com.example.financial_system.vo.ConfigAssessmentVO;
+import com.example.financial_system.vo.ProductVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * (ConfigAssessment)表控制层
@@ -26,6 +33,12 @@ public class ConfigAssessmentController {
     @Autowired
     private ConfigAssessmentService configAssessmentService;
 
+    @Autowired
+    private Mapper mapper;
+
+    @Autowired
+    private UserService userService;
+
     /**
      * 通过主键查询单条数据
      *
@@ -35,7 +48,11 @@ public class ConfigAssessmentController {
     @ApiOperation(value = "根据id查询 ")
     @GetMapping("selectOne")
     public JsonResult selectOne(@ApiParam(value = "配置评价id ID") Integer id) {
-        return ResultTool.success(this.configAssessmentService.queryById(id));
+        ConfigAssessment configAssessment = this.configAssessmentService.queryById(id);
+        String operatorName = userService.queryById(configAssessment.getOperatorId()).getUsername();
+        ConfigAssessmentVO configAssessmentVO = mapper.map(configAssessment, ConfigAssessmentVO.class);
+        configAssessmentVO.setOperatorName(operatorName);
+        return ResultTool.success(configAssessmentVO);
     }
     
     /**
@@ -90,7 +107,15 @@ public class ConfigAssessmentController {
     @ApiOperation(value = "查询表中所有数据")
     @GetMapping("selectAll")   
     public JsonResult selectAll() {
-        return ResultTool.success(this.configAssessmentService.queryAll());
+        List<ConfigAssessment> configAssessmentList = this.configAssessmentService.queryAll();
+        List<ConfigAssessmentVO> configAssessmentVOList = new ArrayList<>();
+        for (ConfigAssessment configAssessment: configAssessmentList) {
+            String operatorName = userService.queryById(configAssessment.getOperatorId()).getUsername();
+            ConfigAssessmentVO configAssessmentVO = mapper.map(configAssessment, ConfigAssessmentVO.class);
+            configAssessmentVO.setOperatorName(operatorName);
+            configAssessmentVOList.add(configAssessmentVO);
+        }
+        return ResultTool.success(configAssessmentVOList);
     }
     
     /**
