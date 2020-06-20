@@ -75,9 +75,29 @@ public class ClientController {
         orderService.insertSelective(order);
         //更新用户产品表, 要根据 id 更新
         UserProduct userProduct = userProductService.queryByUserIdAndProductId(currentUserId, productId);
-        Integer holdingShare = userProduct.getHoldingShare();
-        userProduct.setHoldingShare(holdingShare + amount);
-        userProductService.update(userProduct);
+        if (userProduct != null){
+            Integer holdingShare = userProduct.getHoldingShare();
+            userProduct.setHoldingShare(holdingShare + amount);
+            userProductService.update(userProduct);
+        } else {
+            userProduct = new UserProduct();
+            userProduct.setUserId(currentUserId);
+            userProduct.setProductId(productId);
+            userProduct.setHoldingShare(amount);
+            userProduct.setCumulativeIncome(0.0);
+            userProductService.insertSelective(userProduct);
+        }
+
+        return ResultTool.success();
+    }
+
+    /**
+     * 用户卖出产品
+     * @param orderId
+     * @return
+     */
+    public JsonResult sell(@ApiParam (value = "orderId") Integer orderId){
+
         return ResultTool.success();
     }
 

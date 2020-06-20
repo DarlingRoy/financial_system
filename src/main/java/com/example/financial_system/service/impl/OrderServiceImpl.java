@@ -83,7 +83,7 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public Order insertSelective(Order order) {
-        this.orderDao.insert(order);
+        this.orderDao.insertSelective(order);
         return order;
     }
     

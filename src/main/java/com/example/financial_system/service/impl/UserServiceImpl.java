@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User insertSelective(User user) {
-        this.userDao.insert(user);
+        this.userDao.insertSelective(user);
         return user;
     }
     

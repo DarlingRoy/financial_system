@@ -83,7 +83,7 @@ public class ConfigServiceImpl implements ConfigService {
      */
     @Override
     public Config insertSelective(Config config) {
-        this.configDao.insert(config);
+        this.configDao.insertSelective(config);
         return config;
     }
     

@@ -83,7 +83,7 @@ public class UserProductServiceImpl implements UserProductService {
      */
     @Override
     public UserProduct insertSelective(UserProduct userProduct) {
-        this.userProductDao.insert(userProduct);
+        this.userProductDao.insertSelective(userProduct);
         return userProduct;
     }
     

@@ -83,7 +83,7 @@ public class ProductAssessmentServiceImpl implements ProductAssessmentService {
      */
     @Override
     public ProductAssessment insertSelective(ProductAssessment productAssessment) {
-        this.productAssessmentDao.insert(productAssessment);
+        this.productAssessmentDao.insertSelective(productAssessment);
         return productAssessment;
     }
     

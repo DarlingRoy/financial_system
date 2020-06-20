@@ -83,7 +83,7 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public Role insertSelective(Role role) {
-        this.roleDao.insert(role);
+        this.roleDao.insertSelective(role);
         return role;
     }
 }

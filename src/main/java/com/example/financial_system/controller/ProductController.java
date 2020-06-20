@@ -1,6 +1,8 @@
 package com.example.financial_system.controller;
 
+import com.example.financial_system.common.utils.SystemUtils;
 import com.example.financial_system.dto.ProductDTO;
+import com.example.financial_system.entity.Config;
 import com.example.financial_system.vo.ProductAssessmentVO;
 import com.example.financial_system.vo.ProductVO;
 import com.example.financial_system.common.entity.JsonResult;
@@ -19,7 +21,9 @@ import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.transform.Result;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -55,6 +59,10 @@ public class ProductController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ConfigService configService;
+
     /**
      * 通过主键查询单条数据
      *
@@ -69,6 +77,8 @@ public class ProductController {
         productVO.setProviderName(providerService.queryById(productVO.getProviderId()).getName());
         productVO.setProductType(productTypeService.queryById(productVO.getProductTypeId()).getType());
         productVO.setReviewOperatorName(userService.queryById(productVO.getReviewOperatorId()).getUsername());
+        productVO.setProductAssessments(productAssessmentService.queryByProductId(id));
+        productVO.setSubProductList(configService.queryById(id).getSubProductList());
         return ResultTool.success(productVO);
     }
 
@@ -78,7 +88,17 @@ public class ProductController {
      */
     @ApiOperation("增加一条记录(只填入不为空的字段)")
     @PostMapping("insertSelective")
-    public JsonResult insertSelective(Product product){
+    public JsonResult insertSelective(Product product, @RequestParam (required = false) String subProducts){
+        product.setRemainAmount(Double.valueOf(product.getTotalAmount()));
+        product.setState(1);
+        product.setAddedTime(Calendar.getInstance().getTime());
+        if (product.getProductTypeId() == 1){
+            Config config = new Config();
+            config.setId(product.getId());
+            config.setSubProductList(subProducts);
+            configService.insert(config);
+        }
+
         this.productService.insertSelective(product);
         return ResultTool.success();
     }
@@ -161,12 +181,23 @@ public class ProductController {
     public JsonResult review(@ApiParam (value = "被审核产品id") Integer id,
                              @ApiParam (value = "审核结果") String reviewResult,
                              @ApiParam (value = "审核备注") String reviewText) {
-        Product product = new Product();
-        product.setId(id);
-        product.setReviewResult(reviewResult);
-        product.setReviewText(reviewText);
-        this.productService.update(product);
-        return ResultTool.success();
+        //获取对应待审核产品的id
+        Product product = productService.queryById(id);
+
+        if (product == null){
+            return ResultTool.fail("产品不存在");
+        }
+
+        //如果产品处于待审核状态，则进行审核
+        if (product.getState() == 1){
+            product.setReviewResult(reviewResult);
+            product.setReviewText(reviewText);
+            this.productService.update(product);
+            return ResultTool.success();
+        } else {
+            return ResultTool.fail("产品已审核，不能重复审核");
+        }
+
     }
 
     @ApiOperation(value = "评估产品")
@@ -174,12 +205,22 @@ public class ProductController {
     public JsonResult assess(@ApiParam (value = "被评估产品id") Integer id,
                              @ApiParam (value = "评估结果 A,B,C") String assessResult,
                              @ApiParam (value = "评估文本") String assessText) {
-        ProductAssessment productAssessment = new ProductAssessment();
-        productAssessment.setProductId(id);
-        productAssessment.setAssessResult(assessResult);
-        productAssessment.setAssessText(assessText);
-        this.productAssessmentService.insertSelective(productAssessment);
-        return ResultTool.success();
+        Product product = productService.queryById(id);
+        Integer state = product.getState();
+
+        //通过审核的产品才可以评估
+        if (state >= 2 && state <= 4) {
+            ProductAssessment productAssessment = new ProductAssessment();
+            productAssessment.setProductId(id);
+            productAssessment.setAssessResult(assessResult);
+            productAssessment.setAssessText(assessText);
+            productAssessment.setOperatorId(userService.queryByUsername(SystemUtils.getCurrentUserName()).getId());
+            productAssessment.setAssessTime(Calendar.getInstance().getTime());
+            this.productAssessmentService.insertSelective(productAssessment);
+            return ResultTool.success();
+        } else {
+            return ResultTool.fail("产品未通过审核，不可评估");
+        }
     }
 
     @ApiOperation(value = "获取产品评估结果")

@@ -83,7 +83,7 @@ public class OrderCommentServiceImpl implements OrderCommentService {
      */
     @Override
     public OrderComment insertSelective(OrderComment orderComment) {
-        this.orderCommentDao.insert(orderComment);
+        this.orderCommentDao.insertSelective(orderComment);
         return orderComment;
     }
     

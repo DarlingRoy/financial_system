@@ -83,7 +83,7 @@ public class ConfigAssessmentServiceImpl implements ConfigAssessmentService {
      */
     @Override
     public ConfigAssessment insertSelective(ConfigAssessment configAssessment) {
-        this.configAssessmentDao.insert(configAssessment);
+        this.configAssessmentDao.insertSelective(configAssessment);
         return configAssessment;
     }
     

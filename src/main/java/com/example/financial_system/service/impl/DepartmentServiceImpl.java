@@ -83,7 +83,7 @@ public class DepartmentServiceImpl implements DepartmentService {
      */
     @Override
     public Department insertSelective(Department department) {
-        this.departmentDao.insert(department);
+        this.departmentDao.insertSelective(department);
         return department;
     }
     

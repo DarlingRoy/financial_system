@@ -49,4 +49,6 @@ public class ProductDTO extends PageRequest {
     @ApiModelProperty("（可选）排序指定字段，1为id，2为名字, 3为产品类型id，4为产品风险评级，5为产品状态，6为入库时间 ")
     private Integer orderFlag;
 
+
+
 }

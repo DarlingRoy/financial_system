@@ -85,7 +85,7 @@ public class ProviderServiceImpl implements ProviderService {
      */
     @Override
     public Provider insertSelective(Provider provider) {
-        this.providerDao.insert(provider);
+        this.providerDao.insertSelective(provider);
         return provider;
     }
 

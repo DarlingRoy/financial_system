@@ -83,7 +83,7 @@ public class OperationServiceImpl implements OperationService {
      */
     @Override
     public Operation insertSelective(Operation operation) {
-        this.operationDao.insert(operation);
+        this.operationDao.insertSelective(operation);
         return operation;
     }
     
