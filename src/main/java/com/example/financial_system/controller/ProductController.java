@@ -21,7 +21,6 @@ import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.transform.Result;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -244,7 +243,15 @@ public class ProductController {
     public JsonResult search(ProductDTO productDTO) {
         PageHelper.startPage(productDTO.getPageNum(), productDTO.getPageSize());
         List<Product> productList = this.productService.search(productDTO);
-        return ResultTool.success(PageUtils. getPageResult(new PageInfo<>(productList)));
+        List<Product> resultList = new ArrayList<>();
+
+        //排除待审核和废弃状态的产品
+        for (Product product : productList){
+            if (product.getState() >= 2 && product.getState() <= 4){
+                resultList.add(product);
+            }
+        }
+        return ResultTool.success(PageUtils. getPageResult(new PageInfo<>(resultList)));
     }
 
 }
