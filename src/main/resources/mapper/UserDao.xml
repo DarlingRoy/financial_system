@@ -145,4 +145,12 @@
         select <include refid="base_column_list"/> from user where username = #{username}
     </select>
 
+    <!--通过用户id绑定普通角色-->
+    <insert id="insertUserGeneralRole" parameterType="java.lang.Integer">
+        insert into role_user(user_id, role_id, create_time, is_delete)
+                values (#{id}, 2, now(), 0)
+    </insert>
+
+
+
 </mapper>
