@@ -71,7 +71,7 @@ public class ClientController {
         Product product = productService.queryById(productId);
         User user = userService.queryByUsername(SystemUtils.getCurrentUserName());
 
-        if (product.getState() != 2){
+        if (product.getState() != 3){
             return ResultTool.fail("非在售产品");
         }
 
@@ -81,7 +81,7 @@ public class ClientController {
         }
 
         //购买金额小于起购金额，购买失败
-        if (amount < product.getRemainAmount()){
+        if (amount < product.getLeastAmount()){
             return ResultTool.fail("所选额度小于起购金额");
         }
 
@@ -170,7 +170,7 @@ public class ClientController {
         Order order = new Order();
         order.setUserId(user.getId());
         order.setProductId(productId);
-        order.setOrderType(0);
+        order.setOrderType(1);
         order.setAmount(amount);
         order.setOrderTime(Calendar.getInstance().getTime());
         orderService.insertSelective(order);
