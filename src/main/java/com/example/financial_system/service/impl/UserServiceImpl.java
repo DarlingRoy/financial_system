@@ -3,6 +3,7 @@ package com.example.financial_system.service.impl;
 import com.example.financial_system.entity.User;
 import com.example.financial_system.dao.UserDao;
 import com.example.financial_system.service.UserService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
      * 通过ID查询单条数据
@@ -83,6 +87,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User insertSelective(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         this.userDao.insertSelective(user);
         return user;
     }
@@ -106,5 +111,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public User queryByUsername(String username) {
         return this.userDao.queryByUsername(username);
+    }
+
+    /**
+     * 客户端注册接口
+     *
+     * @param user 注册的用户
+     */
+    @Override
+    public void clientRegister(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        this.userDao.insertSelective(user);
+        Integer id = this.userDao.queryByUsername(user.getUsername()).getId();
+        this.userDao.insertUserGeneralRole(id);
     }
 }

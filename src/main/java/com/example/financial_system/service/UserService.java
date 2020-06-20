@@ -72,5 +72,10 @@ public interface UserService {
      * @return 用户
      */
     User queryByUsername(String username);
-     
+
+    /**
+     * 客户端注册接口
+     */
+    void clientRegister(User user);
+
 }

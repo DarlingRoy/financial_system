@@ -39,6 +39,7 @@ public class CustomizeAuthenticationFailureHandler implements AuthenticationFail
         } else if (e instanceof InternalAuthenticationServiceException) {
             //用户不存在
             result = ResultTool.fail(ResultCode.USER_ACCOUNT_NOT_EXIST);
+            result.setData(e.getMessage());
         }else{
             //其他错误
             result = ResultTool.fail(ResultCode.COMMON_FAIL);

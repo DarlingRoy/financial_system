@@ -73,8 +73,14 @@ public interface UserDao {
     /**
      *  通过用户名查询用户
      *
-     *  @oaran username 用户名
+     *  @paran username 用户名
      *  @return 用户
      */
     User queryByUsername(String username);
+
+    /**
+     * 通过用户id绑定普通用户角色
+     */
+    void insertUserGeneralRole(Integer id);
+
 }

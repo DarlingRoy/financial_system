@@ -53,7 +53,7 @@ public class ClientController {
     @ApiOperation(value = "注册用户")
     @PostMapping("register")
     public JsonResult register(User user) {
-        this.userService.insertSelective(user);
+        this.userService.clientRegister(user);
         return ResultTool.success();
     }
 
