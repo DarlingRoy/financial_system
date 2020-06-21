@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80015
 File Encoding         : 65001
 
-Date: 2020-06-21 20:08:12
+Date: 2020-06-21 20:31:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -409,7 +409,7 @@ CREATE TABLE `user_product` (
   KEY `fk_userProduct_product` (`product_id`),
   CONSTRAINT `fk_userProduct_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `fk_userProduct_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户产品';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户产品';
 
 -- ----------------------------
 -- Records of user_product
@@ -417,3 +417,6 @@ CREATE TABLE `user_product` (
 INSERT INTO `user_product` VALUES ('1', '1', '1', '10', '110.00');
 INSERT INTO `user_product` VALUES ('2', '2', '2', '20', '220.00');
 INSERT INTO `user_product` VALUES ('3', '3', '3', '30', '2280.00');
+INSERT INTO `user_product` VALUES ('4', '4', '1', '20', '230.00');
+INSERT INTO `user_product` VALUES ('5', '4', '2', '10', '120.00');
+INSERT INTO `user_product` VALUES ('6', '4', '3', '10', '150.00');
