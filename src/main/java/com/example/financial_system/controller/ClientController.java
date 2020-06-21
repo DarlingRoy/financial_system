@@ -11,10 +11,12 @@ import com.example.financial_system.service.OrderService;
 import com.example.financial_system.service.ProductService;
 import com.example.financial_system.service.UserProductService;
 import com.example.financial_system.service.UserService;
+import com.example.financial_system.vo.OrderVO;
 import com.example.financial_system.vo.UserProductVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,6 +48,9 @@ public class ClientController {
 
     @Autowired
     private UserProductService userProductService;
+
+    @Autowired
+    private Mapper mapper;
 
     /**
      * 注册操作
@@ -185,7 +190,16 @@ public class ClientController {
     @GetMapping("allOrders")
     public JsonResult allOrders() {
         Integer currentUserId = userService.queryByUsername(SystemUtils.getCurrentUserName()).getId();
-        return ResultTool.success(this.orderService.queryByUserId(currentUserId));
+        List<Order> orderList = this.orderService.queryByUserId(currentUserId);
+        List<OrderVO> orderVOList = new ArrayList<>();
+        for (Order order: orderList) {
+            OrderVO orderVO = mapper.map(order, OrderVO.class);
+            orderVO.setProductName(productService.queryById(order.getProductId()).getName());
+            orderVO.setUsername(userService.queryById(order.getUserId()).getUsername());
+            orderVO.setOrderTypeName(order.getOrderType() == 1? "出售":"购买");
+            orderVOList.add(orderVO);
+        }
+        return ResultTool.success(orderVOList);
     }
 
     /**
