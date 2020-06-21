@@ -12,6 +12,7 @@ import com.example.financial_system.common.utils.ResultTool;
 import com.example.financial_system.entity.Product;
 import com.example.financial_system.entity.ProductAssessment;
 import com.example.financial_system.service.*;
+import com.example.financial_system.vo.SubProductVO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
@@ -78,8 +79,25 @@ public class ProductController {
         productVO.setProductType(productTypeService.queryById(productVO.getProductTypeId()).getType());
         productVO.setReviewOperatorName(userService.queryById(productVO.getReviewOperatorId()).getUsername());
         productVO.setProductAssessments(productAssessmentService.queryByProductId(id));
+        // 将子产品的id列表转换为子产品的id，名称，收益率
+        List<SubProductVO> subProductVOList = new ArrayList<>();
+        Config config = configService.queryById(id);
+        if (config != null) {
+            String subProductIdList = config.getSubProductList();
+            if (subProductIdList != null) {
+                String[] strings = subProductIdList.split(",");
+                for (String str : strings) {
+                    Product subProduct = productService.queryById(Integer.valueOf(str));
+                    SubProductVO subProductVO = new SubProductVO();
+                    subProductVO.setProductId(subProduct.getId());
+                    subProductVO.setProductName(subProduct.getName());
+                    subProductVO.setReturnRate(subProduct.getReturnRate());
+                    subProductVOList.add(subProductVO);
+                }
+            }
+        }
         if (product.getProductTypeId() == 1) {
-            productVO.setSubProductList(configService.queryById(id).getSubProductList());
+            productVO.setSubProductVOList(subProductVOList);
         }
         return ResultTool.success(productVO);
     }
