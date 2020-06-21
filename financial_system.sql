@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80015
 File Encoding         : 65001
 
-Date: 2020-06-18 19:09:19
+Date: 2020-06-21 13:28:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -206,10 +206,10 @@ CREATE TABLE `product` (
 -- Records of product
 -- ----------------------------
 INSERT INTO `product` VALUES ('1', '1', '4', '今明股票', '0', '3.00', '70', '30.00', '1.00', '3', '股票', '4', '2020-06-10 22:14:07', '2020-06-14 22:14:21', '3', 'A', '还可以，通过');
-INSERT INTO `product` VALUES ('2', '1', '2', '荣耀基金', '0', '0.90', '200', '130.00', '5.00', '1', '基金', '4', '2020-06-02 22:24:51', '2020-06-14 22:25:01', '1', '1', '通过');
-INSERT INTO `product` VALUES ('3', '2', '3', '罗明债券', '3,2,0', '2.00', '120', '100.00', '2.00', '2', '债券', '4', '2020-06-02 22:29:53', '2020-06-20 22:29:57', '2', '1', '通过');
+INSERT INTO `product` VALUES ('2', '1', '2', '荣耀基金', '0', '0.90', '200', '130.00', '5.00', '1', '基金', '4', '2020-06-02 22:24:51', '2020-06-14 22:25:01', '1', 'B', '通过');
+INSERT INTO `product` VALUES ('3', '2', '3', '罗明债券', '3,2,0', '2.00', '120', '100.00', '2.00', '2', '债券', '4', '2020-06-02 22:29:53', '2020-06-20 22:29:57', '2', 'C', '通过');
 INSERT INTO `product` VALUES ('4', '1', '2', '光明基金', '0', '1.00', '100', '80.00', '5.00', '1', '基金', '1', '2020-06-02 22:13:58', null, '1', null, '');
-INSERT INTO `product` VALUES ('5', '2', '3', '华润债券', '2,3,0', '2.00', '90', '70.00', '2.00', '2', '债券', '2', '2020-06-09 22:14:02', null, '2', '1', '待上架');
+INSERT INTO `product` VALUES ('5', '2', '3', '华润债券', '2,3,0', '2.00', '90', '70.00', '2.00', '2', '债券', '2', '2020-06-09 22:14:02', null, '2', 'A', '待上架');
 
 -- ----------------------------
 -- Table structure for product_assessment
@@ -228,7 +228,7 @@ CREATE TABLE `product_assessment` (
   KEY `fk_productAssessment_user` (`operator_id`),
   CONSTRAINT `fk_productAssessment_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `fk_productAssessment_user` FOREIGN KEY (`operator_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='产品评价';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='产品评价';
 
 -- ----------------------------
 -- Records of product_assessment
@@ -294,13 +294,17 @@ CREATE TABLE `role` (
   `create_time` datetime DEFAULT NULL COMMENT '角色创建时间',
   `is_delete` tinyint(1) DEFAULT NULL COMMENT '逻辑删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色';
 
 -- ----------------------------
 -- Records of role
 -- ----------------------------
 INSERT INTO `role` VALUES ('1', 'administrator', null, null, '2020-06-07 09:51:07', '0');
 INSERT INTO `role` VALUES ('2', 'general_user', null, null, '2020-06-07 09:51:30', '0');
+INSERT INTO `role` VALUES ('3', 'background_user', null, null, '2020-06-19 22:25:08', '0');
+INSERT INTO `role` VALUES ('4', 'sale', null, null, '2020-06-21 13:22:04', '0');
+INSERT INTO `role` VALUES ('5', 'hr', null, null, '2020-06-21 13:22:16', '0');
+INSERT INTO `role` VALUES ('6', 'financial', null, null, '2020-06-21 13:22:50', '0');
 
 -- ----------------------------
 -- Table structure for role_department
@@ -317,11 +321,14 @@ CREATE TABLE `role_department` (
   KEY `FK_Reference_9` (`role_id`),
   CONSTRAINT `fk_roleDepartment_department` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `fk_roleDepartment_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色-部门';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色-部门';
 
 -- ----------------------------
 -- Records of role_department
 -- ----------------------------
+INSERT INTO `role_department` VALUES ('1', '1', '4', '2020-06-21 13:23:15', '0');
+INSERT INTO `role_department` VALUES ('2', '2', '5', '2020-06-21 13:23:49', '0');
+INSERT INTO `role_department` VALUES ('3', '4', '6', '2020-06-21 13:27:00', '0');
 
 -- ----------------------------
 -- Table structure for role_user
@@ -338,7 +345,7 @@ CREATE TABLE `role_user` (
   KEY `FK_Reference_10` (`role_id`),
   CONSTRAINT `fk_userRole_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `fk_userRole_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色-用户';
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色-用户';
 
 -- ----------------------------
 -- Records of role_user
@@ -349,6 +356,7 @@ INSERT INTO `role_user` VALUES ('3', '3', '1', '2020-06-08 09:13:15', '0');
 INSERT INTO `role_user` VALUES ('4', '4', '2', '2020-06-08 09:13:28', '0');
 INSERT INTO `role_user` VALUES ('5', '5', '2', '2020-06-08 09:13:38', '0');
 INSERT INTO `role_user` VALUES ('6', '6', '2', '2020-06-08 09:13:48', '0');
+INSERT INTO `role_user` VALUES ('7', '7', '2', '2020-06-20 21:16:10', '0');
 
 -- ----------------------------
 -- Table structure for user
@@ -368,7 +376,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `username` (`username`),
   KEY `FK_Reference_11` (`department_id`),
   CONSTRAINT `FK_Reference_11` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户';
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户';
 
 -- ----------------------------
 -- Records of user
@@ -379,6 +387,7 @@ INSERT INTO `user` VALUES ('3', '3', 'John', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.4
 INSERT INTO `user` VALUES ('4', null, 'Alex', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13738424824@qq.com', '13638482943', '300', '2020-06-07 00:00:00', '0');
 INSERT INTO `user` VALUES ('5', null, 'Bill', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13473747272@qq.com', '13470424924', '600', '2020-06-07 00:00:00', '0');
 INSERT INTO `user` VALUES ('6', null, 'Klerk', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13473647274@qq.com', '13474747474', '700', '2020-06-07 00:00:00', '0');
+INSERT INTO `user` VALUES ('7', null, 'Amy', '$2a$10$UcpEKf50WNue2LKCTuxQ4ug4g.44d5qmv.uizWl9JRqArK.3SQcbm', '13742740247@qq.com', '13742740247', '500', '2020-06-20 21:26:06', '0');
 
 -- ----------------------------
 -- Table structure for user_product
