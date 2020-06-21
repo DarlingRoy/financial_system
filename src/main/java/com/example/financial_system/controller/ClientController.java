@@ -137,7 +137,7 @@ public class ClientController {
      * @param
      * @return
      */
-    @ApiOperation(value = "未实现接口，用户卖出产品,卖出有两个不同的逻辑，定期产品到期自动卖出,\n"+
+    @ApiOperation(value = "用户卖出产品,卖出有两个不同的逻辑，定期产品到期自动卖出,\n"+
                             "活期产品用户手动卖出，并且活期产品需要全部卖出，两种逻辑使用同一个接口")
     @GetMapping("sell")
     @Transactional

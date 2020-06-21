@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80015
 File Encoding         : 65001
 
-Date: 2020-06-21 15:17:17
+Date: 2020-06-21 20:08:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -144,6 +144,9 @@ CREATE TABLE `order` (
 INSERT INTO `order` VALUES ('1', '1', '1', '10', '0', '2020-06-16 09:08:41', '0');
 INSERT INTO `order` VALUES ('2', '2', '2', '20', '0', '2020-06-18 09:08:45', '0');
 INSERT INTO `order` VALUES ('3', '3', '3', '30', '0', '2020-06-16 09:09:26', '0');
+INSERT INTO `order` VALUES ('4', '4', '1', '20', '0', '2020-06-21 20:06:19', '0');
+INSERT INTO `order` VALUES ('5', '4', '2', '10', '0', '2020-06-21 20:06:35', '0');
+INSERT INTO `order` VALUES ('6', '4', '3', '10', '0', '2020-06-21 20:06:51', '0');
 
 -- ----------------------------
 -- Table structure for order_comment
@@ -162,7 +165,7 @@ CREATE TABLE `order_comment` (
   KEY `fk_orderComment_user` (`operator_id`),
   CONSTRAINT `fk_orderComment_order` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `fk_orderComment_user` FOREIGN KEY (`operator_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='订单评价';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='订单评价';
 
 -- ----------------------------
 -- Records of order_comment
@@ -170,6 +173,7 @@ CREATE TABLE `order_comment` (
 INSERT INTO `order_comment` VALUES ('1', '1', '5', '很好', '1', '2020-06-11 09:50:07', '0');
 INSERT INTO `order_comment` VALUES ('2', '2', '4', '还行', '2', '2020-06-17 23:10:35', '0');
 INSERT INTO `order_comment` VALUES ('3', '3', '5', '不错', '3', '2020-06-17 23:10:54', '0');
+INSERT INTO `order_comment` VALUES ('4', '4', '1', '不错啊，能赚到钱', '4', '2020-06-21 20:07:46', '0');
 
 -- ----------------------------
 -- Table structure for product
@@ -205,7 +209,7 @@ CREATE TABLE `product` (
 -- ----------------------------
 -- Records of product
 -- ----------------------------
-INSERT INTO `product` VALUES ('1', '1', '4', '今明股票', '0', '3.00', '70', '30.00', '1.00', '3', '股票', '4', '2020-06-10 22:14:07', '2020-06-14 22:14:21', '3', 'A', '还可以，通过');
+INSERT INTO `product` VALUES ('1', '1', '4', '今明股票', '0', '3.00', '70', '30.00', '1.00', '3', '股票', '3', '2020-06-10 22:14:07', '2020-06-14 22:14:21', '3', 'A', '还可以，通过');
 INSERT INTO `product` VALUES ('2', '1', '2', '荣耀基金', '0', '0.90', '200', '130.00', '5.00', '1', '基金', '4', '2020-06-02 22:24:51', '2020-06-14 22:25:01', '1', 'B', '通过');
 INSERT INTO `product` VALUES ('3', '2', '3', '罗明债券', '3,2,0', '2.00', '120', '100.00', '2.00', '2', '债券', '4', '2020-06-02 22:29:53', '2020-06-20 22:29:57', '2', 'C', '通过');
 INSERT INTO `product` VALUES ('4', '1', '2', '光明基金', '0', '1.00', '100', '80.00', '5.00', '1', '基金', '1', '2020-06-02 22:13:58', null, '1', null, '');
