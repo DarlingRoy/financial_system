@@ -151,8 +151,14 @@ public class ProductController {
      */
     @ApiOperation("增加一条记录(填入所有字段)")
     @PostMapping("insert")
-    public JsonResult insert(Product product){
+    public JsonResult insert(Product product, @RequestParam (required = false) String subProducts){
         this.productService.insert(product);
+        if (product.getProductTypeId() != null && product.getProductTypeId() == 1){
+            Config config = new Config();
+            config.setId(product.getId());
+            config.setSubProductList(subProducts);
+            configService.update(config);
+        }
         return ResultTool.success();
     }
 
