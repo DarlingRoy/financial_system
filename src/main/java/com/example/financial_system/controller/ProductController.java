@@ -88,10 +88,12 @@ public class ProductController {
     @ApiOperation("增加一条记录(只填入不为空的字段)")
     @PostMapping("insertSelective")
     public JsonResult insertSelective(Product product, @RequestParam (required = false) String subProducts){
-        product.setRemainAmount(Double.valueOf(product.getTotalAmount()));
+        if (product.getTotalAmount() != null) {
+            product.setRemainAmount(Double.valueOf(product.getTotalAmount()));
+        }
         product.setState(1);
         product.setAddedTime(Calendar.getInstance().getTime());
-        if (product.getProductTypeId() == 1){
+        if (product.getProductTypeId() != null && product.getProductTypeId() == 1){
             Config config = new Config();
             config.setId(product.getId());
             config.setSubProductList(subProducts);
