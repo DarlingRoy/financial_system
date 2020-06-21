@@ -128,7 +128,8 @@ public class ProductController {
      */
     @ApiOperation("增加一条记录(只填入不为空的字段)")
     @PostMapping("insertSelective")
-    public JsonResult insertSelective(Product product, @RequestParam (required = false) String subProducts){
+    public JsonResult insertSelective(Product product, @ApiParam(value = "子产品列表，可选参数")
+    @RequestParam (required = false) String subProducts){
         if (product.getTotalAmount() != null) {
             product.setRemainAmount(Double.valueOf(product.getTotalAmount()));
         }
@@ -151,14 +152,9 @@ public class ProductController {
      */
     @ApiOperation("增加一条记录(填入所有字段)")
     @PostMapping("insert")
-    public JsonResult insert(Product product, @RequestParam (required = false) String subProducts){
+    public JsonResult insert(Product product, @ApiParam(value = "子产品列表，可选参数")
+    @RequestParam (required = false) String subProducts){
         this.productService.insert(product);
-        if (product.getProductTypeId() != null && product.getProductTypeId() == 1){
-            Config config = new Config();
-            config.setId(product.getId());
-            config.setSubProductList(subProducts);
-            configService.update(config);
-        }
         return ResultTool.success();
     }
 
@@ -168,8 +164,15 @@ public class ProductController {
      */
     @ApiOperation("更新一条记录(只对不为空的字段进行更新)")
     @PutMapping("update")
-    public JsonResult update(Product product){
+    public JsonResult update(Product product, @ApiParam(value = "子产品列表，可选参数")
+    @RequestParam (required = false) String subProducts ){
         this.productService.update(product);
+        if (product.getProductTypeId() != null && product.getProductTypeId() == 1){
+            Config config = new Config();
+            config.setId(product.getId());
+            config.setSubProductList(subProducts);
+            configService.update(config);
+        }
         return ResultTool.success();
     }
 
