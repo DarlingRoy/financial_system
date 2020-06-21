@@ -269,4 +269,11 @@
         </if>
     </select>
 
+    <!--按照名称关键字模糊查询产品-->
+    <select id="searchByName" resultMap="ProductMap">
+        select
+        <include refid="base_column_list" />
+        from product where name like concat('%', #{keyword}, '%')
+    </select>
+
 </mapper>

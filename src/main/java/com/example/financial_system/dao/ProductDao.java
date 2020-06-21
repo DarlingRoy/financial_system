@@ -77,4 +77,11 @@ public interface ProductDao {
      * @return
      */
     List<Product> search(ProductDTO productDTO);
+
+    /**
+     * 根据产品名称关键字模糊查询
+     * @param keyword
+     * @return
+     */
+    List<Product> searchByName(String keyword);
 }
