@@ -1,5 +1,6 @@
 package com.example.financial_system.vo;
 
+import com.example.financial_system.entity.UserProduct;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -10,7 +11,7 @@ import lombok.Data;
  */
 @ApiModel(value = "用户产品展示类")
 @Data
-public class UserProductVO {
+public class UserProductVO extends UserProduct {
 
     /**
      * 产品名称

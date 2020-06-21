@@ -212,7 +212,7 @@ public class ClientController {
         List<UserProduct> userProductList = this.userProductService.queryByUserId(currentUserId);
         List<UserProductVO> userProductVOList = new ArrayList<>();
         for (UserProduct userProduct: userProductList) {
-            UserProductVO userProductVO = new UserProductVO();
+            UserProductVO userProductVO = mapper.map(userProduct, UserProductVO.class);
             userProductVO.setProductName(this.productService.queryById(userProduct.getProductId()).getName());
             userProductVO.setAmountOccupied(userProduct.getHoldingShare());
             userProductVO.setTotalReturn(userProduct.getCumulativeIncome());
