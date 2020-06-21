@@ -260,6 +260,7 @@ public class ProductController {
         List<ProductAssessmentVO> productAssessmentVOList = new ArrayList<>();
         for (ProductAssessment productAssessment: productAssessmentList) {
             ProductAssessmentVO productAssessmentVO = new ProductAssessmentVO();
+            productAssessmentVO.setProductName(productService.queryById(id).getName());
             productAssessmentVO.setAssessResult(productAssessment.getAssessResult());
             productAssessmentVO.setAssessText(productAssessment.getAssessText());
             productAssessmentVO.setAssessTime(productAssessment.getAssessTime());
