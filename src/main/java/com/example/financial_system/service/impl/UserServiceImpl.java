@@ -89,6 +89,8 @@ public class UserServiceImpl implements UserService {
     public User insertSelective(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         this.userDao.insertSelective(user);
+        Integer id = this.userDao.queryByUsername(user.getUsername()).getId();
+        this.userDao.insertUserGeneralRole(id);
         return user;
     }
     

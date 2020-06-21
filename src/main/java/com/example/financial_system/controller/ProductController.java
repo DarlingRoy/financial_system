@@ -85,7 +85,19 @@ public class ProductController {
             productVO.setReviewOperatorName(userService.queryById(productVO.getReviewOperatorId()).getUsername());
         }
         if (productAssessmentService.queryByProductId(id) != null) {
-            productVO.setProductAssessments(productAssessmentService.queryByProductId(id));
+            List<ProductAssessment> productAssessmentList =  productAssessmentService.queryByProductId(id);
+            List<ProductAssessmentVO> productAssessmentVOList = new ArrayList<>();
+            for (ProductAssessment productAssessment: productAssessmentList) {
+                ProductAssessmentVO productAssessmentVO = mapper.map(productAssessment, ProductAssessmentVO.class);
+                if (productService.queryById(productAssessment.getProductId()) != null) {
+                    productAssessmentVO.setProductName(productService.queryById(productAssessment.getProductId()).getName());
+                }
+                if (userService.queryById(productAssessment.getOperatorId()) != null) {
+                    productAssessmentVO.setAssessorName(userService.queryById(productAssessment.getOperatorId()).getUsername());
+                }
+                productAssessmentVOList.add(productAssessmentVO);
+            }
+            productVO.setProductAssessments(productAssessmentVOList);
         }
         // 将子产品的id列表转换为子产品的id，名称，收益率
         List<SubProductVO> subProductVOList = new ArrayList<>();

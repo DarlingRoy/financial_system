@@ -24,7 +24,7 @@ public class ProductVO extends Product {
     private String reviewOperatorName;
 
     @ApiModelProperty("产品的评估列表")
-    private List<ProductAssessment> productAssessments;
+    private List<ProductAssessmentVO> productAssessments;
 
     @ApiModelProperty("产品的子产品列表")
     private List<SubProductVO> subProductVOList;
