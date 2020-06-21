@@ -11,6 +11,12 @@ import java.util.Date;
  */
 @Data
 public class ProductAssessmentVO {
+
+    /**
+     * 产品名称
+     */
+    @ApiModelProperty("产品名称")
+    private String productName;
     /**
      * 产品分数
      */

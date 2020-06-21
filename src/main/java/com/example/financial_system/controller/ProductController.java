@@ -77,7 +77,9 @@ public class ProductController {
         productVO.setProductType(productTypeService.queryById(productVO.getProductTypeId()).getType());
         productVO.setReviewOperatorName(userService.queryById(productVO.getReviewOperatorId()).getUsername());
         productVO.setProductAssessments(productAssessmentService.queryByProductId(id));
-        productVO.setSubProductList(configService.queryById(id).getSubProductList());
+        if (product.getProductTypeId() == 1) {
+            productVO.setSubProductList(configService.queryById(id).getSubProductList());
+        }
         return ResultTool.success(productVO);
     }
 

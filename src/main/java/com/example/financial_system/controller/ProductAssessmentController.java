@@ -2,13 +2,21 @@ package com.example.financial_system.controller;
 
 import com.example.financial_system.common.entity.JsonResult;
 import com.example.financial_system.common.utils.ResultTool;
+import com.example.financial_system.entity.Product;
 import com.example.financial_system.entity.ProductAssessment;
 import com.example.financial_system.service.ProductAssessmentService;
+import com.example.financial_system.service.ProductService;
+import com.example.financial_system.service.UserService;
+import com.example.financial_system.vo.ProductAssessmentVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 产品评价(ProductAssessment)表控制层
@@ -26,6 +34,15 @@ public class ProductAssessmentController {
     @Autowired
     private ProductAssessmentService productAssessmentService;
 
+    @Autowired
+    private Mapper mapper;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private ProductService productService;
+
     /**
      * 通过主键查询单条数据
      *
@@ -35,7 +52,11 @@ public class ProductAssessmentController {
     @ApiOperation(value = "根据id查询 产品评价")
     @GetMapping("selectOne")
     public JsonResult selectOne(@ApiParam(value = "产品评价id ID") Integer id) {
-        return ResultTool.success(this.productAssessmentService.queryById(id));
+        ProductAssessment productAssessment = this.productAssessmentService.queryById(id);
+        ProductAssessmentVO productAssessmentVO = mapper.map(productAssessment, ProductAssessmentVO.class);
+        productAssessmentVO.setAssessorName(userService.queryById(productAssessment.getOperatorId()).getUsername());
+        productAssessmentVO.setProductName(productService.queryById(productAssessment.getProductId()).getName());
+        return ResultTool.success(productAssessmentVO);
     }
     
     /**
@@ -90,7 +111,15 @@ public class ProductAssessmentController {
     @ApiOperation(value = "查询表中所有数据")
     @GetMapping("selectAll")   
     public JsonResult selectAll() {
-        return ResultTool.success(this.productAssessmentService.queryAll());
+        List<ProductAssessment> productAssessmentList = this.productAssessmentService.queryAll();
+        List<ProductAssessmentVO> productAssessmentVOList = new ArrayList<>();
+        for (ProductAssessment productAssessment: productAssessmentList) {
+            ProductAssessmentVO productAssessmentVO = mapper.map(productAssessment, ProductAssessmentVO.class);
+            productAssessmentVO.setAssessorName(userService.queryById(productAssessment.getOperatorId()).getUsername());
+            productAssessmentVO.setProductName(productService.queryById(productAssessment.getProductId()).getName());
+            productAssessmentVOList.add(productAssessmentVO);
+        }
+        return ResultTool.success(productAssessmentVOList);
     }
     
     /**
