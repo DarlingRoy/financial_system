@@ -75,10 +75,18 @@ public class ProductController {
     public JsonResult selectOne(@ApiParam(value = "产品id ID") Integer id) {
         Product product = this.productService.queryById(id);
         ProductVO productVO = mapper.map(product, ProductVO.class);
-        productVO.setProviderName(providerService.queryById(productVO.getProviderId()).getName());
-        productVO.setProductType(productTypeService.queryById(productVO.getProductTypeId()).getType());
-        productVO.setReviewOperatorName(userService.queryById(productVO.getReviewOperatorId()).getUsername());
-        productVO.setProductAssessments(productAssessmentService.queryByProductId(id));
+        if (productVO.getProductTypeId() != null) {
+            productVO.setProviderName(providerService.queryById(productVO.getProviderId()).getName());
+        }
+        if (productVO.getProductTypeId() != null) {
+            productVO.setProductType(productTypeService.queryById(productVO.getProductTypeId()).getType());
+        }
+        if (productVO.getReviewOperatorId() != null) {
+            productVO.setReviewOperatorName(userService.queryById(productVO.getReviewOperatorId()).getUsername());
+        }
+        if (productAssessmentService.queryByProductId(id) != null) {
+            productVO.setProductAssessments(productAssessmentService.queryByProductId(id));
+        }
         // 将子产品的id列表转换为子产品的id，名称，收益率
         List<SubProductVO> subProductVOList = new ArrayList<>();
         Config config = configService.queryById(id);
