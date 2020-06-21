@@ -2,6 +2,7 @@ package com.example.financial_system.controller;
 
 import com.example.financial_system.common.entity.JsonResult;
 import com.example.financial_system.common.utils.ResultTool;
+import com.example.financial_system.common.utils.SystemUtils;
 import com.example.financial_system.entity.Product;
 import com.example.financial_system.entity.ProductAssessment;
 import com.example.financial_system.service.ProductAssessmentService;
@@ -66,6 +67,8 @@ public class ProductAssessmentController {
     @ApiOperation("增加一条记录(只填入不为空的字段)")
     @PostMapping("insertSelective")
     public JsonResult insertSelective(ProductAssessment productAssessment){
+        String username = SystemUtils.getCurrentUserName();
+        productAssessment.setOperatorId(userService.queryByUsername(username).getId());
         this.productAssessmentService.insertSelective(productAssessment);
         return ResultTool.success();
     }
@@ -77,6 +80,8 @@ public class ProductAssessmentController {
     @ApiOperation("增加一条记录(填入所有字段)")
     @PostMapping("insert")
     public JsonResult insert(ProductAssessment productAssessment){
+        String username = SystemUtils.getCurrentUserName();
+        productAssessment.setOperatorId(userService.queryByUsername(username).getId());
         this.productAssessmentService.insert(productAssessment);
         return ResultTool.success();
     }
