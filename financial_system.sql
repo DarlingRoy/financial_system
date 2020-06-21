@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80015
 File Encoding         : 65001
 
-Date: 2020-06-21 13:28:06
+Date: 2020-06-21 15:17:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,9 +28,9 @@ CREATE TABLE `config` (
 -- ----------------------------
 -- Records of config
 -- ----------------------------
-INSERT INTO `config` VALUES ('1', '1,2');
 INSERT INTO `config` VALUES ('2', '2,3');
 INSERT INTO `config` VALUES ('3', '1,3');
+INSERT INTO `config` VALUES ('6', '1,2');
 
 -- ----------------------------
 -- Table structure for config_assessment
@@ -54,7 +54,7 @@ CREATE TABLE `config_assessment` (
 -- ----------------------------
 -- Records of config_assessment
 -- ----------------------------
-INSERT INTO `config_assessment` VALUES ('1', '1', 'A', '很好', '1', '2020-06-11 09:58:44', '0');
+INSERT INTO `config_assessment` VALUES ('1', '6', 'A', '很好', '1', '2020-06-11 09:58:44', '0');
 INSERT INTO `config_assessment` VALUES ('2', '2', 'B', '不错', '2', '2020-06-11 22:06:11', '0');
 
 -- ----------------------------
@@ -210,6 +210,7 @@ INSERT INTO `product` VALUES ('2', '1', '2', '荣耀基金', '0', '0.90', '200',
 INSERT INTO `product` VALUES ('3', '2', '3', '罗明债券', '3,2,0', '2.00', '120', '100.00', '2.00', '2', '债券', '4', '2020-06-02 22:29:53', '2020-06-20 22:29:57', '2', 'C', '通过');
 INSERT INTO `product` VALUES ('4', '1', '2', '光明基金', '0', '1.00', '100', '80.00', '5.00', '1', '基金', '1', '2020-06-02 22:13:58', null, '1', null, '');
 INSERT INTO `product` VALUES ('5', '2', '3', '华润债券', '2,3,0', '2.00', '90', '70.00', '2.00', '2', '债券', '2', '2020-06-09 22:14:02', null, '2', 'A', '待上架');
+INSERT INTO `product` VALUES ('6', '1', '1', '套餐A', '3,2,0', '3.00', '50', '30.00', '2.00', '2', '产品包', '4', '2020-06-10 15:02:30', '2020-06-26 15:02:34', '1', 'A', '通过');
 
 -- ----------------------------
 -- Table structure for product_assessment
