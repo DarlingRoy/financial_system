@@ -88,4 +88,11 @@
         WHERE user.id=#{userId}
     </select>
 
+    <!--根据菜单id返回角色id列表-->
+    <select id="selectRoleIdListByOperationId" resultType="java.lang.Integer">
+        select role_id
+        from operation_role
+        where operation_id = #{operationId}
+    </select>
+
 </mapper>

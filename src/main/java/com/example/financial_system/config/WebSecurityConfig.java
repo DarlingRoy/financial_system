@@ -1,5 +1,6 @@
 package com.example.financial_system.config;
 
+import com.example.financial_system.config.client.LindAuthenticationProvider;
 import com.example.financial_system.config.handler.*;
 import com.example.financial_system.config.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
     private CustomizeAuthenticationEntryPoint authenticationEntryPoint;
 
+
     @Override
     @Bean
     public UserDetailsService userDetailsService(){
@@ -49,7 +51,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService());
+        auth.
+//                authenticationProvider(new LindAuthenticationProvider()).
+                userDetailsService(userDetailsService());
     }
 
     @Override

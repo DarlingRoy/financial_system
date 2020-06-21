@@ -96,4 +96,14 @@ public class DepartmentServiceImpl implements DepartmentService {
      public Integer count(){
         return departmentDao.count();
      }
+
+    /**
+     * 根据部门id查询角色id列表
+     *
+     * @param departmentId
+     */
+    @Override
+    public List<Integer> selectRoleIdListByDepartmentId(Integer departmentId) {
+        return departmentDao.selectRoleIdListByDepartmentId(departmentId);
+    }
 }

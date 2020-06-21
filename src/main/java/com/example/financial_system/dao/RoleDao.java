@@ -71,4 +71,18 @@ public interface RoleDao {
      */
     List<RoleOperation> selectRoleOperation();
 
+    /**
+     * 根据角色id查询用户id列表
+     */
+    List<Integer> selectUserIdListByRoleId(Integer roleId);
+
+    /**
+     * 根据角色id查询部门id
+     */
+    List<Integer> selectDepartmentIdListByRoleId(Integer roleId);
+
+    /**
+     * 根据角色id查询菜单id列表
+     */
+    List<Integer> selectOperationIdListByRoleId(Integer roleId);
 }

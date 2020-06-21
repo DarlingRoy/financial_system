@@ -1,15 +1,15 @@
 package com.example.financial_system.service;
 
-import com.example.financial_system.entity.Department;
+import com.example.financial_system.entity.RoleDepartment;
 import java.util.List;
 
 /**
- * (Department)表服务接口
+ * 角色-部门(RoleDepartment)表服务接口
  *
  * @author linqx
- * @since 2020-06-16 15:17:23
+ * @since 2020-06-21 11:26:35
  */
-public interface DepartmentService {
+public interface RoleDepartmentService {
 
     /**
      * 通过ID查询单条数据
@@ -17,30 +17,30 @@ public interface DepartmentService {
      * @param id 主键
      * @return 实例对象
      */
-    Department queryById(Integer id);
+    RoleDepartment queryById(Integer id);
  
     /**
      * 查询所有数据
      *
      * @return 对象列表
      */
-    List<Department> queryAll();
+    List<RoleDepartment> queryAll();
 
     /**
      * 新增数据
      *
-     * @param department 实例对象
+     * @param roleDepartment 实例对象
      * @return 实例对象
      */
-    Department insert(Department department);
+    RoleDepartment insert(RoleDepartment roleDepartment);
 
     /**
      * 修改数据
      *
-     * @param department 实例对象
+     * @param roleDepartment 实例对象
      * @return 实例对象
      */
-    Department update(Department department);
+    RoleDepartment update(RoleDepartment roleDepartment);
 
     /**
      * 通过主键删除数据
@@ -53,10 +53,10 @@ public interface DepartmentService {
     /**
      * 选择性插入数据
      *
-     * @param department 实例对象
+     * @param roleDepartment 实例对象
      * @return 实例对象
      */
-    Department insertSelective(Department department);
+    RoleDepartment insertSelective(RoleDepartment roleDepartment);
     
     /**
      * 返回表行数
@@ -64,10 +64,5 @@ public interface DepartmentService {
      * @return 返回表行数
      */
      Integer count();
-
-    /**
-     * 根据部门id查询角色id列表
-     */
-    List<Integer> selectRoleIdListByDepartmentId(Integer departmentId);
      
 }

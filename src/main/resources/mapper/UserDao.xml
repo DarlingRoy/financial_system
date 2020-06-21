@@ -151,6 +151,10 @@
                 values (#{id}, 2, now(), 0)
     </insert>
 
-
+    <select id="selectRoleIdListByUserId" resultType="java.lang.Integer">
+        select role_id
+        from user left join role_user on user.id = role_user.user_id
+        where user_id = #{userId}
+    </select>
 
 </mapper>

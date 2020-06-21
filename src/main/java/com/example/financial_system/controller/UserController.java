@@ -10,6 +10,10 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * (User)表控制层
  *
@@ -103,5 +107,16 @@ public class UserController {
      public JsonResult count() {
         return ResultTool.success(this.userService.count());
      }
+
+    /**
+     * 根据用户id查询角色id列表
+     */
+    @ApiOperation(value = "根据用户id查询角色id列表")
+    @GetMapping("selectRoleIdListByUserId")
+    public JsonResult selectRoleIdListByUserId(@ApiParam(value = "用户") Integer userId) {
+        Map<String, List<Integer>> userIdMap = new HashMap<>();
+        userIdMap.put("userIdList", this.userService.selectRoleIdListByUserId(userId));
+        return ResultTool.success(userIdMap);
+    }
 
 }

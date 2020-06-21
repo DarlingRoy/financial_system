@@ -69,4 +69,9 @@ public interface DepartmentDao {
      * @return 返回表行数
      */
     Integer count();
+
+    /**
+     * 根据部门id查询角色id列表
+     */
+    List<Integer> selectRoleIdListByDepartmentId(Integer departmentId);
 }

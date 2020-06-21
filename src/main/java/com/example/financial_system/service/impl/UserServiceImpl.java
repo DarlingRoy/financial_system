@@ -125,4 +125,14 @@ public class UserServiceImpl implements UserService {
         Integer id = this.userDao.queryByUsername(user.getUsername()).getId();
         this.userDao.insertUserGeneralRole(id);
     }
+
+    /**
+     * 根据用户id查询角色id列表
+     *
+     * @param userId
+     */
+    @Override
+    public List<Integer> selectRoleIdListByUserId(Integer userId) {
+        return this.userDao.selectRoleIdListByUserId(userId);
+    }
 }

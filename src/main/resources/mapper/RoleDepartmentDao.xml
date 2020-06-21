@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.financial_system.dao.DepartmentDao">
+<mapper namespace="com.example.financial_system.dao.RoleDepartmentDao">
 
-    <resultMap type="com.example.financial_system.entity.Department" id="DepartmentMap">
+    <resultMap type="com.example.financial_system.entity.RoleDepartment" id="RoleDepartmentMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
-        <result property="name" column="name" jdbcType="VARCHAR"/>
-        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="departmentId" column="department_id" jdbcType="INTEGER"/>
+        <result property="roleId" column="role_id" jdbcType="INTEGER"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="isDelete" column="is_delete" jdbcType="BOOLEAN"/>
     </resultMap>
-
+    
     <sql id="base_column_list">
-        id, name, type, create_time, is_delete    </sql>
+        id, department_id, role_id, create_time, is_delete    </sql>
 
     <!--查询单个-->
-    <select id="queryById" resultMap="DepartmentMap">
+    <select id="queryById" resultMap="RoleDepartmentMap">
         select
-        <include refid="base_column_list"/>
-
-        from financial_system.department
+        <include refid="base_column_list" />
+        
+        from financial_system.role_department
         where id = #{id}
     </select>
 
     <!--查询所有-->
-    <select id="queryAll" resultMap="DepartmentMap">
+    <select id="queryAll" resultMap="RoleDepartmentMap">
         select
-        <include refid="base_column_list"/>
+        <include refid="base_column_list" />
 
-        from financial_system.department
+        from financial_system.role_department
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        INSERT INTO financial_system.department (name, type, create_time, is_delete)
-        VALUES (#{name}, #{type}, #{createTime}, #{isDelete})
+        insert into financial_system.role_department(department_id, role_id, create_time, is_delete)
+        values (#{departmentId}, #{roleId}, #{createTime}, #{isDelete})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update financial_system.department
+        update financial_system.role_department
         <set>
-            <if test="name != null and name != ''">
-                name = #{name},
+            <if test="departmentId != null">
+                department_id = #{departmentId},
             </if>
-            <if test="type != null and type != ''">
-                type = #{type},
+            <if test="roleId != null">
+                role_id = #{roleId},
             </if>
             <if test="createTime != null">
                 create_time = #{createTime},
@@ -58,19 +58,18 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        DELETE FROM financial_system.department
-        WHERE id = #{id}
+        delete from financial_system.role_department where id = #{id}
     </delete>
-
+    
     <!--选择性的新增列-->
     <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
-        insert into financial_system.department
+        insert into financial_system.role_department
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="name != null and name != ''">
-                name,
+            <if test="departmentId != null">
+                department_id,
             </if>
-            <if test="type != null and type != ''">
-                type,
+            <if test="roleId != null">
+                role_id,
             </if>
             <if test="createTime != null">
                 create_time,
@@ -80,11 +79,11 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="name != null and name != ''">
-                #{name},
+            <if test="departmentId != null">
+                #{departmentId},
             </if>
-            <if test="type != null and type != ''">
-                #{type},
+            <if test="roleId != null">
+                #{roleId},
             </if>
             <if test="createTime != null">
                 #{createTime},
@@ -92,21 +91,13 @@
             <if test="isDelete != null">
                 #{isDelete},
             </if>
-        </trim>
+        </trim>        
     </insert>
-
+    
     <!--返回表行数-->
     <select id="count" resultType="java.lang.Integer">
-        SELECT count(*)
-        FROM financial_system.department
+        select count(*)
+        from financial_system.role_department
     </select>
-
-    <!--根据部门id查询角色id列表-->
-    <select id="selectRoleIdListByDepartmentId" resultType="java.lang.Integer">
-        select role_id
-        from department left join role_department ON department.id = role_department.department_id
-        where department_id = #{departmentId}
-    </select>
-
 
 </mapper>

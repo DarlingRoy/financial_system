@@ -120,4 +120,24 @@
         left join operation on operation_role.operation_id = operation.id;
     </select>
 
+    <select id="selectUserIdListByRoleId" resultType="java.lang.Integer">
+        select user_id
+        from role left join role_user on role.id = role_user.role_id
+        where role_id = #{roleId}
+    </select>
+
+    <select id="selectDepartmentIdListByRoleId" resultType="java.lang.Integer">
+        select department_id
+        from role left join role_department department ON role.id = department.role_id
+        where role_id = #{roleId}
+    </select>
+
+    <!--根据角色id查询菜单id列表-->
+    <select id="selectOperationIdListByRoleId" resultType="java.lang.Integer">
+        select operation_id
+        from operation_role
+        where role_id = #{roleId}
+    </select>
+
+
 </mapper>

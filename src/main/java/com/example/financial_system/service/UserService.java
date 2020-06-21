@@ -78,4 +78,9 @@ public interface UserService {
      */
     void clientRegister(User user);
 
+    /**
+     * 根据用户id查询角色id列表
+     */
+    List<Integer> selectRoleIdListByUserId(Integer userId);
+
 }

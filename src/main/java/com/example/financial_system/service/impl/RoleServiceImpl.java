@@ -86,4 +86,34 @@ public class RoleServiceImpl implements RoleService {
         this.roleDao.insertSelective(role);
         return role;
     }
+
+    /**
+     * 根据角色id查询用户id列表
+     *
+     * @param roleId
+     */
+    @Override
+    public List<Integer> selectUserIdListByRoleId(Integer roleId) {
+        return this.roleDao.selectUserIdListByRoleId(roleId);
+    }
+
+    /**
+     * 根据角色id查询部门id
+     *
+     * @param roleId
+     */
+    @Override
+    public List<Integer> selectDepartmentIdListByRoleId(Integer roleId) {
+        return this.roleDao.selectUserIdListByRoleId(roleId);
+    }
+
+    /**
+     * 根据角色id查询菜单id列表
+     *
+     * @param roleId
+     */
+    @Override
+    public List<Integer> selectOperationIdListByRoleId(Integer roleId) {
+        return this.roleDao.selectOperationIdListByRoleId(roleId);
+    }
 }

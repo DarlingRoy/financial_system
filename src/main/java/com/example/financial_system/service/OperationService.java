@@ -72,5 +72,10 @@ public interface OperationService {
      * @return 权限列表
      */
     List<Operation> queryByUserId(Integer userId);
-     
+
+    /**
+     * 根据菜单id返回角色id列表
+     */
+    List<Integer> selectRoleIdListByOperationId(Integer operationId);
+
 }

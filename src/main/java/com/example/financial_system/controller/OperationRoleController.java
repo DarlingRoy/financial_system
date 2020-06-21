@@ -2,33 +2,30 @@ package com.example.financial_system.controller;
 
 import com.example.financial_system.common.entity.JsonResult;
 import com.example.financial_system.common.utils.ResultTool;
-import com.example.financial_system.entity.Department;
-import com.example.financial_system.service.DepartmentService;
+import com.example.financial_system.entity.OperationRole;
+import com.example.financial_system.service.OperationRoleService;
+import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
- * (Department)表控制层
+ * 权限-角色(OperationRole)表控制层
  *
  * @author linqx
- * @since 2020-06-16 15:17:23
+ * @since 2020-06-21 11:26:36
  */
-@Api(tags = "(Department)") 
+@Api(tags = "权限-角色(OperationRole)") 
 @RestController
-@RequestMapping("department")
-public class DepartmentController {
+@RequestMapping("operationRole")
+public class OperationRoleController {
     /**
      * 服务对象
      */
     @Autowired
-    private DepartmentService departmentService;
+    private OperationRoleService operationRoleService;
 
     /**
      * 通过主键查询单条数据
@@ -36,42 +33,42 @@ public class DepartmentController {
      * @param id 主键
      * @return 单条数据
      */
-    @ApiOperation(value = "根据id查询 ")
+    @ApiOperation(value = "根据id查询 权限-角色")
     @GetMapping("selectOne")
-    public JsonResult selectOne(@ApiParam(value = "部门id ID") Integer id) {
-        return ResultTool.success(this.departmentService.queryById(id));
+    public JsonResult selectOne(@ApiParam(value = " ID") Integer id) {
+        return ResultTool.success(this.operationRoleService.queryById(id));
     }
     
     /**
      * 增加一条记录(只填入不为空的字段)
-     * @param department 实例对象
+     * @param operationRole 实例对象
      */
     @ApiOperation("增加一条记录(只填入不为空的字段)")
     @PostMapping("insertSelective")
-    public JsonResult insertSelective(Department department){
-        this.departmentService.insertSelective(department);
+    public JsonResult insertSelective(OperationRole operationRole){
+        this.operationRoleService.insertSelective(operationRole);
         return ResultTool.success();
     }
     
     /**
      * 增加一条记录(填入所有字段)
-     * @param department 实例对象
+     * @param operationRole 实例对象
      */
     @ApiOperation("增加一条记录(填入所有字段)")
     @PostMapping("insert")
-    public JsonResult insert(Department department){
-        this.departmentService.insert(department);
+    public JsonResult insert(OperationRole operationRole){
+        this.operationRoleService.insert(operationRole);
         return ResultTool.success();
     }
     
     /**
      * 更新一条记录(只对不为空的字段进行更新)
-     * @param department 实例对象
+     * @param operationRole 实例对象
      */
     @ApiOperation("更新一条记录(只对不为空的字段进行更新)")
     @PutMapping("update")
-    public JsonResult update(Department department){
-        this.departmentService.update(department);
+    public JsonResult update(OperationRole operationRole){
+        this.operationRoleService.update(operationRole);
         return ResultTool.success();
     }
     
@@ -81,8 +78,8 @@ public class DepartmentController {
      */
     @ApiOperation("根据id删除一条记录")
     @DeleteMapping("delete")
-    public JsonResult delete(@ApiParam(value = "部门id ID") Integer id){
-        this.departmentService.deleteById(id);
+    public JsonResult delete(@ApiParam(value = " ID") Integer id){
+        this.operationRoleService.deleteById(id);
         return ResultTool.success();
     }
     
@@ -94,7 +91,7 @@ public class DepartmentController {
     @ApiOperation(value = "查询表中所有数据")
     @GetMapping("selectAll")   
     public JsonResult selectAll() {
-        return ResultTool.success(this.departmentService.queryAll());
+        return ResultTool.success(this.operationRoleService.queryAll());
     }
     
     /**
@@ -105,18 +102,7 @@ public class DepartmentController {
      @ApiOperation(value = "返回表中行数")
      @GetMapping("count")
      public JsonResult count() {
-        return ResultTool.success(this.departmentService.count());
+        return ResultTool.success(this.operationRoleService.count());
      }
 
-
-    /**
-     * 根据部门id查询角色id列表
-     */
-    @ApiOperation(value = "根据部门id查询角色id列表")
-    @GetMapping("selectRoleIdListByDepartmentId")
-    public JsonResult selectRoleIdListByDepartmentId(@ApiParam(value = "部门id") Integer departmentId) {
-        Map<String, List<Integer>> roleIdMap = new HashMap<>();
-        roleIdMap.put("roleIdList", this.departmentService.selectRoleIdListByDepartmentId(departmentId));
-        return ResultTool.success(roleIdMap);
-    }
 }

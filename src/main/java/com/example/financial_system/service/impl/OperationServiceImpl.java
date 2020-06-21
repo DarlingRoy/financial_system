@@ -107,4 +107,14 @@ public class OperationServiceImpl implements OperationService {
     public List<Operation> queryByUserId(Integer userId) {
         return this.operationDao.queryByUserId(userId);
     }
+
+    /**
+     * 根据菜单id返回角色id列表
+     *
+     * @param operationId
+     */
+    @Override
+    public List<Integer> selectRoleIdListByOperationId(Integer operationId) {
+        return this.operationDao.selectRoleIdListByOperationId(operationId);
+    }
 }
