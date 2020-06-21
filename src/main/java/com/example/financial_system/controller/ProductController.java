@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -245,15 +246,41 @@ public class ProductController {
     public JsonResult search(ProductDTO productDTO) {
         PageHelper.startPage(productDTO.getPageNum(), productDTO.getPageSize());
         List<Product> productList = this.productService.search(productDTO);
-        List<Product> resultList = new ArrayList<>();
+        return ResultTool.success(PageUtils. getPageResult(new PageInfo<>(productList)));
+    }
 
-        //排除待审核和废弃状态的产品
-        for (Product product : productList){
-            if (product.getState() >= 2 && product.getState() <= 4){
-                resultList.add(product);
+    @ApiOperation(value = "根据id查询产品，不返回待审核和废弃状态的产品")
+    @GetMapping("searchById")
+    public JsonResult searchById(Integer id){
+        HashMap<String,Object> resultMap = new HashMap<>();
+        Product product = productService.queryById(id);
+        if (product == null){
+            return ResultTool.fail("不存在改产品");
+        }
+        if (product.getState() < 2 || product.getState() > 4){
+            return ResultTool.fail("该产品未审核或已废弃");
+        }
+
+        resultMap.put("id",id);
+        resultMap.put("name",product.getName());
+
+        return ResultTool.success(resultMap);
+    }
+
+    @ApiOperation(value = "根据关键字模糊查询产品，不返回待审核和废弃状态的产品")
+    @GetMapping("searchByKeyword")
+    public JsonResult searchByKeyword(String keyword){
+        List<HashMap<String,Object>> resultList = new ArrayList<>();
+        List<Product> products = productService.searchByName(keyword);
+        for (Product product : products){
+            if (product.getState() >=2 && product.getState() <= 4){
+                HashMap<String,Object> resultMap = new HashMap<>();
+                resultMap.put("id",product.getId());
+                resultMap.put("name",product.getName());
+                resultList.add(resultMap);
             }
         }
-        return ResultTool.success(PageUtils. getPageResult(new PageInfo<>(resultList)));
+        return ResultTool.success(resultList);
     }
 
 }

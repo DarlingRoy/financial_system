@@ -108,4 +108,14 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> search(ProductDTO productDTO) {
         return productDao.search(productDTO);
     }
+
+    /**
+     * 根据产品名称关键字模糊查询
+     * @param keyword
+     * @return
+     */
+    @Override
+    public List<Product> searchByName(String keyword){
+        return productDao.searchByName(keyword);
+    }
 }
