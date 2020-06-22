@@ -127,6 +127,7 @@
             <include refid="base_column_list"/>
         from financial_system.`order`
         where user_id = #{userId}
+        order by order_time desc
     </select>
 
 </mapper>
