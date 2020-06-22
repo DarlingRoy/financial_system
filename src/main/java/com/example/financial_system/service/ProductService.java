@@ -2,6 +2,7 @@ package com.example.financial_system.service;
 
 import com.example.financial_system.dto.ProductDTO;
 import com.example.financial_system.entity.Product;
+import com.example.financial_system.vo.ProductVO;
 
 import java.util.List;
 
@@ -80,5 +81,15 @@ public interface ProductService {
      * @return
      */
     List<Product> searchByName(String keyword);
-     
+
+    /**
+     * 获取新品，返回20个上架的“在售”状态的产品
+     */
+    List<Product> selectNewProduct();
+
+    /**
+     * 将Product转换为ProductVO
+     */
+    ProductVO convertToVO(Product product);
+
 }

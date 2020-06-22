@@ -84,4 +84,9 @@ public interface ProductDao {
      * @return
      */
     List<Product> searchByName(String keyword);
+
+    /**
+     * 获取新品，返回20个上架的“在售”状态的产品
+     */
+    List<Product> selectNewProduct();
 }

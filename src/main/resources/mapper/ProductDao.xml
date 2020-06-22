@@ -276,4 +276,14 @@
         from product where name like concat('%', #{keyword}, '%')
     </select>
 
+    <!--获取新品，返回20个上架的“在售”状态的产品-->
+    <select id="selectNewProduct" resultType="com.example.financial_system.entity.Product">
+        select
+            <include refid="base_column_list"/>
+        from product
+        where state = 3
+        order by added_time desc
+        limit 20
+    </select>
+
 </mapper>

@@ -8,9 +8,14 @@ import lombok.Data;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * @Author: linqx
- * @Date: 2020/6/15 20:52
+ * OrderVO 展示类
+ *
+ * @author linqx
+ * @since 2020-06-16 15:17:23
  */
 @Data
 public class OrderVO extends Order {
@@ -42,17 +47,17 @@ public class OrderVO extends Order {
     @Autowired
     private ProductService productService;
 
-    public OrderVO convert(Order order) {
-        OrderVO orderVO = mapper.map(order, OrderVO.class);
-        if (userService.queryById(orderVO.getUserId()) != null) {
-            orderVO.setUsername(userService.queryById(orderVO.getUserId()).getUsername());
+    public void convert(Order order) {
+        if (userService.queryById(order.getUserId()) != null) {
+            this.setUsername(userService.queryById(order.getUserId()).getUsername());
         }
-        if (productService.queryById(orderVO.getProductId()) != null) {
-            orderVO.setProductName(productService.queryById(orderVO.getProductId()).getName());
+        if (productService.queryById(this.getProductId()) != null) {
+            this.setProductName(productService.queryById(order.getProductId()).getName());
         }
         if (order.getOrderType() != null) {
-            orderVO.setOrderTypeName(order.getOrderType() == 1 ? "出售" : "购买");
+            this.setOrderTypeName(order.getOrderType() == 1 ? "出售" : "购买");
         }
-        return orderVO;
     }
+
+
 }

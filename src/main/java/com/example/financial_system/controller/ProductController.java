@@ -22,10 +22,7 @@ import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * (Product)表控制层
@@ -74,51 +71,7 @@ public class ProductController {
     @GetMapping("selectOne")
     public JsonResult selectOne(@ApiParam(value = "产品id ID") Integer id) {
         Product product = this.productService.queryById(id);
-        ProductVO productVO = mapper.map(product, ProductVO.class);
-        if (productVO.getProductTypeId() != null) {
-            productVO.setProviderName(providerService.queryById(productVO.getProviderId()).getName());
-        }
-        if (productVO.getProductTypeId() != null) {
-            productVO.setProductType(productTypeService.queryById(productVO.getProductTypeId()).getType());
-        }
-        if (productVO.getReviewOperatorId() != null) {
-            productVO.setReviewOperatorName(userService.queryById(productVO.getReviewOperatorId()).getUsername());
-        }
-        if (productAssessmentService.queryByProductId(id) != null) {
-            List<ProductAssessment> productAssessmentList =  productAssessmentService.queryByProductId(id);
-            List<ProductAssessmentVO> productAssessmentVOList = new ArrayList<>();
-            for (ProductAssessment productAssessment: productAssessmentList) {
-                ProductAssessmentVO productAssessmentVO = mapper.map(productAssessment, ProductAssessmentVO.class);
-                if (productService.queryById(productAssessment.getProductId()) != null) {
-                    productAssessmentVO.setProductName(productService.queryById(productAssessment.getProductId()).getName());
-                }
-                if (userService.queryById(productAssessment.getOperatorId()) != null) {
-                    productAssessmentVO.setAssessorName(userService.queryById(productAssessment.getOperatorId()).getUsername());
-                }
-                productAssessmentVOList.add(productAssessmentVO);
-            }
-            productVO.setProductAssessments(productAssessmentVOList);
-        }
-        // 将子产品的id列表转换为子产品的id，名称，收益率
-        List<SubProductVO> subProductVOList = new ArrayList<>();
-        Config config = configService.queryById(id);
-        if (config != null) {
-            String subProductIdList = config.getSubProductList();
-            if (subProductIdList != null) {
-                String[] strings = subProductIdList.split(",");
-                for (String str : strings) {
-                    Product subProduct = productService.queryById(Integer.valueOf(str));
-                    SubProductVO subProductVO = new SubProductVO();
-                    subProductVO.setProductId(subProduct.getId());
-                    subProductVO.setProductName(subProduct.getName());
-                    subProductVO.setReturnRate(subProduct.getReturnRate());
-                    subProductVOList.add(subProductVO);
-                }
-            }
-        }
-        if (product.getProductTypeId() == 1) {
-            productVO.setSubProductVOList(subProductVOList);
-        }
+        ProductVO productVO = productService.convertToVO(product);
         return ResultTool.success(productVO);
     }
 
@@ -134,7 +87,7 @@ public class ProductController {
             product.setRemainAmount(Double.valueOf(product.getTotalAmount()));
         }
         product.setState(1);
-        product.setAddedTime(Calendar.getInstance().getTime());
+        product.setStorageTime(Calendar.getInstance().getTime());
         if (product.getProductTypeId() != null && product.getProductTypeId() == 1){
             Config config = new Config();
             config.setId(product.getId());
@@ -324,6 +277,58 @@ public class ProductController {
         List<Product> products = productService.searchByName(keyword);
         for (Product product : products){
             if (product.getState() >=2 && product.getState() <= 4){
+                HashMap<String,Object> resultMap = new HashMap<>();
+                resultMap.put("id",product.getId());
+                resultMap.put("name",product.getName());
+                resultList.add(resultMap);
+            }
+        }
+        return ResultTool.success(resultList);
+    }
+
+
+    @ApiOperation(value = "获取新品，返回20个上架的“在售”状态的产品")
+    @GetMapping("selectNewProduct")
+    public JsonResult selectNewProduct() {
+        List<Product> productList = this.productService.selectNewProduct();
+        List<ProductVO> productVOList = new ArrayList<>();
+        for (Product product: productList) {
+            ProductVO productVO = this.productService.convertToVO(product);
+            productVOList.add(productVO);
+        }
+        return ResultTool.success(productVOList);
+    }
+
+    @ApiOperation(value = "产品上架")
+    @GetMapping("putOnShelf")
+    public JsonResult putOnShelfById (@ApiParam(value = "产品id") Integer id) {
+        Product product = new Product();
+        product.setId(id);
+        product.setAddedTime(Calendar.getInstance().getTime());
+        return ResultTool.success(this.productService.update(product));
+    }
+
+    @ApiOperation(value = "“上架”产品模糊搜索和排序")
+    @GetMapping("searchAddedProduct")
+    public JsonResult searchAddedProduct(ProductDTO productDTO) {
+        PageHelper.startPage(productDTO.getPageNum(), productDTO.getPageSize());
+        List<Product> productList = this.productService.search(productDTO);
+        for(Iterator<Product> iterator = productList.iterator(); iterator.hasNext();) {
+            Product product = iterator.next();
+            if (product.getState() != 3 && product.getState() != 4) {
+                iterator.remove();
+            }
+        }
+        return ResultTool.success(PageUtils. getPageResult(new PageInfo<>(productList)));
+    }
+
+    @ApiOperation(value = "根据关键字模糊查询产品，不返回待审核和废弃状态的产品")
+    @GetMapping("searchAddedProductByKeyword")
+    public JsonResult searchAddedProductByKeyword(String keyword){
+        List<HashMap<String,Object>> resultList = new ArrayList<>();
+        List<Product> products = productService.searchByName(keyword);
+        for (Product product : products){
+            if (product.getState() == 3 || product.getState() == 4){
                 HashMap<String,Object> resultMap = new HashMap<>();
                 resultMap.put("id",product.getId());
                 resultMap.put("name",product.getName());
