@@ -13,7 +13,7 @@
     </resultMap>
     
     <sql id="base_column_list">
-        id, order_id, grade, desc, operator_id, comment_time, is_delete    </sql>
+        id, order_id, grade, order_comment.desc, operator_id, comment_time, is_delete    </sql>
 
     <!--查询单个-->
     <select id="queryById" resultMap="OrderCommentMap">

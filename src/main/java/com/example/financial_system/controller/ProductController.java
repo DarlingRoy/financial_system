@@ -304,6 +304,7 @@ public class ProductController {
     public JsonResult putOnShelfById (@ApiParam(value = "产品id") Integer id) {
         Product product = new Product();
         product.setId(id);
+        product.setState(3);
         product.setAddedTime(Calendar.getInstance().getTime());
         return ResultTool.success(this.productService.update(product));
     }
