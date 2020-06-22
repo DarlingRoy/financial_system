@@ -1,9 +1,13 @@
 package com.example.financial_system.controller;
 
 import com.example.financial_system.common.entity.JsonResult;
+import com.example.financial_system.common.entity.PageRequest;
+import com.example.financial_system.common.utils.PageUtils;
 import com.example.financial_system.common.utils.ResultTool;
 import com.example.financial_system.entity.User;
 import com.example.financial_system.service.UserService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -91,8 +95,10 @@ public class UserController {
      */
     @ApiOperation(value = "查询表中所有数据")
     @GetMapping("selectAll")   
-    public JsonResult selectAll() {
-        return ResultTool.success(this.userService.queryAll());
+    public JsonResult selectAll(PageRequest pageRequest) {
+        PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
+        List<User> userList = this.userService.queryAll();
+        return ResultTool.success(PageUtils. getPageResult(new PageInfo<>(userList)));
     }
     
     /**

@@ -1,9 +1,13 @@
 package com.example.financial_system.controller;
 
 import com.example.financial_system.common.entity.JsonResult;
+import com.example.financial_system.common.entity.PageRequest;
+import com.example.financial_system.common.utils.PageUtils;
 import com.example.financial_system.common.utils.ResultTool;
 import com.example.financial_system.entity.Role;
 import com.example.financial_system.service.RoleService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
@@ -96,8 +100,9 @@ public class RoleController {
      */
     @ApiOperation(value = "查询表中所有数据")
     @GetMapping("selectAll")
-    public JsonResult selectAll() {
-        return ResultTool.success(this.roleService.queryAll());
+    public JsonResult selectAll(PageRequest pageRequest) {
+        PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
+        return ResultTool.success(PageUtils. getPageResult(new PageInfo<>(this.roleService.queryAll())));
     }
 
     /**

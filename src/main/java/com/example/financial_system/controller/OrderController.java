@@ -1,6 +1,8 @@
 package com.example.financial_system.controller;
 
 import com.example.financial_system.common.entity.JsonResult;
+import com.example.financial_system.common.entity.PageRequest;
+import com.example.financial_system.common.utils.PageUtils;
 import com.example.financial_system.common.utils.ResultTool;
 import com.example.financial_system.common.utils.SystemUtils;
 import com.example.financial_system.entity.Order;
@@ -8,6 +10,8 @@ import com.example.financial_system.service.OrderService;
 import com.example.financial_system.service.ProductService;
 import com.example.financial_system.service.UserService;
 import com.example.financial_system.vo.OrderVO;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -115,7 +119,8 @@ public class OrderController {
      */
     @ApiOperation(value = "查询表中所有数据")
     @GetMapping("selectAll")
-    public JsonResult selectAll() {
+    public JsonResult selectAll(PageRequest pageRequest) {
+        PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
         List<Order> orderList = this.orderService.queryAll();
         List<OrderVO> orderVOList = new ArrayList<OrderVO>();
         for (Order order: orderList) {
@@ -124,7 +129,7 @@ public class OrderController {
             orderVO.setProductName(productService.queryById(orderVO.getProductId()).getName());
             orderVOList.add(orderVO);
         }
-        return ResultTool.success(orderVOList);
+        return ResultTool.success(PageUtils. getPageResult(new PageInfo<>(orderVOList)));
     }
 
 }
