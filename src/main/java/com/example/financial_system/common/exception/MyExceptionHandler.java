@@ -22,5 +22,12 @@ public class MyExceptionHandler {
         return JSON.toJSONString(result);
     }
 
+    @ExceptionHandler(value = NullPointerException.class)
+    public String exceptionHandler(NullPointerException e) {
+        JsonResult result = ResultTool.fail(ResultCode.NULL_POINTER);
+        result.setData(e.getMessage());
+        return JSON.toJSONString(result);
+    }
+
 }
 

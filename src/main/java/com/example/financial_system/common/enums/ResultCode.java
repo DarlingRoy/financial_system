@@ -25,7 +25,8 @@ public enum ResultCode {
     USER_ACCOUNT_USE_BY_OTHERS(2009, "账号下线"),
 
     /* 业务错误 */
-    NO_PERMISSION(3001, "没有权限");
+    NO_PERMISSION(3001, "没有权限"),
+    NULL_POINTER(3002, "空指针异常");
 
     private Integer code;
     private String message;
