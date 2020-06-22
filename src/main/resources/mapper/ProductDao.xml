@@ -228,24 +228,26 @@
         select
         <include refid="base_column_list"/>
         from product
-        <if test="providerId != null or typeId != null or riskLevel != null or state != null or keyword != null">
-            where
-            <if test="providerId != null">
-                provider_id = #{providerId} and
+        <trim suffixOverrides="and">
+            <if test="providerId != null or typeId != null or riskLevel != null or state != null or keyword != null">
+                where
+                <if test="providerId != null">
+                    provider_id = #{providerId} and
+                </if>
+                <if test="typeId != null">
+                    product_type_id = #{typeId} and
+                </if>
+                <if test="riskLevel != null">
+                    risk_level = #{riskLevel} and
+                </if>
+                <if test="state != null">
+                    state = #{state} and
+                </if>
+                <if test="keyword != null">
+                    name like concat('%', #{keyword}, '%')
+                </if>
             </if>
-            <if test="typeId != null">
-                product_type_id = #{typeId} and
-            </if>
-            <if test="riskLevel != null">
-                risk_level = #{riskLevel} and
-            </if>
-            <if test="state != null">
-                state = #{state} and
-            </if>
-            <if test="keyword != null">
-                name like concat('%', #{keyword}, '%')
-            </if>
-        </if>
+        </trim>
 
         <if test="orderFlag != null">
             order by
@@ -263,7 +265,13 @@
                     state,
                 </if>
                 <if test="orderFlag == 6">
-                    storage_time,
+                    storage_time desc,
+                </if>
+                <if test="orderFlag == 7">
+                    added_time desc,
+                </if>
+                <if test="orderFlag == 8">
+                    return_rate desc
                 </if>
             </trim>
         </if>
@@ -272,14 +280,14 @@
     <!--按照名称关键字模糊查询产品-->
     <select id="searchByName" resultMap="ProductMap">
         select
-        <include refid="base_column_list" />
+        <include refid="base_column_list"/>
         from product where name like concat('%', #{keyword}, '%')
     </select>
 
     <!--获取新品，返回20个上架的“在售”状态的产品-->
     <select id="selectNewProduct" resultType="com.example.financial_system.entity.Product">
         select
-            <include refid="base_column_list"/>
+        <include refid="base_column_list"/>
         from product
         where state = 3
         order by added_time desc

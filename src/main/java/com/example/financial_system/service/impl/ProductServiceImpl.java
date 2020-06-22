@@ -204,8 +204,10 @@ public class ProductServiceImpl implements ProductService {
                 }
             }
         }
-        if (product.getProductTypeId() == 1) {
-            productVO.setSubProductVOList(subProductVOList);
+        if (product.getProductTypeId() != null) {
+            if (product.getProductTypeId() == 1) {
+                productVO.setSubProductVOList(subProductVOList);
+            }
         }
         return productVO;
     }

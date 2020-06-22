@@ -19,6 +19,7 @@ public class MyExceptionHandler {
     public String exceptionHandler(Exception e){
         JsonResult result = ResultTool.fail(ResultCode.COMMON_FAIL);
         result.setData(e.getMessage());
+        e.printStackTrace();
         return JSON.toJSONString(result);
     }
 
@@ -26,6 +27,7 @@ public class MyExceptionHandler {
     public String exceptionHandler(NullPointerException e) {
         JsonResult result = ResultTool.fail(ResultCode.NULL_POINTER);
         result.setData(e.getMessage());
+        e.printStackTrace();
         return JSON.toJSONString(result);
     }
 
