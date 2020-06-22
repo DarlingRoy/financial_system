@@ -64,6 +64,9 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User update(User user) {
+        if (user.getPassword() != null) {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        }
         this.userDao.update(user);
         return this.queryById(user.getId());
     }

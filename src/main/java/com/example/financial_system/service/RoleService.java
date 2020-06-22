@@ -1,5 +1,6 @@
 package com.example.financial_system.service;
 
+import com.example.financial_system.entity.Operation;
 import com.example.financial_system.entity.Role;
 import java.util.List;
 
@@ -72,6 +73,7 @@ public interface RoleService {
      * 根据角色id查询菜单id列表
      */
     List<Integer> selectOperationIdListByRoleId(Integer roleId);
+
 
 
 }

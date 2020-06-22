@@ -82,4 +82,9 @@ public interface OperationDao {
      * 根据菜单id返回角色id列表
      */
     List<Integer> selectRoleIdListByOperationId(Integer operationId);
+
+    /**
+     * 根据角色id返回操作列表
+     */
+    List<Operation> selectByRoleId(Integer roleId);
 }

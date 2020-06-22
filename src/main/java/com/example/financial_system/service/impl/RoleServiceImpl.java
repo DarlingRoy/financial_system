@@ -1,5 +1,6 @@
 package com.example.financial_system.service.impl;
 
+import com.example.financial_system.entity.Operation;
 import com.example.financial_system.entity.Role;
 import com.example.financial_system.dao.RoleDao;
 import com.example.financial_system.service.RoleService;
@@ -116,4 +117,6 @@ public class RoleServiceImpl implements RoleService {
     public List<Integer> selectOperationIdListByRoleId(Integer roleId) {
         return this.roleDao.selectOperationIdListByRoleId(roleId);
     }
+
+
 }

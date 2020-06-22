@@ -3,7 +3,12 @@ package com.example.financial_system.controller;
 import com.example.financial_system.common.entity.JsonResult;
 import com.example.financial_system.common.utils.ResultTool;
 import com.example.financial_system.entity.Operation;
+import com.example.financial_system.entity.Role;
+import com.example.financial_system.entity.User;
+import com.example.financial_system.service.DepartmentService;
 import com.example.financial_system.service.OperationService;
+import com.example.financial_system.service.RoleService;
+import com.example.financial_system.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -27,6 +32,15 @@ public class OperationController {
      */
     @Autowired
     private OperationService operationService;
+
+    @Autowired
+    private DepartmentService departmentService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
 
     /**
      * 通过主键查询单条数据
@@ -124,6 +138,14 @@ public class OperationController {
     @GetMapping("selectByUserId")
     public JsonResult selectByUserId(@ApiParam(value = "用户id") Integer userId) {
         Set<Operation> operationSet = new HashSet<>( this.operationService.queryByUserId(userId));
+        User user = this.userService.queryById(userId);
+        if (user.getDepartmentId() != null) {
+            List<Integer> roleIdList = this.departmentService.selectRoleIdListByDepartmentId(user.getDepartmentId());
+            for (Integer roleId: roleIdList) {
+                List<Operation> operationList =  this.operationService.selectByRoleId(roleId);
+                operationSet.addAll(operationList);
+            }
+        }
         return ResultTool.success(operationSet);
     }
 

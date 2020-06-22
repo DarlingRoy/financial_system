@@ -95,4 +95,12 @@
         where operation_id = #{operationId}
     </select>
 
+    <select id="selectByRoleId" resultMap="OperationMap">
+        select operation.*
+        from operation_role
+        left join role on operation_role.role_id = role.id
+        left join operation on operation_role.operation_id = operation.id
+        where role_id = #{roleId}
+    </select>
+
 </mapper>

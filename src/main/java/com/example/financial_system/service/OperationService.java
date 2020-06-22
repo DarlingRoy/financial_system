@@ -78,4 +78,9 @@ public interface OperationService {
      */
     List<Integer> selectRoleIdListByOperationId(Integer operationId);
 
+    /**
+     * 根据角色id查询操作列表
+     */
+     List<Operation> selectByRoleId(Integer roleId);
+
 }

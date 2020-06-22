@@ -74,4 +74,5 @@ public interface DepartmentDao {
      * 根据部门id查询角色id列表
      */
     List<Integer> selectRoleIdListByDepartmentId(Integer departmentId);
+
 }
