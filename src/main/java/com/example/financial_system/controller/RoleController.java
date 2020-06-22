@@ -51,8 +51,7 @@ public class RoleController {
     @ApiOperation("增加一条记录(只填入不为空的字段)")
     @PostMapping("insertSelective")
     public JsonResult insertSelective(Role role) {
-        this.roleService.insertSelective(role);
-        return ResultTool.success();
+        return ResultTool.success(this.roleService.insertSelective(role));
     }
 
     /**
@@ -63,8 +62,7 @@ public class RoleController {
     @ApiOperation("增加一条记录(填入所有字段)")
     @PostMapping("insert")
     public JsonResult insert(Role role) {
-        this.roleService.insert(role);
-        return ResultTool.success();
+        return ResultTool.success(this.roleService.insert(role));
     }
 
     /**

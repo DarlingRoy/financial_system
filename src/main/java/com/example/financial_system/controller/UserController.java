@@ -49,8 +49,7 @@ public class UserController {
     @ApiOperation("增加一条记录(只填入不为空的字段)")
     @PostMapping("insertSelective")
     public JsonResult insertSelective(User user){
-        this.userService.insertSelective(user);
-        return ResultTool.success();
+        return ResultTool.success(this.userService.insertSelective(user));
     }
     
     /**
@@ -60,8 +59,7 @@ public class UserController {
     @ApiOperation("增加一条记录(填入所有字段)")
     @PostMapping("insert")
     public JsonResult insert(User user){
-        this.userService.insert(user);
-        return ResultTool.success();
+        return ResultTool.success(this.userService.insert(user));
     }
     
     /**

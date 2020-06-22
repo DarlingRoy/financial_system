@@ -10,9 +10,7 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * (Operation)表控制层
@@ -117,6 +115,16 @@ public class OperationController {
         Map<String, List<Integer>> roleIdMap = new HashMap<>();
         roleIdMap.put("角色id列表", this.operationService.selectRoleIdListByOperationId(operationId));
         return ResultTool.success(roleIdMap);
+    }
+
+    /**
+     * 根据用户id获取所有允许的操作
+     */
+    @ApiOperation(value = "根据用户id获取所有允许的操作")
+    @GetMapping("selectByUserId")
+    public JsonResult selectByUserId(@ApiParam(value = "用户id") Integer userId) {
+        Set<Operation> operationSet = new HashSet<>( this.operationService.queryByUserId(userId));
+        return ResultTool.success(operationSet);
     }
 
 }

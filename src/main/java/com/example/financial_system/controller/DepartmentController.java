@@ -49,8 +49,7 @@ public class DepartmentController {
     @ApiOperation("增加一条记录(只填入不为空的字段)")
     @PostMapping("insertSelective")
     public JsonResult insertSelective(Department department){
-        this.departmentService.insertSelective(department);
-        return ResultTool.success();
+        return ResultTool.success(this.departmentService.insertSelective(department));
     }
     
     /**
@@ -60,8 +59,7 @@ public class DepartmentController {
     @ApiOperation("增加一条记录(填入所有字段)")
     @PostMapping("insert")
     public JsonResult insert(Department department){
-        this.departmentService.insert(department);
-        return ResultTool.success();
+        return ResultTool.success(this.departmentService.insert(department));
     }
     
     /**
