@@ -211,4 +211,14 @@ public class ProductServiceImpl implements ProductService {
         }
         return productVO;
     }
+
+    /**
+     * 实现“上架”产品的模糊搜索和排序
+     *
+     * @param productDTO
+     */
+    @Override
+    public List<Product> searchAddedProduct(ProductDTO productDTO) {
+        return this.productDao.searchAddedProduct(productDTO);
+    }
 }

@@ -89,4 +89,9 @@ public interface ProductDao {
      * 获取新品，返回20个上架的“在售”状态的产品
      */
     List<Product> selectNewProduct();
+
+    /**
+     * 实现“上架”产品的模糊搜索和排序
+     */
+    List<Product> searchAddedProduct(ProductDTO productDTO);
 }

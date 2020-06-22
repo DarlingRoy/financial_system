@@ -294,4 +294,56 @@
         limit 20
     </select>
 
+    <!--模糊搜索 -->
+    <select id="searchAddedProduct" parameterType="com.example.financial_system.dto.ProductDTO" resultMap="ProductMap">
+        select
+        <include refid="base_column_list"/>
+        from product
+        <trim suffixOverrides="and">
+            <if test="providerId != null or typeId != null or riskLevel != null or state != null or keyword != null">
+                where
+                <if test="providerId != null">
+                    provider_id = #{providerId} and
+                </if>
+                <if test="typeId != null">
+                    product_type_id = #{typeId} and
+                </if>
+                <if test="riskLevel != null">
+                    risk_level = #{riskLevel} and
+                </if>
+                state = 3 or state = 4
+                <if test="keyword != null">
+                    name like concat('%', #{keyword}, '%')
+                </if>
+            </if>
+        </trim>
+
+        <if test="orderFlag != null">
+            order by
+            <trim suffixOverrides=",">
+                <if test="orderFlag == 2">
+                    convert(name using gbk)
+                </if>
+                <if test="orderFlag == 3">
+                    product_type_id,
+                </if>
+                <if test="orderFlag == 4">
+                    risk_level,
+                </if>
+                <if test="orderFlag == 5">
+                    state,
+                </if>
+                <if test="orderFlag == 6">
+                    storage_time desc,
+                </if>
+                <if test="orderFlag == 7">
+                    added_time desc,
+                </if>
+                <if test="orderFlag == 8">
+                    return_rate desc
+                </if>
+            </trim>
+        </if>
+    </select>
+
 </mapper>

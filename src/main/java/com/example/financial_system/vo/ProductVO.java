@@ -17,11 +17,12 @@ public class ProductVO extends Product {
     @ApiModelProperty("产品名称")
     private String providerName;
 
-    @ApiModelProperty("产品类型")
+    @ApiModelProperty("产品类型名，有购买，出售")
     private String productType;
 
     @ApiModelProperty("审核人员名称")
     private String reviewOperatorName;
+
 
     @ApiModelProperty("产品的评估列表")
     private List<ProductAssessmentVO> productAssessments;

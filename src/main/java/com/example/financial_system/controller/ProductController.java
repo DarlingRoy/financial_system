@@ -313,14 +313,13 @@ public class ProductController {
     @GetMapping("searchAddedProduct")
     public JsonResult searchAddedProduct(ProductDTO productDTO) {
         PageHelper.startPage(productDTO.getPageNum(), productDTO.getPageSize());
-        List<Product> productList = this.productService.search(productDTO);
-        for(Iterator<Product> iterator = productList.iterator(); iterator.hasNext();) {
-            Product product = iterator.next();
-            if (product.getState() != 3 && product.getState() != 4) {
-                iterator.remove();
-            }
+        List<Product> productList = this.productService.searchAddedProduct(productDTO);
+        List<ProductVO> productVOList = new ArrayList<>();
+        for (Product product : productList) {
+            ProductVO productVO = this.productService.convertToVO(product);
+            productVOList.add(productVO);
         }
-        return ResultTool.success(PageUtils. getPageResult(new PageInfo<>(productList)));
+        return ResultTool.success(PageUtils. getPageResult(new PageInfo<>(productVOList)));
     }
 
     @ApiOperation(value = "根据关键字模糊查询产品，不返回待审核和废弃状态的产品")

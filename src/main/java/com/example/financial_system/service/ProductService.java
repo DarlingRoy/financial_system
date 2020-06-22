@@ -92,4 +92,9 @@ public interface ProductService {
      */
     ProductVO convertToVO(Product product);
 
+    /**
+     * 实现“上架”产品的模糊搜索和排序
+     */
+    List<Product> searchAddedProduct(ProductDTO productDTO);
+
 }
