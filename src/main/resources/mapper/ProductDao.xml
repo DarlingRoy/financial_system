@@ -300,22 +300,20 @@
         <include refid="base_column_list"/>
         from product
         <trim suffixOverrides="and">
-            <if test="providerId != null or typeId != null or riskLevel != null or state != null or keyword != null">
-                where
-                <if test="providerId != null">
-                    provider_id = #{providerId} and
-                </if>
-                <if test="typeId != null">
-                    product_type_id = #{typeId} and
-                </if>
-                <if test="riskLevel != null">
-                    risk_level = #{riskLevel} and
-                </if>
-                state = 3 or state = 4
-                <if test="keyword != null">
-                    name like concat('%', #{keyword}, '%')
-                </if>
+            where
+            <if test="providerId != null">
+                provider_id = #{providerId} and
             </if>
+            <if test="typeId != null">
+                product_type_id = #{typeId} and
+            </if>
+            <if test="riskLevel != null">
+                risk_level = #{riskLevel} and
+            </if>
+            <if test="keyword != null">
+                name like concat('%', #{keyword}, '%') and
+            </if>
+            state = 3 or state = 4
         </trim>
 
         <if test="orderFlag != null">
