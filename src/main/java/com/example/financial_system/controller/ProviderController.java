@@ -98,6 +98,7 @@ public class ProviderController {
     /**
      * 查询所有供应商
      */
+    @ApiOperation(value = "查询所有供应商")
     @GetMapping("selectAll")
     public JsonResult selectAll(PageRequest pageRequest) {
         PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
